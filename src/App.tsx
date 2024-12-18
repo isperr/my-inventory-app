@@ -34,7 +34,7 @@ function App() {
     if (!isLoaded) {
       console.log('we loading')
       setIsLoaded(true)
-      onLoadGenres()
+      // onLoadGenres()
     }
   }, [isLoaded, onLoadGenres])
 
@@ -60,6 +60,9 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+      <div className="underline font-bold text-2xl">
+        this is a test to see if tailwind works as expected
+      </div>
     </>
   )
 }
