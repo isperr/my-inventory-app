@@ -1,6 +1,4 @@
 import {useCallback, useEffect, useMemo, useState} from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import './fire'
 import {
@@ -9,13 +7,18 @@ import {
   getFirestore,
   DocumentData
 } from 'firebase/firestore'
+import {ToastContainer} from 'react-toastify'
+import {increment, decrement} from './modules/toast/slice'
+import {useAppDispatch, useAppSelector} from './utils/store-hooks'
 
 export type GenreCollectionType = {
   [key: string]: DocumentData
 }
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const count = useAppSelector(state => state.counter.value)
+  const dispatch = useAppDispatch()
+
   const db = getFirestore()
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
   const genres: GenreCollectionType = useMemo(() => ({}), [])
@@ -41,28 +44,12 @@ function App() {
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
+      <ToastContainer className="pl-[5%]" stacked position="bottom-center" />
+
       <div className="card">
-        <button onClick={() => setCount(count => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      <div className="underline font-bold text-2xl">
-        this is a test to see if tailwind works as expected
+        count is {count}
+        <button onClick={() => dispatch(increment())}>increment</button>
+        <button onClick={() => dispatch(decrement())}>decrement</button>
       </div>
     </>
   )
