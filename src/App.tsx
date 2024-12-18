@@ -20,6 +20,7 @@ function App() {
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
   const genres: GenreCollectionType = useMemo(() => ({}), [])
 
+  // @ts-ignore: will be used later
   const onLoadGenres = useCallback(async () => {
     const collectionRef = collection(db, 'genres')
     const snapshot = await getDocs(collectionRef)
@@ -36,7 +37,7 @@ function App() {
       setIsLoaded(true)
       // onLoadGenres()
     }
-  }, [isLoaded, onLoadGenres])
+  }, [isLoaded])
 
   return (
     <>
