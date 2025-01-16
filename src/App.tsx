@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useMemo, useState} from 'react'
+import {useCallback, useEffect, useState} from 'react'
 import './App.css'
 import './fire'
 import {
@@ -8,49 +8,60 @@ import {
   DocumentData
 } from 'firebase/firestore'
 import {ToastContainer} from 'react-toastify'
-import {increment, decrement} from './modules/toast/slice'
-import {useAppDispatch, useAppSelector} from './utils/store-hooks'
+import {useAppDispatch} from './utils/store-hooks'
+import LoginPage from './pages/LoginPage'
+import useFirebaseAuth from './hooks/auth-state/use-firebase-auth'
+import {setGenres} from './modules/auth/slice'
 
 export type GenreCollectionType = {
   [key: string]: DocumentData
 }
 
 const App = () => {
-  const count = useAppSelector(state => state.counter.value)
+  const {isLoggedIn, genres} = useFirebaseAuth()
   const dispatch = useAppDispatch()
 
   const db = getFirestore()
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
-  const genres: GenreCollectionType = useMemo(() => ({}), [])
 
   // @ts-ignore: will be used later
   const onLoadGenres = useCallback(async () => {
+    const temp: DocumentData[] = []
     const collectionRef = collection(db, 'genres')
     const snapshot = await getDocs(collectionRef)
     snapshot.forEach(doc => {
-      genres[doc.id] = {...doc.data()}
+      temp.push(doc.data())
     })
     // dispatch(actions.genresLoaded({genres}))
-    console.log('it worked', genres)
+    console.log('it worked', temp)
+    dispatch(setGenres(temp))
   }, [db, genres])
 
   useEffect(() => {
-    if (!isLoaded) {
+    if (isLoggedIn && !isLoaded) {
       console.log('we loading')
       setIsLoaded(true)
-      // onLoadGenres()
+      onLoadGenres()
     }
-  }, [isLoaded])
+  }, [isLoggedIn, isLoaded])
 
   return (
     <>
       <ToastContainer className="pl-[5%]" stacked position="bottom-center" />
 
-      <div className="card">
-        count is {count}
-        <button onClick={() => dispatch(increment())}>increment</button>
-        <button onClick={() => dispatch(decrement())}>decrement</button>
-      </div>
+      {isLoggedIn && (
+        <div>
+          {!isLoaded && <div>LOADING...</div>}
+          <ol>
+            {genres.map(genre => (
+              <li key={genre.title}>
+                title: {genre.title}, titleGerman: {genre.titleGerman ?? '-'}
+              </li>
+            ))}
+          </ol>
+        </div>
+      )}
+      {!isLoggedIn && <LoginPage />}
     </>
   )
 }
