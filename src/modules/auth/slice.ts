@@ -8,13 +8,15 @@ interface AuthState {
   isLoading: boolean
   isLoggedIn: boolean
   genres: DocumentData[]
+  username: string | null
 }
 
 // Define the initial state using that type
 const initialState: AuthState = {
   genres: [],
   isLoading: false,
-  isLoggedIn: false
+  isLoggedIn: false,
+  username: null
 }
 
 export const authState = createSlice({
@@ -36,11 +38,21 @@ export const authState = createSlice({
       toast.error('Email und Passwort stimmen leider nicht überein.')
     },
     logout: state => {
-      state.isLoggedIn = false
+      state.isLoading = true
     },
-    // Use the PayloadAction type to declare the contents of `action.payload`
-    checkUser: (state, action: PayloadAction<number>) => {
-      state.value += action.payload
+    logoutSuccess: state => {
+      state.isLoading = false
+      state.isLoggedIn = false
+      toast.success('Du hast dich erfolgreich ausgeloggt.')
+    },
+    logoutFailure: state => {
+      state.isLoading = false
+      state.isLoggedIn = true
+      toast.error('Beim Logout ist leider etwas schiefgelaufen.')
+    },
+    setValidUser: (state, action: PayloadAction<string>) => {
+      state.isLoggedIn = true
+      state.username = action.payload
     },
     setGenres: (state, action: PayloadAction<DocumentData[]>) => {
       state.genres = action.payload
@@ -53,7 +65,9 @@ export const {
   loginFailure,
   loginSuccess,
   logout,
-  incrementByAmount,
+  logoutFailure,
+  logoutSuccess,
+  setValidUser,
   setGenres
 } = authState.actions
 

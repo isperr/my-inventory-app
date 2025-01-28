@@ -1,6 +1,6 @@
 import {TextField} from '@mui/material'
-import React, {useState} from 'react'
-import Button from '@mui/material/Button'
+import React, {useEffect, useState} from 'react'
+import Button from '../../atoms/Button'
 import FormControl from '@mui/material/FormControl'
 import IconButton from '@mui/material/IconButton'
 import InputAdornment from '@mui/material/InputAdornment'
@@ -9,11 +9,10 @@ import useFirebaseAuth from '../../hooks/auth-state/use-firebase-auth'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import InputLabel from '@mui/material/InputLabel'
-import woolInventory from '../../assets/wool_inventory.png'
-import Typography from '@mui/material/Typography'
+import Logo from '../../atoms/Logo'
 
 const LoginPage = () => {
-  const {isLoading, onLogin} = useFirebaseAuth()
+  const {isLoading, onLogin, onCheckUser} = useFirebaseAuth()
   const [showPassword, setShowPassword] = useState<boolean>(false)
 
   const handleClickShowPassword = () => setShowPassword(show => !show)
@@ -31,8 +30,8 @@ const LoginPage = () => {
 
   const handleSubmit = (event: React.SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault()
+
     const form = event.currentTarget
-    console.log(form.elements)
     const formElements = form.elements as typeof form.elements & {
       email: {value: string}
       password: {value: string}
@@ -44,16 +43,13 @@ const LoginPage = () => {
     })
   }
 
+  useEffect(() => {
+    onCheckUser()
+  }, [])
+
   return (
     <div className="flex flex-col my-4 justify-center h-[100vh] gap-8">
-      <div className="flex flex-col items-center gap-4">
-        <img
-          className="size-[193px]"
-          alt="wool-inventory"
-          src={woolInventory}
-        />
-        <Typography variant="h5">Woll Bestand</Typography>
-      </div>
+      <Logo>Woll Bestand</Logo>
       <form
         className="flex flex-col items-center p-6 gap-6"
         onSubmit={handleSubmit}
@@ -90,12 +86,7 @@ const LoginPage = () => {
             }
           />
         </FormControl>
-        <Button
-          loading={isLoading}
-          loadingPosition="end"
-          type="submit"
-          variant="contained"
-        >
+        <Button ariaLabel="login" isLoading={isLoading} type="submit">
           Einloggen
         </Button>
       </form>

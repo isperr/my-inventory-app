@@ -12,6 +12,7 @@ import {useAppDispatch} from './utils/store-hooks'
 import LoginPage from './pages/LoginPage'
 import useFirebaseAuth from './hooks/auth-state/use-firebase-auth'
 import {setGenres} from './modules/auth/slice'
+import HomePage from './pages/HomePage'
 
 export type GenreCollectionType = {
   [key: string]: DocumentData
@@ -49,18 +50,7 @@ const App = () => {
     <>
       <ToastContainer className="pl-[5%]" stacked position="bottom-center" />
 
-      {isLoggedIn && (
-        <div>
-          {!isLoaded && <div>LOADING...</div>}
-          <ol>
-            {genres.map(genre => (
-              <li key={genre.title}>
-                title: {genre.title}, titleGerman: {genre.titleGerman ?? '-'}
-              </li>
-            ))}
-          </ol>
-        </div>
-      )}
+      {isLoggedIn && <HomePage />}
       {!isLoggedIn && <LoginPage />}
     </>
   )
