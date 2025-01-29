@@ -65,13 +65,10 @@ const useFirebaseAuth = () => {
 
   const onCheckUser = useCallback(async () => {
     await onAuthStateChanged(auth, async user => {
-      if (user) {
-        console.log(user)
+      if (user?.email) {
         const docRef = doc(db, 'users', user.email)
         const docSnap = await getDoc(docRef)
         const userDoc = docSnap.data()
-
-        console.log(docSnap.data())
 
         dispatch(setValidUser(userDoc?.username ?? null))
       }
