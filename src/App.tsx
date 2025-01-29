@@ -7,16 +7,19 @@ import {
   getFirestore,
   DocumentData
 } from 'firebase/firestore'
-import {ToastContainer} from 'react-toastify'
+import {Route, Routes} from 'react-router'
+
 import {useAppDispatch} from './utils/store-hooks'
 import LoginPage from './pages/LoginPage'
 import useFirebaseAuth from './hooks/auth-state/use-firebase-auth'
 import {setGenres} from './modules/auth/slice'
 import HomePage from './pages/HomePage'
-
-export type GenreCollectionType = {
-  [key: string]: DocumentData
-}
+import ScanPage from './pages/ScanPage'
+import CollectionPage from './pages/CollectionPage'
+import AddPage from './pages/AddPage'
+import ColorPage from './pages/ColorPage'
+import SearchPage from './pages/SearchPage'
+import ListPage from './pages/ListPage'
 
 const App = () => {
   const {isLoggedIn, genres} = useFirebaseAuth()
@@ -47,12 +50,22 @@ const App = () => {
   }, [isLoggedIn, isLoaded])
 
   return (
-    <>
-      <ToastContainer className="pl-[5%]" stacked position="bottom-center" />
-
-      {isLoggedIn && <HomePage />}
-      {!isLoggedIn && <LoginPage />}
-    </>
+    <Routes>
+      {isLoggedIn && (
+        <>
+          <Route path="/" element={<HomePage />} />
+          <Route path="scan" element={<ScanPage />}>
+            <Route index element={<SearchPage />} />
+            <Route path="add" element={<AddPage />} />
+          </Route>
+          <Route path="catania" element={<CollectionPage />}>
+            <Route index element={<ListPage />} />
+            <Route path=":color" element={<ColorPage />} />
+          </Route>
+        </>
+      )}
+      {!isLoggedIn && <Route path="*" element={<LoginPage />} />}
+    </Routes>
   )
 }
 

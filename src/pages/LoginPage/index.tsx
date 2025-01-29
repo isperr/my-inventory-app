@@ -10,6 +10,7 @@ import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import InputLabel from '@mui/material/InputLabel'
 import Logo from '../../atoms/Logo'
+import PageTemplate from '../../templates/Page'
 
 const LoginPage = () => {
   const {isLoading, onLogin, onCheckUser} = useFirebaseAuth()
@@ -48,7 +49,7 @@ const LoginPage = () => {
   }, [])
 
   return (
-    <div className="flex flex-col my-4 justify-center h-[100vh] gap-8">
+    <PageTemplate>
       <Logo>Woll Bestand</Logo>
       <form
         className="flex flex-col items-center p-6 gap-6"
@@ -90,7 +91,7 @@ const LoginPage = () => {
           Einloggen
         </Button>
       </form>
-    </div>
+    </PageTemplate>
   )
 }
 

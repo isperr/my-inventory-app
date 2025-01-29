@@ -2,12 +2,14 @@ import LogoutIcon from '@mui/icons-material/Logout'
 import IconButton from '@mui/material/IconButton'
 import useFirebaseAuth from '../../hooks/auth-state/use-firebase-auth'
 import Logo from '../../atoms/Logo'
+import PageTemplate from '../../templates/Page'
+import {Link} from 'react-router'
 
 const HomePage = () => {
   const {onLogout, username} = useFirebaseAuth()
 
   return (
-    <div className="flex flex-col my-4 justify-center h-[100vh] gap-8">
+    <PageTemplate>
       <Logo>Willkommen zurück{username ? `, ${username}` : ''}!</Logo>
       <IconButton
         aria-label="logout"
@@ -18,7 +20,10 @@ const HomePage = () => {
       >
         <LogoutIcon fontSize="inherit" />
       </IconButton>
-    </div>
+
+      <Link to="/scan">scan</Link>
+      <Link to="/catania">catania</Link>
+    </PageTemplate>
   )
 }
 
