@@ -10,7 +10,7 @@ const PageTemplate = ({children, className}: PageTemplateProps) => {
   return (
     <div
       className={twMerge(
-        'flex flex-col my-4 justify-center h-[100vh] gap-8',
+        'flex flex-col my-4 justify-center h-screen gap-8',
         className
       )}
     >
