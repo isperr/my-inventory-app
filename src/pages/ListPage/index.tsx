@@ -1,27 +1,17 @@
 import {useCallback, useEffect, useRef} from 'react'
-import {Link} from 'react-router'
-import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
-import ListItemText from '@mui/material/ListItemText'
-import ListItemAvatar from '@mui/material/ListItemAvatar'
-import Avatar from '@mui/material/Avatar'
-import ImageIcon from '@mui/icons-material/Image'
-import ListItemButton from '@mui/material/ListItemButton'
-import CircularProgress from '@mui/material/CircularProgress'
+import {Typography} from '@mui/material'
+import {twMerge} from 'tailwind-merge'
 
-import PageTemplate from '../../templates/Page'
+import FloatingButton from '../../atoms/FloatingButton'
+import {load, loaded, selectIsLoading} from '../../modules/catania/slice'
 import {useAppDispatch, useAppSelector} from '../../utils/store-hooks'
+import PageTemplate from '../../templates/Page'
+
+import WoolList from './components/WoolList'
 import {onLoadData} from './hooks/use-data'
-import {
-  load,
-  loaded,
-  selectData,
-  selectIsLoading
-} from '../../modules/catania/slice'
 
 const ListPage = () => {
   const dispatch = useAppDispatch()
-  const data = useAppSelector(selectData)
   const isLoading = useAppSelector(selectIsLoading)
 
   const effectRan = useRef<boolean>(false)
@@ -44,39 +34,14 @@ const ListPage = () => {
   }, [])
 
   return (
-    <PageTemplate className={isLoading ? 'h-screen' : 'h-fit'}>
-      LIST page
-      <Link to="/">home</Link>
-      <Link to="/catania/157">157 color test</Link>
-      {isLoading && (
-        <div className="w-full flex justify-center items-center flex-1">
-          <CircularProgress />
-        </div>
-      )}
-      {Boolean(data.length) && (
-        <List>
-          {data.map(item => (
-            <ListItem className="px-0" key={`item-${item.color}`}>
-              <ListItemButton>
-                <ListItemAvatar>
-                  <Avatar>
-                    {item.imgUrl ? (
-                      <img
-                        className="h-[inherit]"
-                        alt={item.name}
-                        src={item.imgUrl}
-                      />
-                    ) : (
-                      <ImageIcon />
-                    )}
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary={item.color} secondary={item.name} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      )}
+    <PageTemplate
+      className={twMerge(isLoading ? 'h-screen' : 'h-fit', 'gap-2')}
+    >
+      <Typography className="px-4 text-center" variant="h4">
+        Schachermayr Catania Sammlung
+      </Typography>
+      <WoolList />
+      <FloatingButton />
     </PageTemplate>
   )
 }

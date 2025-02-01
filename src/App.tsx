@@ -54,13 +54,13 @@ const App = () => {
       {isLoggedIn && (
         <>
           <Route path="/" element={<HomePage />} />
-          <Route path="scan" element={<ScanPage />}>
-            <Route index element={<SearchPage />} />
-            <Route path="add" element={<AddPage />} />
-          </Route>
           <Route path="catania" element={<CollectionPage />}>
             <Route index element={<ListPage />} />
             <Route path=":color" element={<ColorPage />} />
+          </Route>
+          <Route path="scan" element={<ScanPage />}>
+            <Route index element={<SearchPage />} />
+            <Route path="add" element={<AddPage />} />
           </Route>
         </>
       )}

@@ -37,7 +37,6 @@ const handleImageLoading = async (data: DocumentData[]) => {
 
   return await data.map(it => {
     const idx = testi[it.color.toString() ?? UNKNOWN]
-    console.log('WEEEE', {it, testi, idx})
     return {...it, imgUrl: idx}
   })
 }
@@ -48,7 +47,7 @@ export const onLoadData = async () => {
   const temp: DocumentData[] = []
 
   const collectionRef = collection(db, 'catania')
-  const cataniaQuery = await query(collectionRef, orderBy('color', 'desc'))
+  const cataniaQuery = await query(collectionRef, orderBy('color', 'asc'))
   const snapshot = await getDocs(cataniaQuery)
   console.log(snapshot)
   snapshot.forEach(doc => {
