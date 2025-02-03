@@ -34,7 +34,6 @@ const useFirebaseAuth = () => {
   const dispatch = useAppDispatch()
   const isLoading = useAppSelector(state => state.auth.isLoading)
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
-  const genres = useAppSelector(state => state.auth.genres)
   const username = useAppSelector(state => state.auth.username)
 
   const onLogin = async ({
@@ -77,7 +76,6 @@ const useFirebaseAuth = () => {
 
   return {
     auth,
-    genres,
     isLoading,
     isLoggedIn,
     onCheckUser,

@@ -1,19 +1,16 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import type {RootState} from '../../utils/store'
 import {toast} from 'react-toastify'
-import {DocumentData} from 'firebase/firestore'
 
 // Define a type for the slice state
 interface AuthState {
   isLoading: boolean
   isLoggedIn: boolean
-  genres: DocumentData[]
   username: string | null
 }
 
 // Define the initial state using that type
 const initialState: AuthState = {
-  genres: [],
   isLoading: false,
   isLoggedIn: false,
   username: null
@@ -53,9 +50,6 @@ export const authState = createSlice({
     setValidUser: (state, action: PayloadAction<string>) => {
       state.isLoggedIn = true
       state.username = action.payload
-    },
-    setGenres: (state, action: PayloadAction<DocumentData[]>) => {
-      state.genres = action.payload
     }
   }
 })
@@ -67,8 +61,7 @@ export const {
   logout,
   logoutFailure,
   logoutSuccess,
-  setValidUser,
-  setGenres
+  setValidUser
 } = authState.actions
 
 // Other code such as selectors can use the imported `RootState` type
