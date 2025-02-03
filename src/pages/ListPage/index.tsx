@@ -6,6 +6,7 @@ import FloatingButton from '../../atoms/FloatingButton'
 import {
   load,
   loaded,
+  loadingError,
   selectIsLoaded,
   selectIsLoading
 } from '../../modules/catania/slice'
@@ -23,9 +24,13 @@ const ListPage = () => {
   const effectRan = useRef<boolean>(false)
 
   const handleLoadData = useCallback(async () => {
-    dispatch(load())
-    const data = await onLoadData()
-    dispatch(loaded(data))
+    try {
+      dispatch(load())
+      const data = await onLoadData()
+      dispatch(loaded(data))
+    } catch (error) {
+      dispatch(loadingError(error as Error))
+    }
   }, [])
 
   useEffect(() => {

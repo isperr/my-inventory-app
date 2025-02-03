@@ -9,14 +9,9 @@ import {IconButton} from '@mui/material'
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight'
 import {useNavigate} from 'react-router'
 
-export type WoolListItemProps = {
-  color: number
-  count: number
-  imgUrl?: string
-  name: string
-}
+import {CataniaDocumentData} from '../../../modules/catania/slice'
 
-const WoolListItem = ({color, count, imgUrl, name}: WoolListItemProps) => {
+const WoolListItem = ({color, count, imgUrl, name}: CataniaDocumentData) => {
   const navigate = useNavigate()
 
   const navigateToWool = () => {

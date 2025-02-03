@@ -18,27 +18,27 @@ export type ImageRefObj = {
 const handleImageLoading = async (data: DocumentData[]) => {
   const storage = getStorage()
   const listRef = ref(storage, 'catania')
-  const testi: ImageRefObj = {}
+  const imgObj: ImageRefObj = {}
 
   await listAll(listRef)
     .then(async it => {
       await Promise.all(
         it.items.map(
           async pr =>
-            (testi[pr.name.replace(new RegExp(PREFXIES.join('|')), '')] =
+            (imgObj[pr.name.replace(new RegExp(PREFXIES.join('|')), '')] =
               await getDownloadURL(pr))
         )
       )
     })
     .catch(error => {
-      // TODO: add some error-handling
-      console.error('error', error)
+      // error is handled within ListPage
+      throw error
     })
 
-  return await data.map(it => {
-    const idx = testi[it.color.toString() ?? UNKNOWN]
-    return {...it, imgUrl: idx}
-  })
+  return await data.map(it => ({
+    ...it,
+    imgUrl: it.name === UNKNOWN ? null : imgObj[it.color.toString()]
+  }))
 }
 
 export const onLoadData = async () => {
@@ -48,8 +48,10 @@ export const onLoadData = async () => {
 
   const collectionRef = collection(db, 'catania')
   const cataniaQuery = await query(collectionRef, orderBy('color', 'asc'))
-  const snapshot = await getDocs(cataniaQuery)
-  console.log(snapshot)
+  const snapshot = await getDocs(cataniaQuery).catch(error => {
+    // error is handled within ListPage
+    throw error
+  })
   snapshot.forEach(doc => {
     temp.push(doc.data())
   })

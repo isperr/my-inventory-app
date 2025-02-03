@@ -1,13 +1,19 @@
 import List from '@mui/material/List'
 import CircularProgress from '@mui/material/CircularProgress'
-import {Typography} from '@mui/material'
 
+import PageText from '../../../atoms/PageText'
+import {
+  selectData,
+  selectError,
+  selectIsLoading
+} from '../../../modules/catania/slice'
 import {useAppSelector} from '../../../utils/store-hooks'
-import {selectData, selectIsLoading} from '../../../modules/catania/slice'
+
 import WoolListItem from './WoolListItem'
 
 const WoolList = () => {
   const data = useAppSelector(selectData)
+  const error = useAppSelector(selectError)
   const isLoading = useAppSelector(selectIsLoading)
 
   if (isLoading) {
@@ -34,8 +40,16 @@ const WoolList = () => {
     )
   }
 
+  if (error) {
+    return (
+      <PageText>
+        Beim Laden der Daten ist leider ein Fehler aufgetreten.
+      </PageText>
+    )
+  }
+
   if (!data.length) {
-    return <Typography>Es befinden sich keine Items in der Liste.</Typography>
+    return <PageText>Es befinden sich keine Wollknäuel in der Liste.</PageText>
   }
 
   return null

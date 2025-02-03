@@ -3,7 +3,7 @@ import type {RootState} from '../../utils/store'
 import {DocumentData} from 'firebase/firestore'
 
 export type CataniaDocumentData = DocumentData & {
-  imgUrl: string
+  imgUrl?: string | null
 }
 export type CataniaEntitieType = {
   [k: string]: CataniaDocumentData
@@ -60,5 +60,6 @@ export const selectData = (state: RootState) => state.catania.data
 export const selectEntities = (state: RootState) => state.catania.entities
 export const selectIsLoaded = (state: RootState) => state.catania.isLoaded
 export const selectIsLoading = (state: RootState) => state.catania.isLoading
+export const selectError = (state: RootState) => state.catania.error
 
 export default cataniaState.reducer
