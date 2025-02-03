@@ -3,7 +3,12 @@ import {Typography} from '@mui/material'
 import {twMerge} from 'tailwind-merge'
 
 import FloatingButton from '../../atoms/FloatingButton'
-import {load, loaded, selectIsLoading} from '../../modules/catania/slice'
+import {
+  load,
+  loaded,
+  selectIsLoaded,
+  selectIsLoading
+} from '../../modules/catania/slice'
 import {useAppDispatch, useAppSelector} from '../../utils/store-hooks'
 import PageTemplate from '../../templates/Page'
 
@@ -12,6 +17,7 @@ import {onLoadData} from './hooks/use-data'
 
 const ListPage = () => {
   const dispatch = useAppDispatch()
+  const isLoaded = useAppSelector(selectIsLoaded)
   const isLoading = useAppSelector(selectIsLoading)
 
   const effectRan = useRef<boolean>(false)
@@ -23,15 +29,14 @@ const ListPage = () => {
   }, [])
 
   useEffect(() => {
-    if (!effectRan.current) {
-      console.log('effect applied - only on the FIRST mount')
+    if (!effectRan.current && !isLoaded) {
       handleLoadData()
     }
 
     return () => {
       effectRan.current = true
     }
-  }, [])
+  }, [isLoaded])
 
   return (
     <PageTemplate

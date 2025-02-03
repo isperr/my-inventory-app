@@ -10,6 +10,7 @@ export type CataniaDocumentData = DocumentData & {
 interface CataniaState {
   data: CataniaDocumentData[]
   error: Error | null
+  isLoaded: boolean
   isLoading: boolean
 }
 
@@ -17,6 +18,7 @@ interface CataniaState {
 const initialState: CataniaState = {
   data: [],
   error: null,
+  isLoaded: false,
   isLoading: false
 }
 
@@ -27,12 +29,15 @@ export const cataniaState = createSlice({
   reducers: {
     load: state => {
       state.isLoading = true
+      state.isLoaded = false
     },
     loaded: (state, action: PayloadAction<CataniaDocumentData[]>) => {
       state.data = action.payload
+      state.isLoaded = true
       state.isLoading = false
     },
     loadingError: (state, action: PayloadAction<Error>) => {
+      state.isLoaded = false
       state.isLoading = false
       state.error = action.payload
     }
@@ -43,6 +48,7 @@ export const {load, loaded, loadingError} = cataniaState.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectData = (state: RootState) => state.catania.data
+export const selectIsLoaded = (state: RootState) => state.catania.isLoaded
 export const selectIsLoading = (state: RootState) => state.catania.isLoading
 
 export default cataniaState.reducer
