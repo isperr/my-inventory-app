@@ -1,13 +1,10 @@
 import {useCallback, useEffect, useRef} from 'react'
 import {useParams} from 'react-router'
+import {toast} from 'react-toastify'
 
 import FloatingButton from '../../atoms/FloatingButton'
-import {
-  resolve,
-  resolved,
-  resolvingError,
-  selectIsIdResolved
-} from '../../modules/catania/slice'
+import {resolve, resolved, resolvingError} from '../../modules/catania/slice'
+import {selectIsIdResolved} from '../../modules/catania/selectors'
 import PageTemplate from '../../templates/Page'
 import {useAppDispatch, useAppSelector} from '../../utils/store-hooks'
 
@@ -31,6 +28,9 @@ const ColorPage = () => {
       dispatch(resolved({data, id: params.color}))
     } catch (error) {
       dispatch(resolvingError({error: error as Error, id: params.color}))
+      toast.error(
+        'Beim Laden der Wollknäuel-Daten ist leider ein Fehler aufgetreten.'
+      )
     }
   }, [])
 

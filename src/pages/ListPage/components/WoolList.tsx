@@ -1,12 +1,14 @@
+import Link from '@mui/material/Link'
 import List from '@mui/material/List'
 import CircularProgress from '@mui/material/CircularProgress'
 
+import Logo from '../../../atoms/Logo'
 import PageText from '../../../atoms/PageText'
 import {
   selectData,
   selectError,
   selectIsLoading
-} from '../../../modules/catania/slice'
+} from '../../../modules/catania/selectors'
 import {useAppSelector} from '../../../utils/store-hooks'
 
 import WoolListItem from './WoolListItem'
@@ -42,9 +44,16 @@ const WoolList = () => {
 
   if (error) {
     return (
-      <PageText>
-        Beim Laden der Daten ist leider ein Fehler aufgetreten.
-      </PageText>
+      <>
+        <Logo />
+        <PageText>
+          Versuche die Seite neu zu Laden oder navigiere{' '}
+          <Link color="secondary" href="/catania">
+            zurück
+          </Link>{' '}
+          zur Homepage.
+        </PageText>
+      </>
     )
   }
 

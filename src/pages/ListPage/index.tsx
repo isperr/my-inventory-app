@@ -1,15 +1,11 @@
 import {useCallback, useEffect, useRef} from 'react'
-import {Typography} from '@mui/material'
 import {twMerge} from 'tailwind-merge'
+import {toast} from 'react-toastify'
+import Typography from '@mui/material/Typography'
 
 import FloatingButton from '../../atoms/FloatingButton'
-import {
-  load,
-  loaded,
-  loadingError,
-  selectIsLoaded,
-  selectIsLoading
-} from '../../modules/catania/slice'
+import {load, loaded, loadingError} from '../../modules/catania/slice'
+import {selectIsLoaded, selectIsLoading} from '../../modules/catania/selectors'
 import {useAppDispatch, useAppSelector} from '../../utils/store-hooks'
 import PageTemplate from '../../templates/Page'
 
@@ -30,6 +26,7 @@ const ListPage = () => {
       dispatch(loaded(data))
     } catch (error) {
       dispatch(loadingError(error as Error))
+      toast.error('Beim Laden der Liste ist leider ein Fehler aufgetreten.')
     }
   }, [])
 

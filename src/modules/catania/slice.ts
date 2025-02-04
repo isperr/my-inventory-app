@@ -1,5 +1,4 @@
-import {createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit'
-import type {RootState} from '../../utils/store'
+import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {DocumentData} from 'firebase/firestore'
 
 export type CataniaDocumentData = DocumentData & {
@@ -18,9 +17,12 @@ interface CataniaState {
   isLoading: boolean
   isResolved: Array<string>
   isResolving: Array<string>
+  isUpdating: boolean
+  isUpdated: boolean
   resolvingError: {
     [k: string]: Error | null
   }
+  updatingError: Error | null
 }
 
 // Define the initial state using that type
@@ -32,7 +34,10 @@ const initialState: CataniaState = {
   isLoading: false,
   isResolved: [],
   isResolving: [],
-  resolvingError: {}
+  isUpdated: false,
+  isUpdating: false,
+  resolvingError: {},
+  updatingError: null
 }
 
 export const cataniaState = createSlice({
@@ -109,48 +114,47 @@ export const cataniaState = createSlice({
       }
 
       state.resolvingError[id] = error
+    },
+    updateCount: state => {
+      state.isUpdating = true
+      state.isUpdated = false
+    },
+    countUpdated: (
+      state,
+      action: PayloadAction<{count: number; id: string}>
+    ) => {
+      const {count, id} = action.payload
+
+      const idx = state.data.findIndex(it => it.color === id)
+      // only try to update data if items in list are loaded
+      if (idx !== -1) {
+        state.data[idx] = {...state.data[idx], count}
+      }
+
+      // always update data in entities
+      state.entities[id] = {...state.entities[id], count}
+
+      state.isUpdating = false
+      state.isUpdated = true
+    },
+    countUpdateError: (state, action: PayloadAction<Error>) => {
+      state.isUpdating = false
+      state.isUpdated = false
+      state.updatingError = action.payload
     }
   }
 })
 
-export const {load, loaded, loadingError, resolve, resolved, resolvingError} =
-  cataniaState.actions
-
-// Other code such as selectors can use the imported `RootState` type
-export const selectData = (state: RootState) => state.catania.data
-export const selectEntities = (state: RootState) => state.catania.entities
-export const selectIsLoaded = (state: RootState) => state.catania.isLoaded
-export const selectIsLoading = (state: RootState) => state.catania.isLoading
-export const selectError = (state: RootState) => state.catania.error
-
-// resolve selectors
-type ResolveStateReturnType = (state: RootState) => boolean
-type ResolveStateDataReturnType = (
-  state: RootState
-) => CataniaDocumentData | null
-
-export const selectIsResolved = (state: RootState) => state.catania.isResolved
-export const selectIsIdResolved = (id?: string): ResolveStateReturnType =>
-  createSelector(
-    [(state: RootState) => selectIsResolved(state)],
-    resolvedArr => (id ? resolvedArr.includes(id) : false)
-  )
-export const selectIsResolving = (state: RootState) => state.catania.isResolving
-export const selectIsIdResolving = (id?: string): ResolveStateReturnType =>
-  createSelector(
-    [(state: RootState) => selectIsResolving(state)],
-    resolvingArr => (id ? resolvingArr.includes(id) : false)
-  )
-export const selectResolveError = (state: RootState) =>
-  state.catania.resolvingError
-export const selectHasResolveError = (id?: string): ResolveStateReturnType =>
-  createSelector(
-    [(state: RootState) => selectResolveError(state)],
-    resolveError => (id ? Boolean(resolveError[id]) : false)
-  )
-export const selectResolveData = (id?: string): ResolveStateDataReturnType =>
-  createSelector([(state: RootState) => selectEntities(state)], entities =>
-    id ? entities[id] : null
-  )
+export const {
+  load,
+  loaded,
+  loadingError,
+  resolve,
+  resolved,
+  resolvingError,
+  updateCount,
+  countUpdateError,
+  countUpdated
+} = cataniaState.actions
 
 export default cataniaState.reducer

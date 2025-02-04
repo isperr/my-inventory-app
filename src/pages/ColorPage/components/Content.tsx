@@ -1,19 +1,19 @@
 import {memo} from 'react'
-import {CircularProgress} from '@mui/material'
+import CircularProgress from '@mui/material/CircularProgress'
+import Link from '@mui/material/Link'
 
+import Logo from '../../../atoms/Logo'
+import PageText from '../../../atoms/PageText'
 import {
   selectIsIdResolved,
   selectIsIdResolving,
-  selectHasResolveError
-} from '../../../modules/catania/slice'
+  selectHasResolveError,
+  selectResolveData
+} from '../../../modules/catania/selectors'
+import {CataniaDocumentData} from '../../../modules/catania/slice'
 import {useAppSelector} from '../../../utils/store-hooks'
 
 import Color from './Color'
-import {
-  CataniaDocumentData,
-  selectResolveData
-} from '../../../modules/catania/slice'
-import PageText from '../../../atoms/PageText'
 
 export type ColorPageContentProps = {
   item: null | CataniaDocumentData
@@ -35,9 +35,16 @@ const Content = ({id}: {id?: string}) => {
 
   if (hasResolveError) {
     return (
-      <PageText>
-        Beim Laden der Daten ist leider ein Fehler aufgetreten.
-      </PageText>
+      <>
+        <Logo />
+        <PageText>
+          Versuche die Seite neu zu Laden oder navigiere{' '}
+          <Link color="secondary" href="/catania">
+            zurück
+          </Link>{' '}
+          zur Liste.
+        </PageText>
+      </>
     )
   }
 
