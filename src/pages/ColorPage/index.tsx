@@ -1,6 +1,6 @@
 import {useCallback, useEffect, useRef} from 'react'
 import {useParams} from 'react-router'
-import {toast} from 'react-toastify'
+import {useNotifications} from '@toolpad/core/useNotifications'
 
 import FloatingButton from '../../atoms/FloatingButton'
 import {resolve, resolved, resolvingError} from '../../modules/catania/slice'
@@ -10,8 +10,11 @@ import {useAppDispatch, useAppSelector} from '../../utils/store-hooks'
 
 import {onResolveData} from './hooks/use-resolve'
 import Content from './components/Content'
+import {getToastConfig} from '../../utils/toast/get-toast-config'
 
 const ColorPage = () => {
+  const notifications = useNotifications()
+
   const dispatch = useAppDispatch()
   const effectRan = useRef<boolean>(false)
 
@@ -28,8 +31,9 @@ const ColorPage = () => {
       dispatch(resolved({data, id: params.color}))
     } catch (error) {
       dispatch(resolvingError({error: error as Error, id: params.color}))
-      toast.error(
-        'Beim Laden der Wollknäuel-Daten ist leider ein Fehler aufgetreten.'
+      notifications.show(
+        'Beim Laden der Wollknäuel-Daten ist leider ein Fehler aufgetreten.',
+        getToastConfig({})
       )
     }
   }, [])

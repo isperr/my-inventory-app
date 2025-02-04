@@ -16,6 +16,8 @@ import {
 } from '../../modules/auth/slice'
 import {doc, getDoc, getFirestore} from 'firebase/firestore'
 import {useCallback} from 'react'
+import {useNotifications} from '@toolpad/core/useNotifications'
+import {getToastConfig} from '../../utils/toast/get-toast-config'
 
 // const res = {
 //   data: 'auth',
@@ -28,6 +30,7 @@ import {useCallback} from 'react'
 // }
 
 const useFirebaseAuth = () => {
+  const notifications = useNotifications()
   const auth = getAuth()
   const db = getFirestore()
 
@@ -47,8 +50,16 @@ const useFirebaseAuth = () => {
       dispatch(login())
       await signInWithEmailAndPassword(auth, email, password)
       dispatch(loginSuccess())
+      notifications.show(
+        'Du hast dich erfolgreich eingeloggt.',
+        getToastConfig({severity: 'success'})
+      )
     } catch (error) {
       dispatch(loginFailure())
+      notifications.show(
+        'Email und Passwort stimmen leider nicht überein.',
+        getToastConfig({})
+      )
     }
   }
 
@@ -57,8 +68,16 @@ const useFirebaseAuth = () => {
       dispatch(logout())
       await signOut(auth)
       dispatch(logoutSuccess())
+      notifications.show(
+        'Du hast dich erfolgreich ausgeloggt.',
+        getToastConfig({severity: 'success'})
+      )
     } catch (error) {
       dispatch(logoutFailure())
+      notifications.show(
+        'Beim Logout ist leider etwas schiefgelaufen.',
+        getToastConfig({})
+      )
     }
   }
 

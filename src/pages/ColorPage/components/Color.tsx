@@ -2,12 +2,12 @@ import {memo, useCallback} from 'react'
 import {useDispatch} from 'react-redux'
 import {twMerge} from 'tailwind-merge'
 import {doc, getFirestore, setDoc} from 'firebase/firestore'
-import {toast} from 'react-toastify'
 import AddIcon from '@mui/icons-material/Add'
 import ImageIcon from '@mui/icons-material/Image'
 import RemoveIcon from '@mui/icons-material/Remove'
 import Paper from '@mui/material/Paper'
 import IconButton from '@mui/material/IconButton'
+import {useNotifications} from '@toolpad/core/useNotifications'
 
 import {
   CataniaDocumentData,
@@ -15,37 +15,54 @@ import {
   countUpdateError,
   updateCount
 } from '../../../modules/catania/slice'
+import {selectIsUpdatingType} from '../../../modules/catania/selectors'
+import {useAppSelector} from '../../../utils/store-hooks'
+import {getToastConfig} from '../../../utils/toast/get-toast-config'
 
 import ColorText from './ColorText'
+import {CircularProgress} from '@mui/material'
+import CountButton from './CountButton'
+
+const TOAST_TEXT = {
+  add: {
+    error: 'Hinzufügen',
+    success: 'hinzugefügt'
+  },
+  remove: {
+    error: 'Entfernen',
+    success: 'entfernt'
+  }
+}
 
 const Color = ({color, count, imgUrl, isbn, name}: CataniaDocumentData) => {
+  const notifications = useNotifications()
+
   const dispatch = useDispatch()
   const db = getFirestore()
+  const isUpdatingAdd = useAppSelector(selectIsUpdatingType('add'))
+  const isUpdatingRemove = useAppSelector(selectIsUpdatingType('remove'))
 
   const onUpdateCount = useCallback(
-    (updatedCount: number) => {
+    (updatedCount: number, type: 'add' | 'remove') => {
       const ref = doc(db, 'catania', color.toString())
       try {
-        dispatch(updateCount())
+        dispatch(updateCount(type))
         setDoc(ref, {count: updatedCount}, {merge: true})
         dispatch(countUpdated({count: updatedCount, id: color}))
+        notifications.show(
+          `Ein Wollknäuel wurde erfolgreich ${TOAST_TEXT[type].success}.`,
+          getToastConfig({severity: 'success'})
+        )
       } catch (error) {
         dispatch(countUpdateError(error as Error))
-        toast.error(
-          'Beim bearbeiten des Wollknäuel Bestands ist leider ein Fehler aufgetreten.'
+        notifications.show(
+          `Beim ${TOAST_TEXT[type].error} des Wollknäuel ist leider ein Fehler aufgetreten.`,
+          getToastConfig({})
         )
       }
     },
     [color, db]
   )
-
-  const handleAddClick = () => {
-    onUpdateCount(count + 1)
-  }
-
-  const handleRemoveClick = () => {
-    onUpdateCount(count - 1)
-  }
 
   return (
     <>
@@ -82,35 +99,25 @@ const Color = ({color, count, imgUrl, isbn, name}: CataniaDocumentData) => {
           </div>
         </Paper>
         <Paper className="flex justify-around" elevation={0}>
-          <div className="flex flex-col items-center gap-4">
-            <ColorText text="Knäul hinzufügen:" />
-            <IconButton
-              aria-label="add"
-              className="border-solid border-2 border-[#c16f50]"
-              color="secondary"
-              onClick={handleAddClick}
-              size="large"
-            >
-              <AddIcon fontSize="inherit" />
-            </IconButton>
-          </div>
-          <div className="flex flex-col items-center gap-4">
-            <ColorText text="Knäul entfernen:" />
-            <IconButton
-              aria-label="remove"
-              className={twMerge(
-                'border-solid border-2 shadow-md',
-                count > 0 && 'border-[#c16f50]',
-                count === 0 && 'border-[#00000042]'
-              )}
-              color="secondary"
-              disabled={count === 0}
-              onClick={handleRemoveClick}
-              size="large"
-            >
-              <RemoveIcon fontSize="inherit" />
-            </IconButton>
-          </div>
+          <CountButton
+            ariaLabel="add"
+            count={count}
+            isDisabled={isUpdatingAdd || isUpdatingRemove}
+            isLoading={isUpdatingAdd}
+            onClick={onUpdateCount}
+            text="Knäul hinzufügen:"
+            type="add"
+          />
+
+          <CountButton
+            ariaLabel="remove"
+            count={count}
+            isDisabled={count === 0 || isUpdatingAdd || isUpdatingRemove}
+            isLoading={isUpdatingRemove}
+            onClick={onUpdateCount}
+            text="Knäul entfernen:"
+            type="remove"
+          />
         </Paper>
       </Paper>
     </>

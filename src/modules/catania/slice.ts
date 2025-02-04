@@ -17,7 +17,7 @@ interface CataniaState {
   isLoading: boolean
   isResolved: Array<string>
   isResolving: Array<string>
-  isUpdating: boolean
+  isUpdating: 'add' | 'remove' | null
   isUpdated: boolean
   resolvingError: {
     [k: string]: Error | null
@@ -35,7 +35,7 @@ const initialState: CataniaState = {
   isResolved: [],
   isResolving: [],
   isUpdated: false,
-  isUpdating: false,
+  isUpdating: null,
   resolvingError: {},
   updatingError: null
 }
@@ -115,8 +115,8 @@ export const cataniaState = createSlice({
 
       state.resolvingError[id] = error
     },
-    updateCount: state => {
-      state.isUpdating = true
+    updateCount: (state, action: PayloadAction<string>) => {
+      state.isUpdating = action.payload
       state.isUpdated = false
     },
     countUpdated: (
@@ -134,11 +134,11 @@ export const cataniaState = createSlice({
       // always update data in entities
       state.entities[id] = {...state.entities[id], count}
 
-      state.isUpdating = false
+      state.isUpdating = null
       state.isUpdated = true
     },
     countUpdateError: (state, action: PayloadAction<Error>) => {
-      state.isUpdating = false
+      state.isUpdating = null
       state.isUpdated = false
       state.updatingError = action.payload
     }

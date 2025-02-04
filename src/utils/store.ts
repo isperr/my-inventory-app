@@ -1,13 +1,11 @@
 import {configureStore} from '@reduxjs/toolkit'
 import authReducer from '../modules/auth/slice'
 import cataniaReducer from '../modules/catania/slice'
-import counterReducer from '../modules/toast/slice'
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
-    catania: cataniaReducer,
-    counter: counterReducer
+    catania: cataniaReducer
   }
 })
 

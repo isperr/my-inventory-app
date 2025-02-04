@@ -1,6 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import type {RootState} from '../../utils/store'
-import {toast} from 'react-toastify'
 
 // Define a type for the slice state
 interface AuthState {
@@ -27,12 +26,10 @@ export const authState = createSlice({
     loginSuccess: state => {
       state.isLoading = false
       state.isLoggedIn = true
-      toast.success('Du hast dich erfolgreich eingeloggt.')
     },
     loginFailure: state => {
       state.isLoading = false
       state.isLoggedIn = false
-      toast.error('Email und Passwort stimmen leider nicht überein.')
     },
     logout: state => {
       state.isLoading = true
@@ -40,12 +37,10 @@ export const authState = createSlice({
     logoutSuccess: state => {
       state.isLoading = false
       state.isLoggedIn = false
-      toast.success('Du hast dich erfolgreich ausgeloggt.')
     },
     logoutFailure: state => {
       state.isLoading = false
       state.isLoggedIn = true
-      toast.error('Beim Logout ist leider etwas schiefgelaufen.')
     },
     setValidUser: (state, action: PayloadAction<string>) => {
       state.isLoggedIn = true

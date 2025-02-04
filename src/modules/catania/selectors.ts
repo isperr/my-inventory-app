@@ -42,3 +42,9 @@ export const selectResolveData = (id?: string): ResolveStateDataReturnType =>
   createSelector([(state: RootState) => selectEntities(state)], entities =>
     id ? entities[id] : null
   )
+
+export const selectIsUpdatingType = (type?: string): ResolveStateReturnType =>
+  createSelector(
+    [(state: RootState) => selectIsUpdating(state)],
+    isUpdating => isUpdating === type
+  )

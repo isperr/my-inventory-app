@@ -1,7 +1,7 @@
 import {useCallback, useEffect, useRef} from 'react'
 import {twMerge} from 'tailwind-merge'
-import {toast} from 'react-toastify'
 import Typography from '@mui/material/Typography'
+import {useNotifications} from '@toolpad/core/useNotifications'
 
 import FloatingButton from '../../atoms/FloatingButton'
 import {load, loaded, loadingError} from '../../modules/catania/slice'
@@ -11,8 +11,11 @@ import PageTemplate from '../../templates/Page'
 
 import WoolList from './components/WoolList'
 import {onLoadData} from './hooks/use-data'
+import {getToastConfig} from '../../utils/toast/get-toast-config'
 
 const ListPage = () => {
+  const notifications = useNotifications()
+
   const dispatch = useAppDispatch()
   const isLoaded = useAppSelector(selectIsLoaded)
   const isLoading = useAppSelector(selectIsLoading)
@@ -26,9 +29,12 @@ const ListPage = () => {
       dispatch(loaded(data))
     } catch (error) {
       dispatch(loadingError(error as Error))
-      toast.error('Beim Laden der Liste ist leider ein Fehler aufgetreten.')
+      notifications.show(
+        'Beim Laden der Liste ist leider ein Fehler aufgetreten.',
+        getToastConfig({})
+      )
     }
-  }, [])
+  }, [dispatch])
 
   useEffect(() => {
     if (!effectRan.current && !isLoaded) {
