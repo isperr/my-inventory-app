@@ -4,13 +4,13 @@ import Typography from '@mui/material/Typography'
 import {useNotifications} from '@toolpad/core/useNotifications'
 
 import FloatingButton from '../../atoms/FloatingButton'
+import {onLoadData} from '../../hooks/catania/load-data'
 import {load, loaded, loadingError} from '../../modules/catania/slice'
 import {selectIsLoaded, selectIsLoading} from '../../modules/catania/selectors'
 import {useAppDispatch, useAppSelector} from '../../utils/store-hooks'
 import PageTemplate from '../../templates/Page'
 
 import WoolList from './components/WoolList'
-import {onLoadData} from './hooks/use-data'
 import {getToastConfig} from '../../utils/toast/get-toast-config'
 
 const ListPage = () => {
