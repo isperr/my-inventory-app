@@ -1,0 +1,71 @@
+import {memo, useCallback} from 'react'
+import {twMerge} from 'tailwind-merge'
+import AddIcon from '@mui/icons-material/Add'
+import RemoveIcon from '@mui/icons-material/Remove'
+import IconButton from '@mui/material/IconButton'
+
+import ColorText from './ColorText'
+import {CircularProgress} from '@mui/material'
+
+export type CountButtonProps = {
+  ariaLabel: string
+  count: number
+  isDisabled: boolean
+  isLoading: boolean
+  onClick: (updatedCount: number, type: 'add' | 'remove') => void
+  text: string
+  type: 'add' | 'remove'
+}
+
+const CountButton = ({
+  ariaLabel,
+  count,
+  isDisabled,
+  isLoading,
+  onClick,
+  text,
+  type
+}: CountButtonProps) => {
+  const handleClick = useCallback(() => {
+    onClick(type === 'add' ? count + 1 : count - 1, type)
+  }, [count, onClick, type])
+
+  return (
+    <div className="flex flex-col items-center gap-4">
+      <ColorText text={text} />
+      <div className="relative">
+        <IconButton
+          aria-label={ariaLabel}
+          className={twMerge(
+            'border-solid border-2',
+            !isDisabled && 'border-[#c16f50]',
+            isDisabled && 'border-[#00000042]'
+          )}
+          color="secondary"
+          disabled={isDisabled}
+          onClick={handleClick}
+          size="large"
+        >
+          {type === 'add' ? (
+            <AddIcon fontSize="inherit" />
+          ) : (
+            <RemoveIcon fontSize="inherit" />
+          )}
+        </IconButton>
+        {isLoading && (
+          <CircularProgress
+            size={68}
+            sx={{
+              position: 'absolute',
+              top: -6,
+              left: -6,
+              zIndex: 1
+            }}
+          />
+        )}
+      </div>
+    </div>
+  )
+}
+
+export default memo(CountButton)
