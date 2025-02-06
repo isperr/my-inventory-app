@@ -4,14 +4,14 @@ import {DocumentData} from 'firebase/firestore'
 export type CataniaDocumentData = DocumentData & {
   imgUrl?: string | null
 }
-export type CataniaEntitieType = {
+export type CataniaEntityType = {
   [k: string]: CataniaDocumentData
 }
 
 // Define a type for the slice state
 interface CataniaState {
   data: CataniaDocumentData[]
-  entities: CataniaEntitieType
+  entities: CataniaEntityType
   error: Error | null
   isLoaded: boolean
   isLoading: boolean
@@ -41,7 +41,7 @@ const initialState: CataniaState = {
 }
 
 export const cataniaState = createSlice({
-  name: 'catania',
+  name: 'cataniaResults',
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {

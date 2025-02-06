@@ -1,11 +1,13 @@
 import {configureStore} from '@reduxjs/toolkit'
 import authReducer from '../modules/auth/slice'
 import cataniaReducer from '../modules/catania/results/slice'
+import cataniaHomeReducer from '../modules/catania/home/slice'
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
-    catania: cataniaReducer
+    catania: cataniaReducer,
+    cataniaHome: cataniaHomeReducer
   }
 })
 

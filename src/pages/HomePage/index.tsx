@@ -1,9 +1,11 @@
 import LogoutIcon from '@mui/icons-material/Logout'
 import IconButton from '@mui/material/IconButton'
-import useFirebaseAuth from '../../hooks/auth-state/use-firebase-auth'
+
+import FloatingButton from '../../atoms/FloatingButton'
 import Logo from '../../atoms/Logo'
+import useFirebaseAuth from '../../hooks/auth-state/use-firebase-auth'
 import PageTemplate from '../../templates/Page'
-import {Link} from 'react-router'
+import CataniaPreview from './components/CataniaPreview'
 
 const HomePage = () => {
   const {onLogout, username} = useFirebaseAuth()
@@ -21,8 +23,9 @@ const HomePage = () => {
         <LogoutIcon fontSize="inherit" />
       </IconButton>
 
-      <Link to="/scan">scan</Link>
-      <Link to="/catania">catania</Link>
+      <CataniaPreview />
+
+      <FloatingButton ariaLabel="scan" icon="scan" path="/scan" />
     </PageTemplate>
   )
 }
