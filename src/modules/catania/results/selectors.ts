@@ -1,5 +1,7 @@
 import {createSelector} from '@reduxjs/toolkit'
-import {RootState} from '../../utils/store'
+
+import {RootState} from '../../../utils/store'
+
 import {CataniaDocumentData} from './slice'
 
 // Other code such as selectors can use the imported `RootState` type

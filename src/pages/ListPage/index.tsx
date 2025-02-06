@@ -5,8 +5,11 @@ import {useNotifications} from '@toolpad/core/useNotifications'
 
 import FloatingButton from '../../atoms/FloatingButton'
 import {onLoadData} from '../../hooks/catania/load-data'
-import {load, loaded, loadingError} from '../../modules/catania/slice'
-import {selectIsLoaded, selectIsLoading} from '../../modules/catania/selectors'
+import {load, loaded, loadingError} from '../../modules/catania/results/slice'
+import {
+  selectIsLoaded,
+  selectIsLoading
+} from '../../modules/catania/results/selectors'
 import {useAppDispatch, useAppSelector} from '../../utils/store-hooks'
 import PageTemplate from '../../templates/Page'
 

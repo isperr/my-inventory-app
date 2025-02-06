@@ -3,8 +3,12 @@ import {useParams} from 'react-router'
 import {useNotifications} from '@toolpad/core/useNotifications'
 
 import FloatingButton from '../../atoms/FloatingButton'
-import {resolve, resolved, resolvingError} from '../../modules/catania/slice'
-import {selectIsIdResolved} from '../../modules/catania/selectors'
+import {
+  resolve,
+  resolved,
+  resolvingError
+} from '../../modules/catania/results/slice'
+import {selectIsIdResolved} from '../../modules/catania/results/selectors'
 import PageTemplate from '../../templates/Page'
 import {useAppDispatch, useAppSelector} from '../../utils/store-hooks'
 

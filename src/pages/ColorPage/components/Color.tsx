@@ -2,11 +2,8 @@ import {memo, useCallback} from 'react'
 import {useDispatch} from 'react-redux'
 import {twMerge} from 'tailwind-merge'
 import {doc, getFirestore, setDoc} from 'firebase/firestore'
-import AddIcon from '@mui/icons-material/Add'
 import ImageIcon from '@mui/icons-material/Image'
-import RemoveIcon from '@mui/icons-material/Remove'
 import Paper from '@mui/material/Paper'
-import IconButton from '@mui/material/IconButton'
 import {useNotifications} from '@toolpad/core/useNotifications'
 
 import {
@@ -14,13 +11,12 @@ import {
   countUpdated,
   countUpdateError,
   updateCount
-} from '../../../modules/catania/slice'
-import {selectIsUpdatingType} from '../../../modules/catania/selectors'
+} from '../../../modules/catania/results/slice'
+import {selectIsUpdatingType} from '../../../modules/catania/results/selectors'
 import {useAppSelector} from '../../../utils/store-hooks'
 import {getToastConfig} from '../../../utils/toast/get-toast-config'
 
 import ColorText from './ColorText'
-import {CircularProgress} from '@mui/material'
 import CountButton from './CountButton'
 
 const TOAST_TEXT = {

@@ -115,7 +115,7 @@ export const cataniaState = createSlice({
 
       state.resolvingError[id] = error
     },
-    updateCount: (state, action: PayloadAction<string>) => {
+    updateCount: (state, action: PayloadAction<'add' | 'remove' | null>) => {
       state.isUpdating = action.payload
       state.isUpdated = false
     },

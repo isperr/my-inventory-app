@@ -1,6 +1,6 @@
 import {getDownloadURL, getStorage, ref} from 'firebase/storage'
 import {doc, DocumentData, getDoc, getFirestore} from 'firebase/firestore'
-import {CataniaDocumentData} from '../../../modules/catania/slice'
+import {CataniaDocumentData} from '../../../modules/catania/results/slice'
 
 const UNKNOWN = 'UNBEKANNT'
 
