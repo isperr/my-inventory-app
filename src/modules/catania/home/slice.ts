@@ -46,11 +46,24 @@ export const cataniaHomeState = createSlice({
       state.isLoaded = false
       state.isLoading = false
       state.error = action.payload
+    },
+    insert: (state, action: PayloadAction<CataniaDocumentData>) => {
+      if (state.isLoaded) {
+        // add data to state and sort
+        const tempData = [...state.data, action.payload].sort(
+          (itemA, itemB) => itemA.color - itemB.color
+        )
+        // remove one item so there are only 3 items preloaded on home-page
+        tempData.pop()
+        // update data in state
+        state.data = tempData
+        state.entities[action.payload.color] = action.payload
+      }
     }
   }
 })
 
-export const {load, loaded, loadingError} = cataniaHomeState.actions
+export const {load, loaded, loadingError, insert} = cataniaHomeState.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectData = (state: RootState) => state.cataniaHome.data

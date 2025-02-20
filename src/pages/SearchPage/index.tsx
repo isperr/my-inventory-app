@@ -1,4 +1,4 @@
-import {useEffect} from 'react'
+import {useCallback, useEffect} from 'react'
 import {useNavigate} from 'react-router'
 import {Paper, TextField, Typography} from '@mui/material'
 import {useNotifications} from '@toolpad/core'
@@ -22,6 +22,7 @@ import {useAppDispatch, useAppSelector} from '../../utils/store-hooks'
 
 import {onResolveDataByIsbn} from '../ColorPage/hooks/use-resolve'
 import CataniaPreview from '../HomePage/components/CataniaPreview'
+import {setIsbn} from '../../modules/catania/add/slice'
 
 const SearchPage = () => {
   const navigate = useNavigate()
@@ -33,6 +34,24 @@ const SearchPage = () => {
   const isLoaded = useAppSelector(selectIsLoaded)
   const isLoading = useAppSelector(selectIsLoading)
 
+  const onLoadData = useCallback(async (isbn: number) => {
+    try {
+      dispatch(load())
+      const searchData = await onResolveDataByIsbn(isbn)
+      if (searchData) {
+        dispatch(resolved({data: searchData, id: searchData.color.toString()}))
+      }
+      dispatch(loaded(searchData))
+      dispatch(setIsbn(isbn))
+    } catch (error) {
+      dispatch(loadingError(error as Error))
+      notifications.show(
+        'Beim Suchen des Wollknäuels ist leider ein Fehler aufgetreten.',
+        getToastConfig({})
+      )
+    }
+  }, [])
+
   const handleSubmit = async (event: React.SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault()
 
@@ -41,21 +60,7 @@ const SearchPage = () => {
       isbn: {value: string}
     }
 
-    try {
-      const isbn = Number(formElements.isbn.value)
-      dispatch(load())
-      const searchData = await onResolveDataByIsbn(isbn)
-      if (searchData) {
-        dispatch(resolved({data: searchData, id: searchData.color.toString()}))
-      }
-      dispatch(loaded(searchData))
-    } catch (error) {
-      dispatch(loadingError(error as Error))
-      notifications.show(
-        'Beim Suchen des Wollknäuels ist leider ein Fehler aufgetreten.',
-        getToastConfig({})
-      )
-    }
+    await onLoadData(Number(formElements.isbn.value))
   }
 
   useEffect(() => {
@@ -65,7 +70,7 @@ const SearchPage = () => {
   }, [])
 
   return (
-    <PageTemplate className="h-fit">
+    <PageTemplate className="h-fit gap-4">
       <Paper className="mx-6" elevation={0}>
         <Typography color="textSecondary" variant="h6">
           Wollknäuel scannen:

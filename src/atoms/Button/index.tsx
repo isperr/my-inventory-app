@@ -5,6 +5,7 @@ export type ButtonProps = {
   ariaLabel?: string
   children?: ReactNode
   className?: string
+  fullWidth?: boolean
   isLoading?: boolean
   onClick?: React.MouseEventHandler<HTMLButtonElement>
   size?: 'small' | 'medium' | 'large'
@@ -15,6 +16,7 @@ const Button = ({
   ariaLabel,
   children,
   className,
+  fullWidth,
   isLoading,
   onClick,
   size,
@@ -23,6 +25,7 @@ const Button = ({
   <MuiButton
     aria-label={ariaLabel}
     className={className}
+    fullWidth={fullWidth}
     loading={isLoading}
     loadingPosition="end"
     onClick={onClick}

@@ -83,7 +83,7 @@ const HomePage = () => {
         />
         <div className="w-auto flex px-4">
           <Button
-            className="w-full"
+            fullWidth
             onClick={() => {
               navigate('/catania')
             }}

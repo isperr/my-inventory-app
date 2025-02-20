@@ -68,6 +68,14 @@ export const cataniaState = createSlice({
       state.isLoading = false
       state.error = action.payload
     },
+    insert: (state, action: PayloadAction<CataniaDocumentData>) => {
+      if (state.isLoaded) {
+        const tempData = [...state.data, action.payload]
+        // update data in state as sorted array by color
+        state.data = tempData.sort((itemA, itemB) => itemA.color - itemB.color)
+        state.entities[action.payload.color] = action.payload
+      }
+    },
     resolve: (state, action: PayloadAction<string>) => {
       const id = action.payload
 
@@ -149,6 +157,7 @@ export const {
   load,
   loaded,
   loadingError,
+  insert,
   resolve,
   resolved,
   resolvingError,

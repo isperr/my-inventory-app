@@ -1,6 +1,7 @@
 import {configureStore} from '@reduxjs/toolkit'
 
 import authReducer from '../modules/auth/slice'
+import cataniaAddReducer from '../modules/catania/add/slice'
 import cataniaReducer from '../modules/catania/results/slice'
 import cataniaHomeReducer from '../modules/catania/home/slice'
 import cataniaSearchReducer from '../modules/catania/search/slice'
@@ -9,6 +10,7 @@ export const store = configureStore({
   reducer: {
     auth: authReducer,
     catania: cataniaReducer,
+    cataniaAdd: cataniaAddReducer,
     cataniaHome: cataniaHomeReducer,
     cataniaSearch: cataniaSearchReducer
   },

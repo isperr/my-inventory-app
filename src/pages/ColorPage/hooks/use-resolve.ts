@@ -13,10 +13,12 @@ import {
 import {CataniaDocumentData} from '../../../modules/catania/results/slice'
 
 const UNKNOWN = 'UNBEKANNT'
+const TEST_NAME = 'test'
 
 const handleImageResolving = async (data: DocumentData, id: string) => {
   // do not resolve for image if it name === "UNBEKANNT"
-  if (data.name === UNKNOWN) {
+  // or anything including "test" for now - should be removed later on
+  if (data.name === UNKNOWN || data.name.toLowerCase().includes(TEST_NAME)) {
     return {...data, imgUrl: null}
   }
 
