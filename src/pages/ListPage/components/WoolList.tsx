@@ -8,7 +8,7 @@ import {
   selectData,
   selectError,
   selectIsLoading
-} from '../../../modules/catania/selectors'
+} from '../../../modules/catania/results/selectors'
 import {useAppSelector} from '../../../utils/store-hooks'
 
 import WoolListItem from './WoolListItem'

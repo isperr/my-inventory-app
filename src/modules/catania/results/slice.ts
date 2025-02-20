@@ -4,14 +4,14 @@ import {DocumentData} from 'firebase/firestore'
 export type CataniaDocumentData = DocumentData & {
   imgUrl?: string | null
 }
-export type CataniaEntitieType = {
+export type CataniaEntityType = {
   [k: string]: CataniaDocumentData
 }
 
 // Define a type for the slice state
 interface CataniaState {
   data: CataniaDocumentData[]
-  entities: CataniaEntitieType
+  entities: CataniaEntityType
   error: Error | null
   isLoaded: boolean
   isLoading: boolean
@@ -41,7 +41,7 @@ const initialState: CataniaState = {
 }
 
 export const cataniaState = createSlice({
-  name: 'catania',
+  name: 'cataniaResults',
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
@@ -67,6 +67,14 @@ export const cataniaState = createSlice({
       state.isLoaded = false
       state.isLoading = false
       state.error = action.payload
+    },
+    insert: (state, action: PayloadAction<CataniaDocumentData>) => {
+      if (state.isLoaded) {
+        const tempData = [...state.data, action.payload]
+        // update data in state as sorted array by color
+        state.data = tempData.sort((itemA, itemB) => itemA.color - itemB.color)
+        state.entities[action.payload.color] = action.payload
+      }
     },
     resolve: (state, action: PayloadAction<string>) => {
       const id = action.payload
@@ -115,7 +123,7 @@ export const cataniaState = createSlice({
 
       state.resolvingError[id] = error
     },
-    updateCount: (state, action: PayloadAction<string>) => {
+    updateCount: (state, action: PayloadAction<'add' | 'remove' | null>) => {
       state.isUpdating = action.payload
       state.isUpdated = false
     },
@@ -149,6 +157,7 @@ export const {
   load,
   loaded,
   loadingError,
+  insert,
   resolve,
   resolved,
   resolvingError,

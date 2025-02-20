@@ -1,12 +1,24 @@
 import {getDownloadURL, getStorage, ref} from 'firebase/storage'
-import {doc, DocumentData, getDoc, getFirestore} from 'firebase/firestore'
-import {CataniaDocumentData} from '../../../modules/catania/slice'
+import {
+  collection,
+  doc,
+  DocumentData,
+  getDoc,
+  getDocs,
+  getFirestore,
+  query,
+  where
+} from 'firebase/firestore'
+
+import {CataniaDocumentData} from '../../../modules/catania/results/slice'
 
 const UNKNOWN = 'UNBEKANNT'
+const TEST_NAME = 'test'
 
 const handleImageResolving = async (data: DocumentData, id: string) => {
   // do not resolve for image if it name === "UNBEKANNT"
-  if (data.name === UNKNOWN) {
+  // or anything including "test" for now - should be removed later on
+  if (data.name === UNKNOWN || data.name.toLowerCase().includes(TEST_NAME)) {
     return {...data, imgUrl: null}
   }
 
@@ -41,4 +53,25 @@ export const onResolveData = async (id: string) => {
   }
 
   return await handleImageResolving(data, id)
+}
+
+export const onResolveDataByIsbn = async (isbn: number) => {
+  const db = getFirestore()
+  const cataniaRef = collection(db, 'catania')
+  const woolQuery = query(cataniaRef, where('ISBN', '==', isbn))
+
+  const woolSnaps = await getDocs(woolQuery).catch(error => {
+    // error is handled within ColorPage
+    throw error
+  })
+  const temp: DocumentData[] = []
+  woolSnaps.forEach(doc => {
+    temp.push(doc.data())
+  })
+
+  if (!temp.length) {
+    return undefined
+  }
+
+  return await handleImageResolving(temp[0], temp[0].color.toString())
 }

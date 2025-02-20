@@ -1,5 +1,5 @@
 {
-  "name": "my-movies-series-app",
+  "name": "my-inventory-app",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -17,6 +17,7 @@
     "**/*": "prettier --write --ignore-unknown"
   },
   "dependencies": {
+    "@base-ui-components/react": "^1.0.0-alpha.6",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@fontsource/roboto": "^5.1.1",

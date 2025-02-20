@@ -9,8 +9,8 @@ import {
   selectIsIdResolving,
   selectHasResolveError,
   selectResolveData
-} from '../../../modules/catania/selectors'
-import {CataniaDocumentData} from '../../../modules/catania/slice'
+} from '../../../modules/catania/results/selectors'
+import {CataniaDocumentData} from '../../../modules/catania/results/slice'
 import {useAppSelector} from '../../../utils/store-hooks'
 
 import Color from './Color'
