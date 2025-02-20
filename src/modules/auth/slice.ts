@@ -1,5 +1,4 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import type {RootState} from '../../utils/store'
 
 // Define a type for the slice state
 interface AuthState {
@@ -60,6 +59,5 @@ export const {
 } = authState.actions
 
 // Other code such as selectors can use the imported `RootState` type
-export const selectCount = (state: RootState) => state.counter.value
 
 export default authState.reducer
