@@ -21,8 +21,8 @@ import {
 import PageTemplate from '../../templates/Page'
 import {getToastConfig} from '../../utils/toast/get-toast-config'
 import {useAppDispatch, useAppSelector} from '../../utils/store-hooks'
-
-import CataniaPreview from './components/CataniaPreview'
+import WoolListPreview from '../../molecules/WoolListPreview'
+import {WoolListItemType} from '../../molecules/WoolList/components/WoolListItem'
 
 const HomePage = () => {
   const dispatch = useAppDispatch()
@@ -76,9 +76,11 @@ const HomePage = () => {
       </IconButton>
 
       <div className="px-4">
-        <CataniaPreview
-          data={data}
+        <WoolListPreview
+          collection="catania"
+          data={data as WoolListItemType[]}
           hasError={Boolean(error)}
+          headerText="Schachermayr Catania Color"
           isLoading={isLoading}
         />
         <div className="w-auto flex px-4">

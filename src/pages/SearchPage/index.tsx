@@ -1,56 +1,33 @@
-import {useCallback, useEffect} from 'react'
+import {useEffect, useState} from 'react'
 import {useNavigate} from 'react-router'
+import {twMerge} from 'tailwind-merge'
 import {Paper, TextField, Typography} from '@mui/material'
-import {useNotifications} from '@toolpad/core'
 
 import FloatingButton from '../../atoms/FloatingButton'
 import Button from '../../atoms/Button'
-import {resolved} from '../../modules/catania/results/slice'
-import {
-  load,
-  loaded,
-  loadingError,
-  reset,
-  selectData,
-  selectError,
-  selectIsLoaded,
-  selectIsLoading
-} from '../../modules/catania/search/slice'
+import Loading from '../../atoms/ListPreview/Loading'
+import NotInList from '../../atoms/ListPreview/NotInList'
+import {reset as resetCataniaColor} from '../../modules/catania/search/slice'
 import PageTemplate from '../../templates/Page'
-import {getToastConfig} from '../../utils/toast/get-toast-config'
-import {useAppDispatch, useAppSelector} from '../../utils/store-hooks'
+import {useAppDispatch} from '../../utils/store-hooks'
 
-import {onResolveDataByIsbn} from '../ColorPage/hooks/use-resolve'
-import CataniaPreview from '../HomePage/components/CataniaPreview'
-import {setIsbn} from '../../modules/catania/add/slice'
+import WoolListPreview from '../../molecules/WoolListPreview'
+import {WoolListItemType} from '../../molecules/WoolList/components/WoolListItem'
+
+import {useLoadCataniaColorData} from './hooks/use-load-catania-color-data'
 
 const SearchPage = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const notifications = useNotifications()
 
-  const data = useAppSelector(selectData)
-  const error = useAppSelector(selectError)
-  const isLoaded = useAppSelector(selectIsLoaded)
-  const isLoading = useAppSelector(selectIsLoading)
-
-  const onLoadData = useCallback(async (isbn: number) => {
-    try {
-      dispatch(load())
-      const searchData = await onResolveDataByIsbn(isbn)
-      if (searchData) {
-        dispatch(resolved({data: searchData, id: searchData.color.toString()}))
-      }
-      dispatch(loaded(searchData))
-      dispatch(setIsbn(isbn))
-    } catch (error) {
-      dispatch(loadingError(error as Error))
-      notifications.show(
-        'Beim Suchen des Wollknäuels ist leider ein Fehler aufgetreten.',
-        getToastConfig({})
-      )
-    }
-  }, [])
+  const [tempIsbn, setTempIsbn] = useState<number | undefined>(undefined)
+  const {
+    data: cataniaData,
+    hasError: hasCataniaColorError,
+    isLoaded: isCataniaColorLoaded,
+    isLoading: isCataniaColorLoading,
+    onLoadData: onLoadCataniaColorData
+  } = useLoadCataniaColorData()
 
   const handleSubmit = async (event: React.SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -60,12 +37,18 @@ const SearchPage = () => {
       isbn: {value: string}
     }
 
-    await onLoadData(Number(formElements.isbn.value))
+    setTempIsbn(Number(formElements.isbn.value))
+    await onLoadCataniaColorData(Number(formElements.isbn.value))
+  }
+
+  const handleAddCataniaClick = () => {
+    navigate('/scan/add')
+    setTempIsbn(undefined)
   }
 
   useEffect(() => {
     return () => {
-      dispatch(reset())
+      dispatch(resetCataniaColor())
     }
   }, [])
 
@@ -91,31 +74,31 @@ const SearchPage = () => {
         </Button>
       </form>
 
-      <CataniaPreview
-        data={data}
-        hasError={Boolean(error)}
-        isLoading={isLoading}
-        showHeader={isLoaded && Boolean(data.length)}
+      <WoolListPreview
+        collection="catania"
+        data={cataniaData as WoolListItemType[]}
+        hasError={hasCataniaColorError}
+        headerText="Schachermayr Catania Color"
+        isLoading={false}
+        listClassName={twMerge(
+          'px-2',
+          // only show header & list when data is loaded and has items in list
+          !(isCataniaColorLoaded && Boolean(cataniaData.length)) && 'hidden'
+        )}
       />
-      {!error && isLoaded && !data.length && (
-        <Paper className="mx-6 flex flex-col gap-4" elevation={0}>
-          <Typography className="font-normal" variant="h6">
-            Das Wollknäuel ist noch nicht Teil deines Bestands!
-          </Typography>
-          <div className="flex flex-wrap gap-1">
-            <Typography className="font-normal" variant="h6">
-              Möchtest du dieses Wollknäuel zu
-            </Typography>
-            <Typography variant="h6">Schachermayr Catania Color</Typography>
-            <Typography className="font-normal" variant="h6">
-              hinzufügen?
-            </Typography>
-          </div>
-          <Button onClick={() => navigate('/scan/add')} size="small">
-            Ja, hinzufügen
-          </Button>
-        </Paper>
-      )}
+
+      {
+        isCataniaColorLoading && (
+          <Loading />
+        ) /* should be expanded to isLoading from different wool types */
+      }
+      {
+        !hasCataniaColorError &&
+          isCataniaColorLoaded &&
+          !cataniaData.length && (
+            <NotInList isbn={tempIsbn} onClick={handleAddCataniaClick} />
+          ) /* should be expanded to isLoading from different wool types */
+      }
 
       <FloatingButton />
     </PageTemplate>
