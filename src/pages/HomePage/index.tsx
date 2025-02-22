@@ -63,7 +63,7 @@ const HomePage = () => {
   }, [isLoaded])
 
   return (
-    <PageTemplate>
+    <PageTemplate className="my-0">
       <Logo>Willkommen zurück{username ? `, ${username}` : ''}!</Logo>
       <IconButton
         aria-label="logout"

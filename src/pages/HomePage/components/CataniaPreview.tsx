@@ -37,7 +37,7 @@ const CataniaPreview = ({
           subheader={
             hasError ? null : (
               <ListSubheader className="leading-snug font-normal">
-                Schachermayr Catania Sammlung
+                Schachermayr Catania Color
               </ListSubheader>
             )
           }

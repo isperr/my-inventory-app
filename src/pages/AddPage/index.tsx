@@ -100,7 +100,7 @@ const AddPage = () => {
     <PageTemplate className="h-fit gap-4">
       <Paper className="mx-6" elevation={0}>
         <Typography className="font-normal" color="textSecondary" variant="h6">
-          Wollknäuel in die <b>Schachermayr Catania Sammlung</b> hinzufügen:
+          Wollknäuel in <b>Schachermayr Catania Color</b> hinzufügen:
         </Typography>
       </Paper>
       <Paper

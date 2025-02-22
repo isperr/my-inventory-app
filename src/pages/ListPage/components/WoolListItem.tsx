@@ -20,7 +20,7 @@ const WoolListItem = ({color, count, imgUrl, name}: CataniaDocumentData) => {
 
   return (
     <ListItem
-      className="px-0"
+      className="p-0"
       secondaryAction={
         <IconButton
           color="primary"

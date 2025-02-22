@@ -49,8 +49,8 @@ const LoginPage = () => {
   }, [])
 
   return (
-    <PageTemplate>
-      <Logo>Woll Bestand</Logo>
+    <PageTemplate className="my-0">
+      <Logo>Guzzi's Wollbestand</Logo>
       <form
         className="flex flex-col items-center p-6 gap-6"
         onSubmit={handleSubmit}

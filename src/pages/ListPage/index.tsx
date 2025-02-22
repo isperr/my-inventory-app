@@ -54,7 +54,7 @@ const ListPage = () => {
       className={twMerge(isLoading ? 'h-screen' : 'h-fit', 'gap-2')}
     >
       <Typography className="px-4 text-center" variant="h4">
-        Schachermayr Catania Sammlung
+        Schachermayr Catania Color
       </Typography>
       <WoolList />
       <FloatingButton />

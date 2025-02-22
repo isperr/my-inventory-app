@@ -104,9 +104,9 @@ const SearchPage = () => {
           </Typography>
           <div className="flex flex-wrap gap-1">
             <Typography className="font-normal" variant="h6">
-              Möchtest du dieses Wollknäuel zur
+              Möchtest du dieses Wollknäuel zu
             </Typography>
-            <Typography variant="h6">Schachermayr Catania Sammlung</Typography>
+            <Typography variant="h6">Schachermayr Catania Color</Typography>
             <Typography className="font-normal" variant="h6">
               hinzufügen?
             </Typography>
