@@ -1,21 +1,36 @@
 import {memo} from 'react'
-import ListItem from '@mui/material/ListItem'
-import ListItemText from '@mui/material/ListItemText'
-import ListItemAvatar from '@mui/material/ListItemAvatar'
-import Avatar from '@mui/material/Avatar'
-import ImageIcon from '@mui/icons-material/Image'
-import ListItemButton from '@mui/material/ListItemButton'
-import {IconButton} from '@mui/material'
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight'
+import Avatar from '@mui/material/Avatar'
+import IconButton from '@mui/material/IconButton'
+import ImageIcon from '@mui/icons-material/Image'
+import ListItem from '@mui/material/ListItem'
+import ListItemAvatar from '@mui/material/ListItemAvatar'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemText from '@mui/material/ListItemText'
 import {useNavigate} from 'react-router'
 
-import {CataniaDocumentData} from '../../../modules/catania/results/slice'
+export type WoolListItemType = {
+  color: number
+  count: number
+  imgUrl?: string | null
+  name: string
+}
 
-const WoolListItem = ({color, count, imgUrl, name}: CataniaDocumentData) => {
+export type WoolListItemProps = WoolListItemType & {
+  parentLink: string
+}
+
+const WoolListItem = ({
+  color,
+  count,
+  imgUrl,
+  name,
+  parentLink
+}: WoolListItemProps) => {
   const navigate = useNavigate()
 
   const navigateToWool = () => {
-    navigate(`/catania/${color}`)
+    navigate(`${parentLink}/${color}`)
   }
 
   return (

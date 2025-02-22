@@ -13,10 +13,10 @@ import {
 import {useAppDispatch, useAppSelector} from '../../utils/store-hooks'
 import PageTemplate from '../../templates/Page'
 
-import WoolList from './components/WoolList'
+import List from './components/List'
 import {getToastConfig} from '../../utils/toast/get-toast-config'
 
-const ListPage = () => {
+const CataniaListPage = () => {
   const notifications = useNotifications()
 
   const dispatch = useAppDispatch()
@@ -56,10 +56,10 @@ const ListPage = () => {
       <Typography className="px-4 text-center" variant="h4">
         Schachermayr Catania Color
       </Typography>
-      <WoolList />
+      <List />
       <FloatingButton />
     </PageTemplate>
   )
 }
 
-export default ListPage
+export default CataniaListPage

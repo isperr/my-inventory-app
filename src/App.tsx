@@ -10,7 +10,7 @@ import CollectionPage from './pages/CollectionPage'
 import AddPage from './pages/AddPage'
 import ColorPage from './pages/ColorPage'
 import SearchPage from './pages/SearchPage'
-import ListPage from './pages/ListPage'
+import CataniaListPage from './pages/CataniaListPage'
 
 const App = () => {
   const {isLoggedIn} = useFirebaseAuth()
@@ -21,7 +21,7 @@ const App = () => {
         <>
           <Route path="/" element={<HomePage />} />
           <Route path="catania" element={<CollectionPage />}>
-            <Route index element={<ListPage />} />
+            <Route index element={<CataniaListPage />} />
             <Route path=":color" element={<ColorPage />} />
           </Route>
           <Route path="scan" element={<ScanPage />}>
