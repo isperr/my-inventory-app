@@ -4,6 +4,7 @@ import {RootState} from '../../../utils/store'
 
 // Define a type for the slice state
 interface CataniaAddState {
+  color?: number
   isbn?: number
   error: Error | null
   isAdded: boolean
@@ -12,6 +13,7 @@ interface CataniaAddState {
 
 // Define the initial state using that type
 const initialState: CataniaAddState = {
+  color: undefined,
   isbn: undefined,
   error: null,
   isAdded: false,
@@ -36,10 +38,19 @@ export const cataniaAddState = createSlice({
       state.isAdding = false
       state.error = action.payload
     },
-    setIsbn: (state, action: PayloadAction<number>) => {
-      state.isbn = action.payload
+    setIsbnOrColor: (
+      state,
+      action: PayloadAction<{data: number; isColorSearch: boolean}>
+    ) => {
+      const {data, isColorSearch} = action.payload
+      if (isColorSearch) {
+        state.color = data
+      } else {
+        state.isbn = data
+      }
     },
     reset: state => {
+      state.color = initialState.color
       state.isbn = initialState.isbn
       state.error = initialState.error
       state.isAdded = initialState.isAdded
@@ -48,9 +59,11 @@ export const cataniaAddState = createSlice({
   }
 })
 
-export const {add, added, addingError, reset, setIsbn} = cataniaAddState.actions
+export const {add, added, addingError, reset, setIsbnOrColor} =
+  cataniaAddState.actions
 
 // Other code such as selectors can use the imported `RootState` type
+export const selectColor = (state: RootState) => state.cataniaAdd.color
 export const selectIsbn = (state: RootState) => state.cataniaAdd.isbn
 export const selectIsAdded = (state: RootState) => state.cataniaAdd.isAdded
 export const selectIsAdding = (state: RootState) => state.cataniaAdd.isAdding

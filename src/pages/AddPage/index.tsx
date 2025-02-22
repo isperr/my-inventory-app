@@ -15,7 +15,8 @@ import {
   reset,
   selectIsAdded,
   selectIsAdding,
-  selectIsbn
+  selectIsbn,
+  selectColor
 } from '../../modules/catania/add/slice'
 import {insert as listInsert} from '../../modules/catania/results/slice'
 import {insert as homeInsert} from '../../modules/catania/home/slice'
@@ -30,6 +31,7 @@ const AddPage = () => {
   const notifications = useNotifications()
   const db = getFirestore()
 
+  const color = useAppSelector(selectColor)
   const isbn = useAppSelector(selectIsbn)
   const isAdding = useAppSelector(selectIsAdding)
   const isAdded = useAppSelector(selectIsAdded)
@@ -121,6 +123,7 @@ const AddPage = () => {
         />
         <TextField
           className="w-full"
+          defaultValue={color}
           disabled={isDisabled}
           id="color"
           label="Farbe"

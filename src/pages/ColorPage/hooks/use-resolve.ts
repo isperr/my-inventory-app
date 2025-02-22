@@ -55,10 +55,18 @@ export const onResolveData = async (id: string) => {
   return await handleImageResolving(data, id)
 }
 
-export const onResolveDataByIsbn = async (isbn: number) => {
+export const onResolveDataByGivenData = async ({
+  data,
+  isColorSearch
+}: {
+  data: number
+  isColorSearch: boolean
+}) => {
   const db = getFirestore()
   const cataniaRef = collection(db, 'catania')
-  const woolQuery = query(cataniaRef, where('ISBN', '==', isbn))
+  const woolQuery = isColorSearch
+    ? query(cataniaRef, where('color', '==', data))
+    : query(cataniaRef, where('ISBN', '==', data))
 
   const woolSnaps = await getDocs(woolQuery).catch(error => {
     // error is handled within ColorPage

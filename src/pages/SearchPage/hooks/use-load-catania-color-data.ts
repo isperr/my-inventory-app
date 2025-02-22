@@ -10,10 +10,10 @@ import {
 } from '../../../modules/catania/search/slice'
 import {resolved} from '../../../modules/catania/results/slice'
 import {useAppDispatch, useAppSelector} from '../../../utils/store-hooks'
-import {setIsbn} from '../../../modules/catania/add/slice'
+import {setIsbnOrColor} from '../../../modules/catania/add/slice'
 import {useNotifications} from '@toolpad/core'
 import {getToastConfig} from '../../../utils/toast/get-toast-config'
-import {onResolveDataByIsbn} from '../../ColorPage/hooks/use-resolve'
+import {onResolveDataByGivenData} from '../../ColorPage/hooks/use-resolve'
 
 export const useLoadCataniaColorData = () => {
   const dispatch = useAppDispatch()
@@ -24,23 +24,31 @@ export const useLoadCataniaColorData = () => {
   const isLoaded = useAppSelector(selectIsLoaded)
   const isLoading = useAppSelector(selectIsLoading)
 
-  const onLoadData = useCallback(async (isbn: number) => {
-    try {
-      dispatch(load())
-      const searchData = await onResolveDataByIsbn(isbn)
-      if (searchData) {
-        dispatch(resolved({data: searchData, id: searchData.color.toString()}))
+  const onLoadData = useCallback(
+    async ({isColorSearch, num}: {isColorSearch: boolean; num: number}) => {
+      try {
+        dispatch(load())
+        const searchData = await onResolveDataByGivenData({
+          data: num,
+          isColorSearch
+        })
+        if (searchData) {
+          dispatch(
+            resolved({data: searchData, id: searchData.color.toString()})
+          )
+        }
+        dispatch(loaded(searchData))
+        dispatch(setIsbnOrColor({data: num, isColorSearch}))
+      } catch (error) {
+        dispatch(loadingError(error as Error))
+        notifications.show(
+          'Beim Suchen des Wollknäuels ist leider ein Fehler aufgetreten.',
+          getToastConfig({})
+        )
       }
-      dispatch(loaded(searchData))
-      dispatch(setIsbn(isbn))
-    } catch (error) {
-      dispatch(loadingError(error as Error))
-      notifications.show(
-        'Beim Suchen des Wollknäuels ist leider ein Fehler aufgetreten.',
-        getToastConfig({})
-      )
-    }
-  }, [])
+    },
+    []
+  )
 
   return {
     data,
