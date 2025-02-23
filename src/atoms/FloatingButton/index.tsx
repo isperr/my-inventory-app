@@ -1,4 +1,4 @@
-import {useCallback, useMemo} from 'react'
+import {ReactNode, useCallback, useMemo} from 'react'
 import {useNavigate} from 'react-router'
 import {twMerge} from 'tailwind-merge'
 import {Fab} from '@mui/material'
@@ -8,6 +8,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
 export type FloatingButtonProps = {
   ariaLabel?: string
+  children?: ReactNode
   icon?: 'back' | 'home' | 'scan'
   path?: string
   position?: 'primary' | 'secondary'
@@ -15,6 +16,7 @@ export type FloatingButtonProps = {
 
 const FloatingButton = ({
   ariaLabel,
+  children,
   icon = 'home',
   path = '/',
   position = 'primary'
@@ -38,15 +40,18 @@ const FloatingButton = ({
   return (
     <Fab
       className={twMerge(
-        'fixed bottom-4',
+        'fixed bottom-4 gap-1',
         position === 'primary' && 'right-4',
-        position === 'secondary' && 'right-20 mr-1'
+        position === 'secondary' && 'right-20 mr-1',
+        children && 'bottom-5'
       )}
       color="secondary"
       aria-label={ariaLabel}
       onClick={handleClick}
+      variant={children ? 'extended' : undefined}
     >
       <Icon fontSize="large" />
+      {children}
     </Fab>
   )
 }

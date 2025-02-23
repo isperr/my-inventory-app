@@ -55,7 +55,9 @@ const ColorPage = () => {
   return (
     <PageTemplate className="h-fit my-10 gap-12">
       <Content id={params?.color} />
-      <FloatingButton position="secondary" icon="back" path="/catania" />
+      <FloatingButton position="secondary" icon="back" path="/catania">
+        Zur Liste
+      </FloatingButton>
       <FloatingButton />
     </PageTemplate>
   )
