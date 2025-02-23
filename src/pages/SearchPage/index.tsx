@@ -93,7 +93,7 @@ const SearchPage = () => {
         collection="catania"
         data={cataniaData as WoolListItemType[]}
         hasError={hasCataniaColorError}
-        headerText="Schachermayr Catania Color"
+        headerText="Schachermayr Catania"
         isLoading={false}
         listClassName={twMerge(
           'px-2',

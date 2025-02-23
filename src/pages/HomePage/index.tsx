@@ -80,7 +80,7 @@ const HomePage = () => {
           collection="catania"
           data={data as WoolListItemType[]}
           hasError={Boolean(error)}
-          headerText="Schachermayr Catania Color"
+          headerText="Schachermayr Catania"
           isLoading={isLoading}
         />
         <div className="w-auto flex px-4">
