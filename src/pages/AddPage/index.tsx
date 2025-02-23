@@ -142,6 +142,7 @@ const AddPage = () => {
         />
 
         <NumberField.Root
+          defaultValue={0}
           disabled={isDisabled}
           id="count"
           min={0}
