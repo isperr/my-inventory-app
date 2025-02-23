@@ -3,6 +3,7 @@ import MuiButton from '@mui/material/Button'
 
 export type ButtonProps = {
   ariaLabel?: string
+  autoFocus?: boolean
   children?: ReactNode
   className?: string
   fullWidth?: boolean
@@ -14,6 +15,7 @@ export type ButtonProps = {
 
 const Button = ({
   ariaLabel,
+  autoFocus,
   children,
   className,
   fullWidth,
@@ -24,6 +26,7 @@ const Button = ({
 }: ButtonProps) => (
   <MuiButton
     aria-label={ariaLabel}
+    autoFocus={autoFocus}
     className={className}
     fullWidth={fullWidth}
     loading={isLoading}

@@ -7,6 +7,7 @@ import {CataniaDocumentData} from './slice'
 // Other code such as selectors can use the imported `RootState` type
 export const selectData = (state: RootState) => state.catania.data
 export const selectEntities = (state: RootState) => state.catania.entities
+export const selectIsActivated = (state: RootState) => state.catania.isActivated
 export const selectIsLoaded = (state: RootState) => state.catania.isLoaded
 export const selectIsLoading = (state: RootState) => state.catania.isLoading
 export const selectError = (state: RootState) => state.catania.error

@@ -64,6 +64,7 @@ const Content = ({id}: {id?: string}) => {
         count={item.count}
         imgUrl={item.imgUrl}
         isbn={item.ISBN}
+        isActivated={item.isActivated}
         name={item.name}
       />
     )

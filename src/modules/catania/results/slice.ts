@@ -7,17 +7,18 @@ export type CataniaDocumentData = DocumentData & {
 export type CataniaEntityType = {
   [k: string]: CataniaDocumentData
 }
-
+export type UpdatingType = 'add' | 'remove' | 'isActivated'
 // Define a type for the slice state
 interface CataniaState {
   data: CataniaDocumentData[]
   entities: CataniaEntityType
   error: Error | null
+  isActivated: boolean
   isLoaded: boolean
   isLoading: boolean
   isResolved: Array<string>
   isResolving: Array<string>
-  isUpdating: 'add' | 'remove' | null
+  isUpdating: UpdatingType | null
   isUpdated: boolean
   resolvingError: {
     [k: string]: Error | null
@@ -30,6 +31,7 @@ const initialState: CataniaState = {
   data: [],
   entities: {},
   error: null,
+  isActivated: true,
   isLoaded: false,
   isLoading: false,
   isResolved: [],
@@ -71,7 +73,8 @@ export const cataniaState = createSlice({
       state.error = action.payload
     },
     insert: (state, action: PayloadAction<CataniaDocumentData>) => {
-      if (state.isLoaded) {
+      // do not insert item (by default activated) if it loaded data is inactive data
+      if (state.isLoaded && action.payload.isActivated === state.isActivated) {
         const tempData = [...state.data, action.payload]
         // update data in state as sorted array by color
         state.data = tempData.sort((itemA, itemB) => itemA.color - itemB.color)
@@ -125,32 +128,44 @@ export const cataniaState = createSlice({
 
       state.resolvingError[id] = error
     },
-    updateCount: (state, action: PayloadAction<'add' | 'remove' | null>) => {
+    update: (state, action: PayloadAction<UpdatingType | null>) => {
       state.isUpdating = action.payload
       state.isUpdated = false
     },
-    countUpdated: (
+    updated: (
       state,
-      action: PayloadAction<{count: number; id: string}>
+      action: PayloadAction<{
+        field: keyof CataniaDocumentData
+        id: string
+        value: number | boolean
+      }>
     ) => {
-      const {count, id} = action.payload
+      const {field, id, value} = action.payload
 
       const idx = state.data.findIndex(it => it.color === id)
       // only try to update data if items in list are loaded
       if (idx !== -1) {
-        state.data[idx] = {...state.data[idx], count}
+        const newData = {...state.data[idx], [field]: value}
+        if (newData.isActivated !== state.isActivated) {
+          state.data.splice(idx, 1)
+        } else {
+          state.data[idx] = newData
+        }
       }
 
       // always update data in entities
-      state.entities[id] = {...state.entities[id], count}
+      state.entities[id] = {...state.entities[id], [field]: value}
 
       state.isUpdating = null
       state.isUpdated = true
     },
-    countUpdateError: (state, action: PayloadAction<Error>) => {
+    updateError: (state, action: PayloadAction<Error>) => {
       state.isUpdating = null
       state.isUpdated = false
       state.updatingError = action.payload
+    },
+    setIsActivated: (state, action: PayloadAction<boolean>) => {
+      state.isActivated = action.payload
     }
   }
 })
@@ -163,9 +178,10 @@ export const {
   resolve,
   resolved,
   resolvingError,
-  updateCount,
-  countUpdateError,
-  countUpdated
+  update,
+  updateError,
+  updated,
+  setIsActivated
 } = cataniaState.actions
 
 export default cataniaState.reducer

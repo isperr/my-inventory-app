@@ -22,6 +22,7 @@ type CreateItemDataType = {
   color: number
   count: number
   ISBN: number
+  isActivated: boolean
   name: string
 }
 

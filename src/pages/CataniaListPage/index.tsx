@@ -1,12 +1,18 @@
-import {useCallback, useEffect, useRef, useState} from 'react'
+import {useCallback, useEffect, useRef} from 'react'
 import {twMerge} from 'tailwind-merge'
 import Typography from '@mui/material/Typography'
 import {useNotifications} from '@toolpad/core/useNotifications'
 
 import FloatingButton from '../../atoms/FloatingButton'
 import {onLoadData} from '../../hooks/catania/load-data'
-import {load, loaded, loadingError} from '../../modules/catania/results/slice'
 import {
+  load,
+  loaded,
+  loadingError,
+  setIsActivated
+} from '../../modules/catania/results/slice'
+import {
+  selectIsActivated,
   selectIsLoaded,
   selectIsLoading
 } from '../../modules/catania/results/selectors'
@@ -21,11 +27,11 @@ const CataniaListPage = () => {
   const notifications = useNotifications()
 
   const dispatch = useAppDispatch()
+  const activated = useAppSelector(selectIsActivated)
   const isLoaded = useAppSelector(selectIsLoaded)
   const isLoading = useAppSelector(selectIsLoading)
 
   const effectRan = useRef<boolean>(false)
-  const [activated, setActivated] = useState<boolean>(true)
 
   const handleLoadData = useCallback(
     async (isActivated: boolean) => {
@@ -45,9 +51,10 @@ const CataniaListPage = () => {
   )
 
   const handleActivatedChange = useCallback(() => {
-    setActivated(!activated)
-    handleLoadData(!activated)
-  }, [activated, handleLoadData])
+    const updatedActived = !activated
+    dispatch(setIsActivated(updatedActived))
+    handleLoadData(updatedActived)
+  }, [activated, dispatch, handleLoadData])
 
   useEffect(() => {
     if (!effectRan.current && !isLoaded) {

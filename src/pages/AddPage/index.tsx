@@ -59,6 +59,7 @@ const AddPage = () => {
         color: newColor,
         count: Number(formElements.count.value),
         ISBN: Number(formElements.isbn.value),
+        isActivated: true,
         name: formElements.name.value
       })
       notifications.show(
