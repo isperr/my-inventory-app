@@ -44,10 +44,6 @@ const SearchPage = () => {
       color: {value?: string}
       isbn: {value?: string}
     }
-    console.log('submit', {
-      isbn: formElements.isbn?.value,
-      color: formElements.color?.value
-    })
 
     if (isColorSearch) {
       setTempColor(Number(formElements.color.value))

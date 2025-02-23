@@ -36,7 +36,6 @@ export const useAddCatania = () => {
   const isDisabled = isAdded || isAdding
 
   const onCreate = async (data: CreateItemDataType) => {
-    console.log('we ever here?', data)
     await setDoc(doc(db, 'catania', data.color.toString()), data).catch(
       error => {
         // error is handled within handleSubmit
@@ -64,7 +63,6 @@ export const useAddCatania = () => {
     onStartAdd()
     await onCreate(data)
       .then(docData => {
-        console.log('hopefully we here?')
         onSuccessfulAdd(docData)
       })
       .catch(error => {
