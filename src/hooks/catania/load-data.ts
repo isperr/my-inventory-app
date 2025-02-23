@@ -81,6 +81,7 @@ export const onLoadPreviewData = async () => {
   const collectionRef = collection(db, 'catania')
   const cataniaQuery = await query(
     collectionRef,
+    where('isActivated', '==', true),
     orderBy('color', 'asc'),
     limit(3)
   )
