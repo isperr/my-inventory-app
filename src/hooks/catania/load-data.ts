@@ -6,7 +6,8 @@ import {
   getFirestore,
   limit,
   orderBy,
-  query
+  query,
+  where
 } from 'firebase/firestore'
 
 const PREFXIES = ['.png', '.jpg']
@@ -50,13 +51,17 @@ const handleImageLoading = async (data: DocumentData[]) => {
   }))
 }
 
-export const onLoadData = async () => {
+export const onLoadData = async (isActivated: boolean) => {
   const db = getFirestore()
 
   const temp: DocumentData[] = []
 
   const collectionRef = collection(db, 'catania')
-  const cataniaQuery = await query(collectionRef, orderBy('color', 'asc'))
+  const cataniaQuery = await query(
+    collectionRef,
+    where('isActivated', '==', isActivated),
+    orderBy('color', 'asc')
+  )
   const snapshot = await getDocs(cataniaQuery).catch(error => {
     // error is handled within ListPage
     throw error

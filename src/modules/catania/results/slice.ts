@@ -48,6 +48,8 @@ export const cataniaState = createSlice({
     load: state => {
       state.isLoading = true
       state.isLoaded = false
+      state.data = []
+      state.error = null
     },
     loaded: (state, action: PayloadAction<CataniaDocumentData[]>) => {
       const resolved: Array<string> = []
