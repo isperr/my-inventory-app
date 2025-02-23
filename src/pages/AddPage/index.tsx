@@ -4,7 +4,18 @@ import {twMerge} from 'tailwind-merge'
 import {NumberField} from '@base-ui-components/react/number-field'
 import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
-import {Button, IconButton, Paper, TextField, Typography} from '@mui/material'
+import {
+  Button,
+  FormControl,
+  IconButton,
+  InputLabel,
+  ListSubheader,
+  MenuItem,
+  Paper,
+  Select,
+  TextField,
+  Typography
+} from '@mui/material'
 import {useNotifications} from '@toolpad/core'
 
 import FloatingButton from '../../atoms/FloatingButton'
@@ -53,11 +64,13 @@ const AddPage = () => {
     return {...cataniaDoc.data(), imgUrl: null}
   }
 
+  // TODO: handle adding accordingly depending on collection
   const handleSubmit = async (event: React.SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     const form = event.currentTarget
     const formElements = form.elements as typeof form.elements & {
+      collection: {value: string}
       color: {value: string}
       count: {value: string}
       isbn: {value: string}
@@ -102,7 +115,7 @@ const AddPage = () => {
     <PageTemplate className="h-fit gap-4">
       <Paper className="mx-6" elevation={0}>
         <Typography className="font-normal" color="textSecondary" variant="h6">
-          Wollknäuel in <b>Schachermayr Catania Color</b> hinzufügen:
+          Wollknäuel zum Wollbestand hinzufügen:
         </Typography>
       </Paper>
       <Paper
@@ -111,6 +124,23 @@ const AddPage = () => {
         elevation={0}
         onSubmit={handleSubmit}
       >
+        <FormControl required>
+          <InputLabel id="collection-label">Kollektion</InputLabel>
+          <Select
+            labelId="collection-label"
+            defaultValue="catania-color"
+            id="collection"
+            label="Kollektion"
+            required
+          >
+            <MenuItem value="">
+              <em>Keine Kollektion ausgewählt</em>
+            </MenuItem>
+            <ListSubheader>Schachermayr</ListSubheader>
+            <MenuItem value="catania-color">Catania Color</MenuItem>
+          </Select>
+        </FormControl>
+
         <TextField
           className="w-full"
           defaultValue={isbn}
