@@ -12,16 +12,7 @@ import {
 
 import {CataniaDocumentData} from '../../../modules/catania/results/slice'
 
-const UNKNOWN = 'UNBEKANNT'
-const TEST_NAME = 'test'
-
 const handleImageResolving = async (data: DocumentData, id: string) => {
-  // do not resolve for image if it name === "UNBEKANNT"
-  // or anything including "test" for now - should be removed later on
-  if (data.name === UNKNOWN || data.name.toLowerCase().includes(TEST_NAME)) {
-    return {...data, imgUrl: null}
-  }
-
   const storage = getStorage()
   const imgRef = ref(storage, `catania/${id}.png`)
   const temp = {...data}
@@ -31,6 +22,12 @@ const handleImageResolving = async (data: DocumentData, id: string) => {
       temp.imgUrl = url
     })
     .catch(error => {
+      // error.code reference https://firebase.google.com/docs/storage/web/handle-errors
+      // to take care of wool-images that does not have an img uploaded
+      if (error.code === 'storage/object-not-found') {
+        temp.imgUrl = null
+        return
+      }
       // error is handled within ColorPage
       throw error
     })
