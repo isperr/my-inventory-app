@@ -45,8 +45,10 @@ export const cataniaAddState = createSlice({
       const {data, isColorSearch} = action.payload
       if (isColorSearch) {
         state.color = data
+        state.isbn = undefined
       } else {
         state.isbn = data
+        state.color = undefined
       }
     },
     reset: state => {

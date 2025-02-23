@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useState} from 'react'
 import {useNavigate} from 'react-router'
 import {twMerge} from 'tailwind-merge'
 import {NumberField} from '@base-ui-components/react/number-field'
@@ -12,57 +12,33 @@ import {
   ListSubheader,
   MenuItem,
   Paper,
-  Select,
   TextField,
   Typography
 } from '@mui/material'
+import Select, {SelectChangeEvent} from '@mui/material/Select'
 import {useNotifications} from '@toolpad/core'
 
 import FloatingButton from '../../atoms/FloatingButton'
-import {
-  add,
-  added,
-  addingError,
-  reset,
-  selectIsAdded,
-  selectIsAdding,
-  selectIsbn,
-  selectColor
-} from '../../modules/catania/add/slice'
-import {insert as listInsert} from '../../modules/catania/results/slice'
-import {insert as homeInsert} from '../../modules/catania/home/slice'
 import PageTemplate from '../../templates/Page'
-import {useAppDispatch, useAppSelector} from '../../utils/store-hooks'
 import {getToastConfig} from '../../utils/toast/get-toast-config'
-import {doc, getDoc, getFirestore, setDoc} from 'firebase/firestore'
+import {useAdd} from './hooks/use-add'
+import {CollectionType} from '../../molecules/WoolListPreview'
 
 const AddPage = () => {
-  const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const notifications = useNotifications()
-  const db = getFirestore()
+  const [collection, setCollection] = useState<CollectionType | undefined>(
+    'catania'
+  )
 
-  const color = useAppSelector(selectColor)
-  const isbn = useAppSelector(selectIsbn)
-  const isAdding = useAppSelector(selectIsAdding)
-  const isAdded = useAppSelector(selectIsAdded)
-  const isDisabled = isAdded || isAdding
-
-  const createNewEntry = async (data: {
-    color: number
-    count: number
-    ISBN: number
-    name: string
-  }) => {
-    await setDoc(doc(db, 'catania', data.color.toString()), data).catch(
-      error => {
-        // error is handled within handleSubmit
-        throw error
-      }
-    )
-    const cataniaDoc = await getDoc(doc(db, 'catania', data.color.toString()))
-    return {...cataniaDoc.data(), imgUrl: null}
+  const handleCollectionChange = (
+    event: SelectChangeEvent<typeof collection>
+  ) => {
+    setCollection(event.target.value as typeof collection)
   }
+
+  const {color, isAdded, isAdding, isDisabled, isbn, handleAdd} =
+    useAdd(collection)
 
   // TODO: handle adding accordingly depending on collection
   const handleSubmit = async (event: React.SyntheticEvent<HTMLFormElement>) => {
@@ -78,38 +54,28 @@ const AddPage = () => {
     }
 
     try {
-      dispatch(add())
-      const newEntry = await createNewEntry({
-        color: Number(formElements.color.value),
+      const newColor = Number(formElements.color.value)
+      await handleAdd({
+        color: newColor,
         count: Number(formElements.count.value),
         ISBN: Number(formElements.isbn.value),
         name: formElements.name.value
       })
-      dispatch(added())
-      dispatch(listInsert(newEntry))
-      dispatch(homeInsert(newEntry))
       notifications.show(
-        'Das Wollknäuel wurde erfolgreich hinzugefügt. Du wirst gleich zur Scan-Seite geleitet.',
+        'Das Wollknäuel wurde erfolgreich hinzugefügt. Du wirst gleich zur Detail-Seite weitergeleitet.',
         getToastConfig({autoHideDuration: 3000, severity: 'success'})
       )
       setTimeout(() => {
         // navigate back after toast was shown.
-        navigate('/scan')
+        navigate(`/${collection}/${newColor}`)
       }, 3100)
     } catch (error) {
-      dispatch(addingError(error as Error))
       notifications.show(
         'Beim Hinzufügen des Wollknäuels ist leider ein Fehler aufgetreten.',
         getToastConfig({})
       )
     }
   }
-
-  useEffect(() => {
-    return () => {
-      dispatch(reset())
-    }
-  }, [])
 
   return (
     <PageTemplate className="h-fit gap-4">
@@ -128,16 +94,20 @@ const AddPage = () => {
           <InputLabel id="collection-label">Kollektion</InputLabel>
           <Select
             labelId="collection-label"
-            defaultValue="catania-color"
+            value={collection}
             id="collection"
             label="Kollektion"
             required
+            onChange={handleCollectionChange}
           >
             <MenuItem value="">
               <em>Keine Kollektion ausgewählt</em>
             </MenuItem>
             <ListSubheader>Schachermayr</ListSubheader>
-            <MenuItem value="catania-color">Catania Color</MenuItem>
+            <MenuItem value="catania">Catania</MenuItem>
+            <MenuItem disabled value="catania-color">
+              Catania Color <i>(coming soon)</i>
+            </MenuItem>
           </Select>
         </FormControl>
 
@@ -264,7 +234,7 @@ const AddPage = () => {
         </NumberField.Root>
 
         <Button
-          disabled={isAdded}
+          disabled={isAdded || !collection}
           loading={isAdding}
           size="small"
           type="submit"
@@ -274,7 +244,9 @@ const AddPage = () => {
         </Button>
       </Paper>
 
-      <FloatingButton position="secondary" icon="back" path="/scan" />
+      <FloatingButton position="secondary" icon="back" path="/scan">
+        Zur Suche
+      </FloatingButton>
       <FloatingButton />
     </PageTemplate>
   )
