@@ -91,7 +91,7 @@ const HomePage = () => {
             }}
             size="small"
           >
-            Sammlung ansehen
+            Gesamte Liste anzeigen
           </Button>
         </div>
       </div>

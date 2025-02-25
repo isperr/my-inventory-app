@@ -74,9 +74,7 @@ const SearchPage = () => {
   return (
     <PageTemplate className="h-fit gap-4">
       <Paper className="mx-6" elevation={0}>
-        <Typography color="textSecondary" variant="h6">
-          Wollknäuel scannen:
-        </Typography>
+        <Typography variant="h5">Wollknäuel scannen:</Typography>
       </Paper>
 
       <SearchInputs

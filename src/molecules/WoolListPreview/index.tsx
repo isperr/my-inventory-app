@@ -1,6 +1,6 @@
 import {memo} from 'react'
 import {useNavigate} from 'react-router'
-import {List, ListSubheader} from '@mui/material'
+import {List, ListSubheader, Typography} from '@mui/material'
 
 import {WoolListItemType} from '../WoolList/components/WoolListItem'
 import Loading from '../../atoms/ListPreview/Loading'
@@ -37,8 +37,14 @@ const WoolListPreview = ({
         className={listClassName}
         dense
         subheader={
-          <ListSubheader className="leading-snug font-normal">
-            {headerText}
+          <ListSubheader className="leading-snug">
+            <Typography
+              className="font-bold"
+              variant="subtitle1"
+              sx={{color: 'primary.dark'}}
+            >
+              {headerText}
+            </Typography>
           </ListSubheader>
         }
       >

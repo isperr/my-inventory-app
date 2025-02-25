@@ -14,7 +14,11 @@ const ColorText = ({heading, text}: ColorTextProps) => {
     )
   }
   if (!heading) {
-    return <Typography color="primary">{text}</Typography>
+    return (
+      <Typography color="primary" variant="subtitle1">
+        {text}
+      </Typography>
+    )
   }
 
   return (
