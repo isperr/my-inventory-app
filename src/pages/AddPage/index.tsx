@@ -21,8 +21,8 @@ import {useNotifications} from '@toolpad/core'
 import FloatingButton from '../../atoms/FloatingButton'
 import PageTemplate from '../../templates/Page'
 import {getToastConfig} from '../../utils/toast/get-toast-config'
+import {CollectionType} from '../HomePage/types'
 import {useAdd} from './hooks/use-add'
-import {CollectionType} from '../../molecules/WoolListPreview'
 
 const AddPage = () => {
   const navigate = useNavigate()

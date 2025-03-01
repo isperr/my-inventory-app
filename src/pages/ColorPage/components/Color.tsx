@@ -26,7 +26,7 @@ import {selectIsUpdatingType} from '../../../modules/catania/results/selectors'
 import {useAppSelector} from '../../../utils/store-hooks'
 import {getToastConfig} from '../../../utils/toast/get-toast-config'
 
-import ColorText from './ColorText'
+import ColorText from '../../../molecules/WoolDetail/components/ColorText'
 import CountButton from './CountButton'
 
 const TOAST_TEXT = {

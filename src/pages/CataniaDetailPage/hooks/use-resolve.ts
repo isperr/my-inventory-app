@@ -28,7 +28,7 @@ const handleImageResolving = async (data: DocumentData, id: string) => {
         temp.imgUrl = null
         return
       }
-      // error is handled within ColorPage
+      // error is handled within CataniaDetailPage
       throw error
     })
 
@@ -40,7 +40,7 @@ export const onResolveData = async (id: string) => {
 
   const docRef = doc(db, 'catania', id)
   const docSnap = await getDoc(docRef).catch(error => {
-    // error is handled within ColorPage
+    // error is handled within CataniaDetailPage
     throw error
   })
   const data = docSnap.data()
@@ -66,7 +66,7 @@ export const onResolveDataByGivenData = async ({
     : query(cataniaRef, where('ISBN', '==', data))
 
   const woolSnaps = await getDocs(woolQuery).catch(error => {
-    // error is handled within ColorPage
+    // error is handled within CataniaDetailPage
     throw error
   })
   const temp: DocumentData[] = []

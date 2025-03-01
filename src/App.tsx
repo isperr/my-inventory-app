@@ -8,7 +8,7 @@ import HomePage from './pages/HomePage'
 import ScanPage from './pages/ScanPage'
 import CollectionPage from './pages/CollectionPage'
 import AddPage from './pages/AddPage'
-import ColorPage from './pages/ColorPage'
+import CataniaDetailPage from './pages/CataniaDetailPage'
 import SearchPage from './pages/SearchPage'
 import CataniaListPage from './pages/CataniaListPage'
 
@@ -22,7 +22,7 @@ const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="catania" element={<CollectionPage />}>
             <Route index element={<CataniaListPage />} />
-            <Route path=":color" element={<ColorPage />} />
+            <Route path=":color" element={<CataniaDetailPage />} />
           </Route>
           <Route path="scan" element={<ScanPage />}>
             <Route index element={<SearchPage />} />

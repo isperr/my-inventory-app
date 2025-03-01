@@ -13,7 +13,7 @@ import {useAppDispatch, useAppSelector} from '../../../utils/store-hooks'
 import {setIsbnOrColor} from '../../../modules/catania/add/slice'
 import {useNotifications} from '@toolpad/core'
 import {getToastConfig} from '../../../utils/toast/get-toast-config'
-import {onResolveDataByGivenData} from '../../ColorPage/hooks/use-resolve'
+import {onResolveDataByGivenData} from '../../CataniaDetailPage/hooks/use-resolve'
 
 export const useLoadCataniaColorData = () => {
   const dispatch = useAppDispatch()

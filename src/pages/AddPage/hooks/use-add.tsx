@@ -1,4 +1,5 @@
-import {CollectionType} from '../../../molecules/WoolListPreview'
+import {CollectionType} from '../../HomePage/types'
+
 import {useAddCatania} from './use-add-catania'
 
 export const useAdd = (collection?: CollectionType) => {

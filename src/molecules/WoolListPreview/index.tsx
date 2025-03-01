@@ -2,12 +2,13 @@ import {memo} from 'react'
 import {useNavigate} from 'react-router'
 import {List, ListSubheader, Typography} from '@mui/material'
 
-import {WoolListItemType} from '../WoolList/components/WoolListItem'
 import Loading from '../../atoms/ListPreview/Loading'
 import ErrorComponent from '../../atoms/ListPreview/Error'
 import Item from '../../atoms/ListPreview/Item'
+import {CollectionType} from '../../pages/HomePage/types'
 
-export type CollectionType = 'catania'
+import {WoolListItemType} from '../WoolList/components/WoolListItem'
+
 export type WoolListPreviewProps = {
   collection: CollectionType
   data: WoolListItemType[]

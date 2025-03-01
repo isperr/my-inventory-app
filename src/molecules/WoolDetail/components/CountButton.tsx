@@ -1,4 +1,4 @@
-import {memo, useCallback} from 'react'
+import {memo, useCallback, useMemo} from 'react'
 import {twMerge} from 'tailwind-merge'
 import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
@@ -13,7 +13,6 @@ export type CountButtonProps = {
   isDisabled: boolean
   isLoading: boolean
   onClick: (updatedCount: number, type: 'add' | 'remove') => void
-  text: string
   type: 'add' | 'remove'
 }
 
@@ -23,16 +22,25 @@ const CountButton = ({
   isDisabled,
   isLoading,
   onClick,
-  text,
   type
 }: CountButtonProps) => {
   const handleClick = useCallback(() => {
     onClick(type === 'add' ? count + 1 : count - 1, type)
   }, [count, onClick, type])
 
+  const text = useMemo(() => {
+    if (type === 'add') {
+      return 'Knäul hinzufügen:'
+    }
+    if (type === 'remove') {
+      return 'Knäul entfernen:'
+    }
+    return null
+  }, [type])
+
   return (
     <div className="flex flex-col items-center gap-4">
-      <ColorText text={text} />
+      {text && <ColorText text={text} />}
       <div className="relative">
         <IconButton
           aria-label={ariaLabel}
