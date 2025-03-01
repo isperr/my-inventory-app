@@ -1,5 +1,6 @@
 import {useCallback, useEffect} from 'react'
 import {doc, getDoc, getFirestore, setDoc} from 'firebase/firestore'
+import {getStorage, ref, uploadBytes} from 'firebase/storage'
 
 import {
   add,
@@ -47,6 +48,18 @@ export const useAddCatania = () => {
     return {...cataniaDoc.data(), imgUrl: null}
   }
 
+  const onCreateImage = async ({color, file}: {color: number; file?: File}) => {
+    if (!file) {
+      return
+    }
+    const storage = getStorage()
+    const storageRef = ref(storage, `catania/${color}.png`)
+
+    await uploadBytes(storageRef, file).catch(error => {
+      throw error
+    })
+  }
+
   const onStartAdd = useCallback(() => {
     dispatch(add())
   }, [dispatch])
@@ -60,10 +73,11 @@ export const useAddCatania = () => {
     [dispatch]
   )
 
-  const handleAdd = async (data: CreateItemDataType) => {
+  const handleAdd = async (data: CreateItemDataType, file?: File) => {
     onStartAdd()
     await onCreate(data)
-      .then(docData => {
+      .then(async docData => {
+        await onCreateImage({color: data.color, file})
         onSuccessfulAdd(docData)
       })
       .catch(error => {
