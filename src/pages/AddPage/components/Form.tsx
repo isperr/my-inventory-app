@@ -45,13 +45,14 @@ const Form = ({
   >
     <UploadButton />
 
-    <FormControl required>
+    <FormControl id="collection-form" required>
       <InputLabel id="collection-label">Kollektion</InputLabel>
       <Select
         labelId="collection-label"
         value={collection}
         id="collection"
         label="Kollektion"
+        name="collection"
         required
         onChange={handleCollectionChange}
       >
@@ -60,9 +61,7 @@ const Form = ({
         </MenuItem>
         <ListSubheader>Schachermayr</ListSubheader>
         <MenuItem value="catania">Catania</MenuItem>
-        <MenuItem disabled value="catania-color">
-          Catania Color <i>(coming soon)</i>
-        </MenuItem>
+        <MenuItem value="catania-color">Catania Color</MenuItem>
       </Select>
     </FormControl>
 

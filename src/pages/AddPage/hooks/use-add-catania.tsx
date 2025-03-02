@@ -2,6 +2,7 @@ import {useCallback, useEffect} from 'react'
 import {doc, getDoc, getFirestore, setDoc} from 'firebase/firestore'
 import {getStorage, ref, uploadBytes} from 'firebase/storage'
 
+import {CollectionType} from '../../HomePage/types'
 import {
   add,
   added,
@@ -12,20 +13,14 @@ import {
   selectIsbn,
   selectColor
 } from '../../../modules/catania/add/slice'
+import {insert as colorHomeInsert} from '../../../modules/catania-color/home/slice'
+import {insert as colorListInsert} from '../../../modules/catania-color/results/slice'
 import {insert as homeInsert} from '../../../modules/catania/home/slice'
-import {
-  CataniaDocumentData,
-  insert as listInsert
-} from '../../../modules/catania/results/slice'
+import {insert as listInsert} from '../../../modules/catania/results/slice'
+import {CataniaDocumentData} from '../../../modules/catania/types'
 import {useAppDispatch, useAppSelector} from '../../../utils/store-hooks'
 
-type CreateItemDataType = {
-  color: number
-  count: number
-  ISBN: number
-  isActivated: boolean
-  name: string
-}
+import {CreateItemDataType} from './use-add'
 
 export const useAddCatania = () => {
   const dispatch = useAppDispatch()
@@ -37,23 +32,34 @@ export const useAddCatania = () => {
   const isAdded = useAppSelector(selectIsAdded)
   const isDisabled = isAdded || isAdding
 
-  const onCreate = async (data: CreateItemDataType) => {
-    await setDoc(doc(db, 'catania', data.color.toString()), data).catch(
+  const onCreate = async (
+    data: CreateItemDataType,
+    collection: CollectionType
+  ) => {
+    await setDoc(doc(db, collection, data.color.toString()), data).catch(
       error => {
         // error is handled within handleSubmit
         throw error
       }
     )
-    const cataniaDoc = await getDoc(doc(db, 'catania', data.color.toString()))
+    const cataniaDoc = await getDoc(doc(db, collection, data.color.toString()))
     return {...cataniaDoc.data(), imgUrl: null}
   }
 
-  const onCreateImage = async ({color, file}: {color: number; file?: File}) => {
+  const onCreateImage = async ({
+    collection,
+    color,
+    file
+  }: {
+    collection: CollectionType
+    color: number
+    file?: File
+  }) => {
     if (!file) {
       return
     }
     const storage = getStorage()
-    const storageRef = ref(storage, `catania/${color}.png`)
+    const storageRef = ref(storage, `${collection}/${color}.png`)
 
     await uploadBytes(storageRef, file).catch(error => {
       throw error
@@ -65,20 +71,33 @@ export const useAddCatania = () => {
   }, [dispatch])
 
   const onSuccessfulAdd = useCallback(
-    (data: CataniaDocumentData) => {
+    (data: CataniaDocumentData, collection: CollectionType) => {
       dispatch(added())
-      dispatch(listInsert(data))
-      dispatch(homeInsert(data))
+      if (collection === 'catania') {
+        dispatch(listInsert(data))
+        dispatch(homeInsert(data))
+      } else if (collection === 'catania-color') {
+        dispatch(colorListInsert(data))
+        dispatch(colorHomeInsert(data))
+      }
     },
     [dispatch]
   )
 
-  const handleAdd = async (data: CreateItemDataType, file?: File) => {
+  const handleAdd = async ({
+    collection,
+    data,
+    file
+  }: {
+    collection: CollectionType
+    data: CreateItemDataType
+    file?: File
+  }) => {
     onStartAdd()
-    await onCreate(data)
+    await onCreate(data, collection)
       .then(async docData => {
-        await onCreateImage({color: data.color, file})
-        onSuccessfulAdd(docData)
+        await onCreateImage({collection, color: data.color, file})
+        onSuccessfulAdd(docData, collection)
       })
       .catch(error => {
         dispatch(addingError(error as Error))

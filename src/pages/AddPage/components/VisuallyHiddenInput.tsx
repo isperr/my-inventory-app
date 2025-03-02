@@ -9,7 +9,6 @@ const VisuallyHiddenInput = () => {
     const files = (event.target as HTMLInputElement).files
 
     if (files?.length) {
-      console.log('FILES', typeof files[0])
       setPreview(URL.createObjectURL(files[0]))
     }
   }

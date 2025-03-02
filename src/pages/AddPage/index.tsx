@@ -43,20 +43,19 @@ const AddPage = () => {
       name: {value: string}
     }
 
-    console.log(formElements.image.files, formElements.image.files[0])
-
     try {
       const newColor = Number(formElements.color.value)
-      await handleAdd(
-        {
+      await handleAdd({
+        collection: formElements.collection.value as CollectionType,
+        data: {
           color: newColor,
           count: Number(formElements.count.value),
           ISBN: Number(formElements.isbn.value),
           isActivated: true,
           name: formElements.name.value
         },
-        formElements.image.files[0]
-      )
+        file: formElements.image.files[0]
+      })
       notifications.show(
         'Das Wollknäuel wurde erfolgreich hinzugefügt. Du wirst gleich zur Detail-Seite weitergeleitet.',
         getToastConfig({autoHideDuration: 3000, severity: 'success'})
