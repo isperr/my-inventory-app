@@ -5,6 +5,9 @@ import cataniaAddReducer from '../modules/catania/add/slice'
 import cataniaReducer from '../modules/catania/results/slice'
 import cataniaHomeReducer from '../modules/catania/home/slice'
 import cataniaSearchReducer from '../modules/catania/search/slice'
+import cataniaColorReducer from '../modules/catania-color/results/slice'
+import cataniaColorHomeReducer from '../modules/catania-color/home/slice'
+import cataniaColorSearchReducer from '../modules/catania-color/search/slice'
 
 export const store = configureStore({
   reducer: {
@@ -12,12 +15,22 @@ export const store = configureStore({
     catania: cataniaReducer,
     cataniaAdd: cataniaAddReducer,
     cataniaHome: cataniaHomeReducer,
-    cataniaSearch: cataniaSearchReducer
+    cataniaSearch: cataniaSearchReducer,
+    cataniaColor: cataniaColorReducer,
+    cataniaColorHome: cataniaColorHomeReducer,
+    cataniaColorSearch: cataniaColorSearchReducer
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: ['cataniaSearch/loadingError'],
+        ignoredActions: [
+          'cataniaColorHome/loadingError',
+          'cataniaColorResults/loadingError',
+          'cataniaColorSearch/loadingError',
+          'cataniaHome/loadingError',
+          'cataniaResults/loadingError',
+          'cataniaSearch/loadingError'
+        ],
         ignoredActionPaths: ['payload']
       }
     })
