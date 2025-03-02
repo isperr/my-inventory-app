@@ -21,8 +21,21 @@ const App = () => {
         <>
           <Route path="/" element={<HomePage />} />
           <Route path="catania" element={<CollectionPage />}>
-            <Route index element={<CataniaListPage />} />
-            <Route path=":color" element={<CataniaDetailPage />} />
+            <Route index element={<CataniaListPage collection="catania" />} />
+            <Route
+              path=":color"
+              element={<CataniaDetailPage collection="catania" />}
+            />
+          </Route>
+          <Route path="catania-color" element={<CollectionPage />}>
+            <Route
+              index
+              element={<CataniaListPage collection="catania-color" />}
+            />
+            <Route
+              path=":color"
+              element={<CataniaDetailPage collection="catania-color" />}
+            />
           </Route>
           <Route path="scan" element={<ScanPage />}>
             <Route index element={<SearchPage />} />
