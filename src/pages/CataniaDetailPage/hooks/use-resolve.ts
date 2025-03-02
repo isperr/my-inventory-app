@@ -10,11 +10,16 @@ import {
   where
 } from 'firebase/firestore'
 
-import {CataniaDocumentData} from '../../../modules/catania/results/slice'
+import {CataniaDocumentData} from '../../../modules/catania/types'
+import {CollectionType} from '../../HomePage/types'
 
-const handleImageResolving = async (data: DocumentData, id: string) => {
+const handleImageResolving = async (
+  data: DocumentData,
+  id: string,
+  collectionName: CollectionType
+) => {
   const storage = getStorage()
-  const imgRef = ref(storage, `catania/${id}.png`)
+  const imgRef = ref(storage, `${collectionName}/${id}.png`)
   const temp = {...data}
 
   await getDownloadURL(imgRef)
@@ -35,10 +40,13 @@ const handleImageResolving = async (data: DocumentData, id: string) => {
   return temp as CataniaDocumentData
 }
 
-export const onResolveData = async (id: string) => {
+export const onResolveData = async (
+  id: string,
+  collectionName: CollectionType
+) => {
   const db = getFirestore()
 
-  const docRef = doc(db, 'catania', id)
+  const docRef = doc(db, collectionName, id)
   const docSnap = await getDoc(docRef).catch(error => {
     // error is handled within CataniaDetailPage
     throw error
@@ -49,18 +57,20 @@ export const onResolveData = async (id: string) => {
     return undefined
   }
 
-  return await handleImageResolving(data, id)
+  return await handleImageResolving(data, id, collectionName)
 }
 
 export const onResolveDataByGivenData = async ({
+  collectionName,
   data,
   isColorSearch
 }: {
+  collectionName: CollectionType
   data: number
   isColorSearch: boolean
 }) => {
   const db = getFirestore()
-  const cataniaRef = collection(db, 'catania')
+  const cataniaRef = collection(db, collectionName)
   const woolQuery = isColorSearch
     ? query(cataniaRef, where('color', '==', data))
     : query(cataniaRef, where('ISBN', '==', data))
@@ -78,5 +88,9 @@ export const onResolveDataByGivenData = async ({
     return undefined
   }
 
-  return await handleImageResolving(temp[0], temp[0].color.toString())
+  return await handleImageResolving(
+    temp[0],
+    temp[0].color.toString(),
+    collectionName
+  )
 }
