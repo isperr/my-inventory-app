@@ -1,5 +1,5 @@
 import {useNotifications} from '@toolpad/core'
-import {UpdatingType} from '../../../modules/catania/results/slice'
+import {UpdatingType} from '../../../modules/catania/types'
 import {getToastConfig} from '../../../utils/toast/get-toast-config'
 import {TOAST_TEXT} from '../constants'
 
