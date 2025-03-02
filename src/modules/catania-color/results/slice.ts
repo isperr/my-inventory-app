@@ -1,9 +1,13 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 
-import {CataniaDocumentData, CataniaEntityType, UpdatingType} from '../types'
+import {
+  CataniaDocumentData,
+  CataniaEntityType,
+  UpdatingType
+} from '../../catania/types'
 
 // Define a type for the slice state
-interface CataniaState {
+interface CataniaColorState {
   data: CataniaDocumentData[]
   entities: CataniaEntityType
   error: Error | null
@@ -21,7 +25,7 @@ interface CataniaState {
 }
 
 // Define the initial state using that type
-const initialState: CataniaState = {
+const initialState: CataniaColorState = {
   data: [],
   entities: {},
   error: null,
@@ -36,8 +40,8 @@ const initialState: CataniaState = {
   updatingError: null
 }
 
-export const cataniaState = createSlice({
-  name: 'cataniaResults',
+export const cataniaColorState = createSlice({
+  name: 'cataniaColorResults',
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
@@ -51,13 +55,10 @@ export const cataniaState = createSlice({
       const resolved: Array<string> = []
       state.data = action.payload
 
-      state.entities = {
-        ...state.entities,
-        ...action.payload.reduce((acc, item) => {
-          resolved.push(item.color.toString())
-          return {...acc, [item.color]: item}
-        }, {})
-      }
+      state.entities = action.payload.reduce((acc, item) => {
+        resolved.push(item.color.toString())
+        return {...acc, [item.color]: item}
+      }, {})
 
       state.isLoaded = true
       state.isLoading = false
@@ -179,6 +180,6 @@ export const {
   updateError,
   updated,
   setIsActivated
-} = cataniaState.actions
+} = cataniaColorState.actions
 
-export default cataniaState.reducer
+export default cataniaColorState.reducer

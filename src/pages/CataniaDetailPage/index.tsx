@@ -4,25 +4,16 @@ import {useParams} from 'react-router'
 import FloatingButton from '../../atoms/FloatingButton'
 import WoolDetailContent from '../../molecules/WoolDetailContent'
 import WoolDetail from '../../molecules/WoolDetail'
-import {
-  resolve,
-  resolved,
-  resolvingError
-} from '../../modules/catania/results/slice'
-import {
-  selectHasResolveError,
-  selectIsIdResolved,
-  selectIsIdResolving,
-  selectResolveData
-} from '../../modules/catania/results/selectors'
 import PageTemplate from '../../templates/Page'
 import {useAppDispatch, useAppSelector} from '../../utils/store-hooks'
 
 import {onResolveData} from './hooks/use-resolve'
 import {useUpdate} from './hooks/use-update'
 import {useToasts} from './hooks/use-toats'
+import {CollectionType} from '../HomePage/types'
+import {getResolveActions, getResolveSelectors} from './utils/get-slice'
 
-const CataniaDetailPage = () => {
+const CataniaDetailPage = ({collection}: {collection: CollectionType}) => {
   const dispatch = useAppDispatch()
   const {resolveErrorToast} = useToasts()
 
@@ -31,12 +22,20 @@ const CataniaDetailPage = () => {
   const id = params?.color
 
   const {isUpdatingAdd, isUpdatingRemove, onUpdateCount, onConfirmActivate} =
-    useUpdate(id)
+    useUpdate(collection, id)
 
+  const {
+    selectHasResolveError,
+    selectIsIdResolved,
+    selectIsIdResolving,
+    selectResolveData
+  } = getResolveSelectors(collection)
   const item = useAppSelector(selectResolveData(id))
   const isResolved = useAppSelector(selectIsIdResolved(id))
   const isResolving = useAppSelector(selectIsIdResolving(id))
   const hasResolveError = useAppSelector(selectHasResolveError(id))
+
+  const {resolve, resolved, resolvingError} = getResolveActions(collection)
 
   const handleResolveData = useCallback(async () => {
     if (!params?.color) {
@@ -44,13 +43,13 @@ const CataniaDetailPage = () => {
     }
     try {
       dispatch(resolve(params.color))
-      const data = await onResolveData(params.color)
+      const data = await onResolveData(params.color, collection)
       dispatch(resolved({data, id: params.color}))
     } catch (error) {
       dispatch(resolvingError({error: error as Error, id: params.color}))
       resolveErrorToast()
     }
-  }, [])
+  }, [collection])
 
   useEffect(() => {
     if (!effectRan.current && !isResolved) {
@@ -65,7 +64,7 @@ const CataniaDetailPage = () => {
   return (
     <PageTemplate className="h-fit my-10 gap-12">
       <WoolDetailContent
-        collection="catania"
+        collection={collection}
         hasResolveError={hasResolveError}
         id={id}
         isResolved={isResolved}
@@ -79,7 +78,7 @@ const CataniaDetailPage = () => {
             isActivated={item.isActivated}
             isbn={item.ISBN}
             name={item.name}
-            collection="catania"
+            collection={collection}
             isAddDisabled={isUpdatingAdd || isUpdatingRemove}
             isAdding={isUpdatingAdd}
             isSubtractDisabled={isUpdatingAdd || isUpdatingRemove}
@@ -89,7 +88,7 @@ const CataniaDetailPage = () => {
           />
         )}
       </WoolDetailContent>
-      <FloatingButton position="secondary" icon="back" path="/catania">
+      <FloatingButton position="secondary" icon="back" path={`/${collection}`}>
         Zur Liste
       </FloatingButton>
       <FloatingButton />

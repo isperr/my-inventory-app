@@ -2,10 +2,10 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 
 import {RootState} from '../../../utils/store'
 
-import {CataniaDocumentData} from '../types'
+import {CataniaDocumentData} from '../../catania/types'
 
 // Define a type for the slice state
-interface CataniaHomeState {
+interface CataniaColorSearchState {
   data: CataniaDocumentData[]
   error: Error | null
   isLoaded: boolean
@@ -13,15 +13,15 @@ interface CataniaHomeState {
 }
 
 // Define the initial state using that type
-const initialState: CataniaHomeState = {
+const initialState: CataniaColorSearchState = {
   data: [],
   error: null,
   isLoaded: false,
   isLoading: false
 }
 
-export const cataniaSearchState = createSlice({
-  name: 'cataniaSearch',
+export const cataniaColorSearchState = createSlice({
+  name: 'cataniaColorSearch',
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
@@ -51,13 +51,15 @@ export const cataniaSearchState = createSlice({
   }
 })
 
-export const {load, loaded, loadingError, reset} = cataniaSearchState.actions
+export const {load, loaded, loadingError, reset} =
+  cataniaColorSearchState.actions
 
 // Other code such as selectors can use the imported `RootState` type
-export const selectData = (state: RootState) => state.cataniaSearch.data
-export const selectIsLoaded = (state: RootState) => state.cataniaSearch.isLoaded
+export const selectData = (state: RootState) => state.cataniaColorSearch.data
+export const selectIsLoaded = (state: RootState) =>
+  state.cataniaColorSearch.isLoaded
 export const selectIsLoading = (state: RootState) =>
-  state.cataniaSearch.isLoading
-export const selectError = (state: RootState) => state.cataniaSearch.error
+  state.cataniaColorSearch.isLoading
+export const selectError = (state: RootState) => state.cataniaColorSearch.error
 
-export default cataniaSearchState.reducer
+export default cataniaColorSearchState.reducer

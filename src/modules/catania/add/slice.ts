@@ -2,6 +2,8 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 
 import {RootState} from '../../../utils/store'
 
+/* USED FOR CATANIA (+ CATANIA COLOR) */
+
 // Define a type for the slice state
 interface CataniaAddState {
   color?: number

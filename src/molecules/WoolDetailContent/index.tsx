@@ -49,7 +49,7 @@ const WoolDetailContent = ({
   if (isResolved && !children) {
     return (
       <PageText>
-        Ein Wollknäuel mit der Farbe "{id}" existiert leider nicht in der
+        Ein Wollknäuel mit der Farbe "{id}" existiert leider nicht in der{' '}
         {collectionNames[collection]} Sammlung.
       </PageText>
     )

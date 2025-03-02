@@ -1,10 +1,10 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 
-import {CataniaDocumentData, CataniaEntityType} from '../types'
+import {CataniaDocumentData, CataniaEntityType} from '../../catania/types'
 import {RootState} from '../../../utils/store'
 
 // Define a type for the slice state
-interface CataniaHomeState {
+interface CataniaColorHomeState {
   data: CataniaDocumentData[]
   entities: CataniaEntityType
   error: Error | null
@@ -13,7 +13,7 @@ interface CataniaHomeState {
 }
 
 // Define the initial state using that type
-const initialState: CataniaHomeState = {
+const initialState: CataniaColorHomeState = {
   data: [],
   entities: {},
   error: null,
@@ -21,8 +21,8 @@ const initialState: CataniaHomeState = {
   isLoading: false
 }
 
-export const cataniaHomeState = createSlice({
-  name: 'cataniaHome',
+export const cataniaColorHomeState = createSlice({
+  name: 'cataniaColorHome',
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
@@ -63,13 +63,17 @@ export const cataniaHomeState = createSlice({
   }
 })
 
-export const {load, loaded, loadingError, insert} = cataniaHomeState.actions
+export const {load, loaded, loadingError, insert} =
+  cataniaColorHomeState.actions
 
 // Other code such as selectors can use the imported `RootState` type
-export const selectData = (state: RootState) => state.cataniaHome.data
-export const selectEntities = (state: RootState) => state.cataniaHome.entities
-export const selectIsLoaded = (state: RootState) => state.cataniaHome.isLoaded
-export const selectIsLoading = (state: RootState) => state.cataniaHome.isLoading
-export const selectError = (state: RootState) => state.cataniaHome.error
+export const selectData = (state: RootState) => state.cataniaColorHome.data
+export const selectEntities = (state: RootState) =>
+  state.cataniaColorHome.entities
+export const selectIsLoaded = (state: RootState) =>
+  state.cataniaColorHome.isLoaded
+export const selectIsLoading = (state: RootState) =>
+  state.cataniaColorHome.isLoading
+export const selectError = (state: RootState) => state.cataniaColorHome.error
 
-export default cataniaHomeState.reducer
+export default cataniaColorHomeState.reducer

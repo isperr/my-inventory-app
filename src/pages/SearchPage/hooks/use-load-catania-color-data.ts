@@ -1,23 +1,22 @@
 import {useCallback} from 'react'
-import {
-  load,
-  loaded,
-  loadingError,
-  selectData,
-  selectError,
-  selectIsLoaded,
-  selectIsLoading
-} from '../../../modules/catania/search/slice'
+import {useNotifications} from '@toolpad/core'
+
 import {resolved} from '../../../modules/catania/results/slice'
 import {useAppDispatch, useAppSelector} from '../../../utils/store-hooks'
 import {setIsbnOrColor} from '../../../modules/catania/add/slice'
-import {useNotifications} from '@toolpad/core'
 import {getToastConfig} from '../../../utils/toast/get-toast-config'
 import {onResolveDataByGivenData} from '../../CataniaDetailPage/hooks/use-resolve'
+import {CollectionType} from '../../HomePage/types'
 
-export const useLoadCataniaColorData = () => {
+import {getActions, getSelectors} from '../utils/get-slice'
+
+export const useLoadCataniaColorData = (collection: CollectionType) => {
   const dispatch = useAppDispatch()
   const notifications = useNotifications()
+
+  const {load, loaded, loadingError} = getActions(collection)
+  const {selectData, selectError, selectIsLoaded, selectIsLoading} =
+    getSelectors(collection)
 
   const data = useAppSelector(selectData)
   const error = useAppSelector(selectError)
@@ -29,6 +28,7 @@ export const useLoadCataniaColorData = () => {
       try {
         dispatch(load())
         const searchData = await onResolveDataByGivenData({
+          collectionName: collection,
           data: num,
           isColorSearch
         })
@@ -47,12 +47,14 @@ export const useLoadCataniaColorData = () => {
         )
       }
     },
-    []
+    [collection]
   )
 
+  const hasError = Boolean(error)
   return {
     data,
-    hasError: Boolean(error),
+    hasError,
+    hasNoData: !hasError && isLoaded && !data.length,
     isLoaded,
     isLoading,
     onLoadData
