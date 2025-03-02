@@ -25,11 +25,20 @@ const SearchPage = () => {
 
   const {
     data: cataniaData,
+    hasError: hasCataniaError,
+    hasNoData: hasNoCataniaData,
+    isLoaded: isCataniaLoaded,
+    isLoading: isCataniaLoading,
+    onLoadData: onLoadCataniaData
+  } = useLoadCataniaColorData('catania')
+  const {
+    data: cataniaColorData,
     hasError: hasCataniaColorError,
+    hasNoData: hasNoCataniaColorData,
     isLoaded: isCataniaColorLoaded,
     isLoading: isCataniaColorLoading,
     onLoadData: onLoadCataniaColorData
-  } = useLoadCataniaColorData()
+  } = useLoadCataniaColorData('catania-color')
 
   const [isColorSearch, setIsColorSearch] = useState<boolean>(false)
   const handleSearchTypeChange = useCallback(() => {
@@ -50,6 +59,13 @@ const SearchPage = () => {
     } else {
       setTempIsbn(Number(formElements.isbn.value))
     }
+
+    await onLoadCataniaData({
+      isColorSearch,
+      num: isColorSearch
+        ? Number(formElements.color.value)
+        : Number(formElements.isbn.value)
+    })
 
     await onLoadCataniaColorData({
       isColorSearch,
@@ -86,31 +102,41 @@ const SearchPage = () => {
       <WoolListPreview
         collection="catania"
         data={cataniaData as WoolListItemType[]}
-        hasError={hasCataniaColorError}
-        headerText="Schachermayr Catania"
+        hasError={hasCataniaError}
         isLoading={false}
         listClassName={twMerge(
           'px-2',
           // only show header & list when data is loaded and has items in list
-          !(isCataniaColorLoaded && Boolean(cataniaData.length)) && 'hidden'
+          !(isCataniaLoaded && Boolean(cataniaData.length)) && 'hidden'
+        )}
+      />
+
+      <WoolListPreview
+        collection="catania-color"
+        data={cataniaColorData as WoolListItemType[]}
+        hasError={hasCataniaColorError}
+        isLoading={false}
+        listClassName={twMerge(
+          'px-2',
+          // only show header & list when data is loaded and has items in list
+          !(isCataniaColorLoaded && Boolean(cataniaColorData.length)) &&
+            'hidden'
         )}
       />
 
       {
-        isCataniaColorLoading && (
+        (isCataniaLoading || isCataniaColorLoading) && (
           <Loading />
         ) /* should be expanded to isLoading from different wool types */
       }
       {
-        !hasCataniaColorError &&
-          isCataniaColorLoaded &&
-          !cataniaData.length && (
-            <NotInList
-              color={tempColor}
-              isbn={tempIsbn}
-              onClick={handleAddCataniaClick}
-            />
-          ) /* should be expanded to isLoading from different wool types */
+        hasNoCataniaData && hasNoCataniaColorData && (
+          <NotInList
+            color={tempColor}
+            isbn={tempIsbn}
+            onClick={handleAddCataniaClick}
+          />
+        ) /* should be expanded to isLoading from different wool types */
       }
 
       <FloatingButton />

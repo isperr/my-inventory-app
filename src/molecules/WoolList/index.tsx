@@ -16,7 +16,7 @@ export type WoolListProps = {
 
 const WoolList = ({data, error, isLoading, link}: WoolListProps) => {
   if (isLoading) {
-    return <Loading />
+    return <Loading className="min-h-[65vh]" />
   }
 
   if (data.length) {

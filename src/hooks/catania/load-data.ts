@@ -9,6 +9,7 @@ import {
   query,
   where
 } from 'firebase/firestore'
+import {CollectionType} from '../../pages/HomePage/types'
 
 const PREFXIES = ['.png', '.jpg']
 const UNKNOWN = 'UNBEKANNT'
@@ -17,9 +18,12 @@ export type ImageRefObj = {
   [key: string]: string
 }
 
-const handleImageLoading = async (data: DocumentData[]) => {
+const handleImageLoading = async (
+  data: DocumentData[],
+  collectionName: CollectionType
+) => {
   const storage = getStorage()
-  const listRef = ref(storage, 'catania')
+  const listRef = ref(storage, collectionName)
   const imgObj: ImageRefObj = {}
   const allowedColors = data.map(it => it.color.toString())
 
@@ -51,12 +55,15 @@ const handleImageLoading = async (data: DocumentData[]) => {
   }))
 }
 
-export const onLoadData = async (isActivated: boolean) => {
+export const onLoadData = async (
+  isActivated: boolean,
+  collectionName: CollectionType
+) => {
   const db = getFirestore()
 
   const temp: DocumentData[] = []
 
-  const collectionRef = collection(db, 'catania')
+  const collectionRef = collection(db, collectionName)
   const cataniaQuery = await query(
     collectionRef,
     where('isActivated', '==', isActivated),
@@ -70,15 +77,15 @@ export const onLoadData = async (isActivated: boolean) => {
     temp.push(doc.data())
   })
 
-  return await handleImageLoading(temp)
+  return await handleImageLoading(temp, collectionName)
 }
 
-export const onLoadPreviewData = async () => {
+export const onLoadPreviewData = async (collectionName: CollectionType) => {
   const db = getFirestore()
 
   const temp: DocumentData[] = []
 
-  const collectionRef = collection(db, 'catania')
+  const collectionRef = collection(db, collectionName)
   const cataniaQuery = await query(
     collectionRef,
     where('isActivated', '==', true),
@@ -93,5 +100,5 @@ export const onLoadPreviewData = async () => {
     temp.push(doc.data())
   })
 
-  return await handleImageLoading(temp)
+  return await handleImageLoading(temp, collectionName)
 }

@@ -1,5 +1,6 @@
 export const collectionNames = {
-  catania: 'Schachermayr Catania'
+  catania: 'Schachermayr Catania',
+  'catania-color': 'Schachermayr Catania Color'
 }
 export type CollectionNamesType = typeof collectionNames
 

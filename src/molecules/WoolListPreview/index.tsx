@@ -5,7 +5,7 @@ import {List, ListSubheader, Typography} from '@mui/material'
 import Loading from '../../atoms/ListPreview/Loading'
 import ErrorComponent from '../../atoms/ListPreview/Error'
 import Item from '../../atoms/ListPreview/Item'
-import {CollectionType} from '../../pages/HomePage/types'
+import {collectionNames, CollectionType} from '../../pages/HomePage/types'
 
 import {WoolListItemType} from '../WoolList/components/WoolListItem'
 
@@ -13,7 +13,6 @@ export type WoolListPreviewProps = {
   collection: CollectionType
   data: WoolListItemType[]
   hasError: boolean
-  headerText: string
   isLoading: boolean
   listClassName?: string
 }
@@ -22,7 +21,6 @@ const WoolListPreview = ({
   collection,
   data,
   hasError,
-  headerText,
   isLoading,
   listClassName
 }: WoolListPreviewProps) => {
@@ -44,7 +42,7 @@ const WoolListPreview = ({
               variant="subtitle1"
               sx={{color: 'primary.dark'}}
             >
-              {headerText}
+              {collectionNames[collection]}
             </Typography>
           </ListSubheader>
         }
