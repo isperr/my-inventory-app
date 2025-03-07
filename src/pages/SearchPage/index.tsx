@@ -14,7 +14,7 @@ import {useSearchData} from './hooks/use-search-data'
 import SearchInputs from './components/SearchInputs'
 
 // always change if there are more collections added
-const COLLECTION_COUNT = 2
+const COLLECTION_COUNT = 3
 
 const SearchPage = () => {
   const navigate = useNavigate()
@@ -38,10 +38,24 @@ const SearchPage = () => {
     isLoading: isCataniaColorLoading,
     onLoadData: onLoadCataniaColorData
   } = useSearchData('catania-color')
-  const hasNoData = hasNoCataniaData && hasNoCataniaColorData
-  const isLoaded = isCataniaLoaded && isCataniaColorLoaded
+  const {
+    data: cottonQuickData,
+    hasError: hasCottonQuickError,
+    hasNoData: hasNoCottonQuickData,
+    isLoaded: isCottonQuickLoaded,
+    isLoading: isCottonQuickLoading,
+    onLoadData: onLoadCottonQuickData
+  } = useSearchData('cotton-quick')
+
+  const hasNoData =
+    hasNoCataniaData && hasNoCataniaColorData && hasNoCottonQuickData
+  const isLoaded =
+    isCataniaLoaded && isCataniaColorLoaded && isCottonQuickLoaded
+  const isLoading =
+    isCataniaLoading || isCataniaColorLoading || isCottonQuickLoading
   const isInAllCollections =
-    cataniaData.length + cataniaColorData.length === COLLECTION_COUNT
+    cataniaData.length + cataniaColorData.length + cottonQuickData.length ===
+    COLLECTION_COUNT
 
   const [isColorSearch, setIsColorSearch] = useState<boolean>(false)
   const handleSearchTypeChange = useCallback(() => {
@@ -71,6 +85,13 @@ const SearchPage = () => {
     })
 
     await onLoadCataniaColorData({
+      isColorSearch,
+      num: isColorSearch
+        ? Number(formElements.color.value)
+        : Number(formElements.isbn.value)
+    })
+
+    await onLoadCottonQuickData({
       isColorSearch,
       num: isColorSearch
         ? Number(formElements.color.value)
@@ -121,32 +142,35 @@ const SearchPage = () => {
         )}
       />
 
-      {
-        (isCataniaLoading || isCataniaColorLoading) && (
-          <Loading />
-        ) /* should be expanded to isLoading from different wool types */
-      }
-      {
-        hasNoCataniaData && hasNoCataniaColorData && (
-          <NotInList
-            amount="none"
-            color={tempColor}
-            isbn={tempIsbn}
-            onClick={handleAddClick}
-          />
-        ) /* should be expanded to isLoading from different wool types */
-      }
-      {!hasNoData &&
-        isLoaded &&
-        !isInAllCollections &&
-        (!hasNoCataniaColorData || !hasNoCataniaColorData) && (
-          <NotInList
-            amount="some"
-            color={tempColor}
-            isbn={tempIsbn}
-            onClick={handleAddClick}
-          />
+      <WoolListPreview
+        collection="cotton-quick"
+        data={cottonQuickData as WoolListItemType[]}
+        hasError={hasCottonQuickError}
+        isLoading={false}
+        listClassName={twMerge(
+          'px-2',
+          // only show header & list when data is loaded and has items in list
+          !(isCottonQuickLoaded && Boolean(cottonQuickData.length)) && 'hidden'
         )}
+      />
+
+      {isLoading && <Loading />}
+      {hasNoData && (
+        <NotInList
+          amount="none"
+          color={tempColor}
+          isbn={tempIsbn}
+          onClick={handleAddClick}
+        />
+      )}
+      {isLoaded && !hasNoData && !isInAllCollections && (
+        <NotInList
+          amount="some"
+          color={tempColor}
+          isbn={tempIsbn}
+          onClick={handleAddClick}
+        />
+      )}
 
       <FloatingButton />
     </PageTemplate>
