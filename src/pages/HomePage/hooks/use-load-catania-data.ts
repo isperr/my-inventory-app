@@ -1,6 +1,6 @@
 import {useCallback} from 'react'
 
-import {onLoadPreviewData} from '../../../hooks/catania/load-data'
+import {onLoadPreviewData} from '../../../hooks/use-load'
 import {useAppDispatch, useAppSelector} from '../../../utils/store-hooks'
 
 import {getActions, getSelectors} from '../utils/get-slice'

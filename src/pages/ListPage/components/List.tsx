@@ -2,6 +2,7 @@ import WoolList from '../../../molecules/WoolList'
 import {WoolListItemType} from '../../../molecules/WoolList/components/WoolListItem'
 import {useAppSelector} from '../../../utils/store-hooks'
 import {CollectionType} from '../../HomePage/types'
+
 import {getSelectors} from '../utils/get-slice'
 
 const List = ({collection}: {collection: CollectionType}) => {

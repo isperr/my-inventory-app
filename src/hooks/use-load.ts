@@ -9,7 +9,7 @@ import {
   query,
   where
 } from 'firebase/firestore'
-import {CollectionType} from '../../pages/HomePage/types'
+import {CollectionType} from '../pages/HomePage/types'
 
 const PREFXIES = ['.png', '.jpg']
 const UNKNOWN = 'UNBEKANNT'

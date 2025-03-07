@@ -1,0 +1,99 @@
+// catania
+import {
+  load as loadReg,
+  loaded as loadedReg,
+  loadingError as loadingRegError,
+  setIsActivated as setIsActivatedReg
+} from '../../../modules/catania/results/slice'
+import {
+  selectData as selectDataReg,
+  selectError as selectErrorReg,
+  selectIsActivated as selectIsActivatedReg,
+  selectIsLoaded as selectIsLoadedReg,
+  selectIsLoading as selectIsLoadingReg
+} from '../../../modules/catania/results/selectors'
+// catania-color
+import {
+  load as loadColor,
+  loaded as loadedColor,
+  loadingError as loadingColorError,
+  setIsActivated as setIsActivatedColor
+} from '../../../modules/catania-color/results/slice'
+import {
+  selectData as selectDataColor,
+  selectError as selectErrorColor,
+  selectIsActivated as selectIsActivatedColor,
+  selectIsLoaded as selectIsLoadedColor,
+  selectIsLoading as selectIsLoadingColor
+} from '../../../modules/catania-color/results/selectors'
+// catania-color
+import {
+  load as loadCottonQuick,
+  loaded as loadedCottonQuick,
+  loadingError as loadingCottonQuickError,
+  setIsActivated as setIsActivatedCottonQuick
+} from '../../../modules/cotton-quick/results/slice'
+import {
+  selectData as selectDataCottonQuick,
+  selectError as selectErrorCottonQuick,
+  selectIsActivated as selectIsActivatedCottonQuick,
+  selectIsLoaded as selectIsLoadedCottonQuick,
+  selectIsLoading as selectIsLoadingCottonQuick
+} from '../../../modules/cotton-quick/results/selectors'
+
+import {CollectionType} from '../../HomePage/types'
+
+export const getActions = (collection: CollectionType) => {
+  switch (collection) {
+    case 'cotton-quick':
+      return {
+        load: loadCottonQuick,
+        loaded: loadedCottonQuick,
+        loadingError: loadingCottonQuickError,
+        setIsActivated: setIsActivatedCottonQuick
+      }
+    case 'catania-color':
+      return {
+        load: loadColor,
+        loaded: loadedColor,
+        loadingError: loadingColorError,
+        setIsActivated: setIsActivatedColor
+      }
+    default:
+      return {
+        load: loadReg,
+        loaded: loadedReg,
+        loadingError: loadingRegError,
+        setIsActivated: setIsActivatedReg
+      }
+  }
+}
+
+export const getSelectors = (collection: CollectionType) => {
+  switch (collection) {
+    case 'cotton-quick':
+      return {
+        selectData: selectDataCottonQuick,
+        selectError: selectErrorCottonQuick,
+        selectIsActivated: selectIsActivatedCottonQuick,
+        selectIsLoaded: selectIsLoadedCottonQuick,
+        selectIsLoading: selectIsLoadingCottonQuick
+      }
+    case 'catania-color':
+      return {
+        selectData: selectDataColor,
+        selectError: selectErrorColor,
+        selectIsActivated: selectIsActivatedColor,
+        selectIsLoaded: selectIsLoadedColor,
+        selectIsLoading: selectIsLoadingColor
+      }
+    default:
+      return {
+        selectData: selectDataReg,
+        selectError: selectErrorReg,
+        selectIsActivated: selectIsActivatedReg,
+        selectIsLoaded: selectIsLoadedReg,
+        selectIsLoading: selectIsLoadingReg
+      }
+  }
+}

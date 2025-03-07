@@ -10,7 +10,7 @@ import CollectionPage from './pages/CollectionPage'
 import AddPage from './pages/AddPage'
 import DetailPage from './pages/DetailPage'
 import SearchPage from './pages/SearchPage'
-import CataniaListPage from './pages/CataniaListPage'
+import ListPage from './pages/ListPage'
 
 const App = () => {
   const {isLoggedIn} = useFirebaseAuth()
@@ -22,7 +22,7 @@ const App = () => {
           <Route path="/" element={<HomePage />} />
 
           <Route path="catania" element={<CollectionPage />}>
-            <Route index element={<CataniaListPage collection="catania" />} />
+            <Route index element={<ListPage collection="catania" />} />
             <Route
               path=":color"
               element={<DetailPage collection="catania" />}
@@ -30,10 +30,7 @@ const App = () => {
           </Route>
 
           <Route path="catania-color" element={<CollectionPage />}>
-            <Route
-              index
-              element={<CataniaListPage collection="catania-color" />}
-            />
+            <Route index element={<ListPage collection="catania-color" />} />
             <Route
               path=":color"
               element={<DetailPage collection="catania-color" />}
@@ -41,10 +38,7 @@ const App = () => {
           </Route>
 
           <Route path="cotton-quick" element={<CollectionPage />}>
-            <Route
-              index
-              element={<CataniaListPage collection="cotton-quick" />}
-            />
+            <Route index element={<ListPage collection="cotton-quick" />} />
             <Route
               path=":color"
               element={<DetailPage collection="cotton-quick" />}

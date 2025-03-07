@@ -2,7 +2,7 @@ import {useCallback} from 'react'
 import {useNotifications} from '@toolpad/core'
 
 import {CollectionType} from '../../HomePage/types'
-import {onLoadData} from '../../../hooks/catania/load-data'
+import {onLoadData} from '../../../hooks/use-load'
 import {useAppDispatch, useAppSelector} from '../../../utils/store-hooks'
 import {getToastConfig} from '../../../utils/toast/get-toast-config'
 

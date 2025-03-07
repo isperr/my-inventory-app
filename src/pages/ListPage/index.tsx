@@ -10,7 +10,7 @@ import {collectionNames, CollectionType} from '../HomePage/types'
 import List from './components/List'
 import {useLoadData} from './hooks/use-load-data'
 
-const CataniaListPage = ({collection}: {collection: CollectionType}) => {
+const ListPage = ({collection}: {collection: CollectionType}) => {
   const effectRan = useRef<boolean>(false)
 
   const {isActivated, isLoaded, handleActivatedChange, handleLoadData} =
@@ -49,4 +49,4 @@ const CataniaListPage = ({collection}: {collection: CollectionType}) => {
   )
 }
 
-export default CataniaListPage
+export default ListPage
