@@ -6,7 +6,7 @@ import {useAppDispatch, useAppSelector} from '../../../utils/store-hooks'
 import {getActions, getSelectors} from '../utils/get-slice'
 import {CollectionType} from '../types'
 
-export const useLoadCataniaData = (collection: CollectionType) => {
+export const useLoadPreviewData = (collection: CollectionType) => {
   const dispatch = useAppDispatch()
 
   const {load, loaded, loadingError} = getActions(collection)

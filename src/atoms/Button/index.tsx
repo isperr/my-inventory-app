@@ -7,6 +7,7 @@ export type ButtonProps = {
   children?: ReactNode
   className?: string
   fullWidth?: boolean
+  isDisabled?: boolean
   isLoading?: boolean
   onClick?: React.MouseEventHandler<HTMLButtonElement>
   size?: 'small' | 'medium' | 'large'
@@ -19,6 +20,7 @@ const Button = ({
   children,
   className,
   fullWidth,
+  isDisabled,
   isLoading,
   onClick,
   size,
@@ -28,6 +30,7 @@ const Button = ({
     aria-label={ariaLabel}
     autoFocus={autoFocus}
     className={className}
+    disabled={isDisabled}
     fullWidth={fullWidth}
     loading={isLoading}
     loadingPosition="end"

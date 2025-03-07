@@ -5,7 +5,7 @@ import Button from '../../../atoms/Button'
 import WoolListPreview from '../../../molecules/WoolListPreview'
 import {WoolListItemType} from '../../../molecules/WoolList/components/WoolListItem'
 
-import {useLoadCataniaData} from '../hooks/use-load-catania-data'
+import {useLoadPreviewData} from '../hooks/use-load-preview-data'
 import {CollectionType} from '../types'
 
 const PreviewList = ({collection}: {collection: CollectionType}) => {
@@ -14,7 +14,7 @@ const PreviewList = ({collection}: {collection: CollectionType}) => {
   const effectRan = useRef<boolean>(false)
 
   const {data, error, isLoaded, isLoading, handleLoadData} =
-    useLoadCataniaData(collection)
+    useLoadPreviewData(collection)
 
   useEffect(() => {
     if (!effectRan.current && !isLoaded) {
@@ -39,7 +39,12 @@ const PreviewList = ({collection}: {collection: CollectionType}) => {
         isLoading={isLoading}
       />
       <div className="w-auto flex px-4">
-        <Button fullWidth onClick={handleNavigate} size="small">
+        <Button
+          fullWidth
+          isDisabled={Boolean(error) || isLoading || !isLoaded}
+          onClick={handleNavigate}
+          size="small"
+        >
           Gesamte Liste anzeigen
         </Button>
       </div>
