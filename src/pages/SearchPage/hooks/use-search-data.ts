@@ -1,22 +1,18 @@
 import {useCallback, useEffect} from 'react'
-import {useNotifications} from '@toolpad/core'
 
-import {resolved} from '../../../modules/catania/results/slice'
 import {useAppDispatch, useAppSelector} from '../../../utils/store-hooks'
-import {setIsbnOrColor, reset} from '../../../modules/catania/add/slice'
-import {getToastConfig} from '../../../utils/toast/get-toast-config'
-import {onResolveDataByGivenData} from '../../CataniaDetailPage/hooks/use-resolve'
+import {onResolveDataByGivenData} from '../../../hooks/use-resolve'
 import {CollectionType} from '../../HomePage/types'
 
-import {getActions, getSelectors} from '../utils/get-slice'
+import {getActions, getAddActions, getSelectors} from '../utils/get-slice'
 
-export const useLoadCataniaData = (collection: CollectionType) => {
+export const useSearchData = (collection: CollectionType) => {
   const dispatch = useAppDispatch()
-  const notifications = useNotifications()
 
-  const {load, loaded, loadingError} = getActions(collection)
+  const {load, loaded, loadingError, resolved} = getActions(collection)
   const {selectData, selectError, selectIsLoaded, selectIsLoading} =
     getSelectors(collection)
+  const {setIsbnOrColor, reset} = getAddActions(collection)
 
   const data = useAppSelector(selectData)
   const error = useAppSelector(selectError)
@@ -41,10 +37,6 @@ export const useLoadCataniaData = (collection: CollectionType) => {
         dispatch(setIsbnOrColor({data: num, isColorSearch}))
       } catch (error) {
         dispatch(loadingError(error as Error))
-        notifications.show(
-          'Beim Suchen des Wollknäuels ist leider ein Fehler aufgetreten.',
-          getToastConfig({})
-        )
       }
     },
     [collection]

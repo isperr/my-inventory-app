@@ -1,12 +1,12 @@
 import {createSearchSlice} from '../../utils/search/slice'
 import {createSearchSelectors} from '../../utils/search/selectors'
 
-export const cataniaColorSearchState = createSearchSlice('cataniaColorSearch')
+export const cottonQuickSearchState = createSearchSlice('cottonQuickSearch')
 
 export const {load, loaded, loadingError, reset} =
-  cataniaColorSearchState.actions
+  cottonQuickSearchState.actions
 
 export const {selectData, selectError, selectIsLoaded, selectIsLoading} =
-  createSearchSelectors('cataniaColorSearch')
+  createSearchSelectors('cottonQuickSearch')
 
-export default cataniaColorSearchState.reducer
+export default cottonQuickSearchState.reducer

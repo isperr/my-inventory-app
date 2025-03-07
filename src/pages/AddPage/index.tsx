@@ -29,7 +29,6 @@ const AddPage = () => {
   const {color, isAdded, isAdding, isDisabled, isbn, handleAdd} =
     useAdd(collection)
 
-  // TODO: handle adding accordingly depending on collection
   const handleSubmit = async (event: React.SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault()
 
@@ -61,7 +60,7 @@ const AddPage = () => {
         getToastConfig({autoHideDuration: 3000, severity: 'success'})
       )
       setTimeout(() => {
-        // navigate back after toast was shown.
+        // navigate to detail-page after toast was shown
         navigate(`/${collection}/${newColor}`)
       }, 3100)
     } catch (error) {

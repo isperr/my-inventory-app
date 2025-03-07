@@ -10,7 +10,7 @@ import WoolListPreview from '../../molecules/WoolListPreview'
 import {WoolListItemType} from '../../molecules/WoolList/components/WoolListItem'
 import PageTemplate from '../../templates/Page'
 
-import {useLoadCataniaData} from './hooks/use-load-catania-data'
+import {useSearchData} from './hooks/use-search-data'
 import SearchInputs from './components/SearchInputs'
 
 // always change if there are more collections added
@@ -29,7 +29,7 @@ const SearchPage = () => {
     isLoaded: isCataniaLoaded,
     isLoading: isCataniaLoading,
     onLoadData: onLoadCataniaData
-  } = useLoadCataniaData('catania')
+  } = useSearchData('catania')
   const {
     data: cataniaColorData,
     hasError: hasCataniaColorError,
@@ -37,7 +37,7 @@ const SearchPage = () => {
     isLoaded: isCataniaColorLoaded,
     isLoading: isCataniaColorLoading,
     onLoadData: onLoadCataniaColorData
-  } = useLoadCataniaData('catania-color')
+  } = useSearchData('catania-color')
   const hasNoData = hasNoCataniaData && hasNoCataniaColorData
   const isLoaded = isCataniaLoaded && isCataniaColorLoaded
   const isInAllCollections =

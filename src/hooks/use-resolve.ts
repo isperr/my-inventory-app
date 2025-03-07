@@ -10,8 +10,8 @@ import {
   where
 } from 'firebase/firestore'
 
-import {CataniaDocumentData} from '../../../modules/catania/types'
-import {CollectionType} from '../../HomePage/types'
+import {CollectionType} from '../pages/HomePage/types'
+import {WoolDocumentData} from '../modules/types'
 
 const handleImageResolving = async (
   data: DocumentData,
@@ -33,11 +33,11 @@ const handleImageResolving = async (
         temp.imgUrl = null
         return
       }
-      // error is handled within CataniaDetailPage
+      // error is handled within DetailPage
       throw error
     })
 
-  return temp as CataniaDocumentData
+  return temp as WoolDocumentData
 }
 
 export const onResolveData = async (
@@ -48,7 +48,7 @@ export const onResolveData = async (
 
   const docRef = doc(db, collectionName, id)
   const docSnap = await getDoc(docRef).catch(error => {
-    // error is handled within CataniaDetailPage
+    // error is handled within DetailPage
     throw error
   })
   const data = docSnap.data()
@@ -76,7 +76,7 @@ export const onResolveDataByGivenData = async ({
     : query(cataniaRef, where('ISBN', '==', data))
 
   const woolSnaps = await getDocs(woolQuery).catch(error => {
-    // error is handled within CataniaDetailPage
+    // error is handled within DetailPage
     throw error
   })
   const temp: DocumentData[] = []
