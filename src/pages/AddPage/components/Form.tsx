@@ -64,8 +64,12 @@ const Form = ({
         <MenuItem value="catania-color">Catania Color</MenuItem>
         <ListSubheader>Gründl</ListSubheader>
         <MenuItem value="cotton-quick">Cotton Quick</MenuItem>
-        <MenuItem value="cotton-quick-print">Cotton Quick Print</MenuItem>
-        <MenuItem value="funny">Funny</MenuItem>
+        <MenuItem disabled value="cotton-quick-print">
+          Cotton Quick Print
+        </MenuItem>
+        <MenuItem disabled value="funny">
+          Funny
+        </MenuItem>
       </Select>
     </FormControl>
 
