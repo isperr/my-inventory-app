@@ -1,3 +1,4 @@
+// catania
 import {
   resolve as resolveReg,
   resolved as resolvedReg,
@@ -7,6 +8,14 @@ import {
   updateError as updateRegError
 } from '../../../modules/catania/results/slice'
 import {
+  selectHasResolveError as selectHasResolveErrorReg,
+  selectIsIdResolved as selectIsIdResolvedReg,
+  selectIsIdResolving as selectIsIdResolvingReg,
+  selectResolveData as selectResolveDataReg,
+  selectIsUpdatingType as selectIsUpdatingTypeReg
+} from '../../../modules/catania/results/selectors'
+// catania-color
+import {
   resolve as resolveColor,
   resolved as resolvedColor,
   resolvingError as resolvingColorError,
@@ -15,22 +24,38 @@ import {
   updateError as updateColorError
 } from '../../../modules/catania-color/results/slice'
 import {
-  selectHasResolveError as selectHasResolveErrorReg,
-  selectIsIdResolved as selectIsIdResolvedReg,
-  selectIsIdResolving as selectIsIdResolvingReg,
-  selectResolveData as selectResolveDataReg,
-  selectIsUpdatingType as selectIsUpdatingTypeReg
-} from '../../../modules/catania/results/selectors'
-import {
   selectHasResolveError as selectHasResolveErrorColor,
   selectIsIdResolved as selectIsIdResolvedColor,
   selectIsIdResolving as selectIsIdResolvingColor,
   selectResolveData as selectResolveDataColor,
   selectIsUpdatingType as selectIsUpdatingTypeColor
 } from '../../../modules/catania-color/results/selectors'
+// cotton-quick
+import {
+  resolve as resolveCottonQuick,
+  resolved as resolvedCottonQuick,
+  resolvingError as resolvingCottonQuickError,
+  update as updateCottonQuick,
+  updated as updatedCottonQuick,
+  updateError as updateCottonQuickError
+} from '../../../modules/catania-color/results/slice'
+import {
+  selectHasResolveError as selectHasResolveErrorCottonQuick,
+  selectIsIdResolved as selectIsIdResolvedCottonQuick,
+  selectIsIdResolving as selectIsIdResolvingCottonQuick,
+  selectResolveData as selectResolveDataCottonQuick,
+  selectIsUpdatingType as selectIsUpdatingTypeCottonQuick
+} from '../../../modules/catania-color/results/selectors'
 import {CollectionType} from '../../HomePage/types'
 
 export const getResolveActions = (collection: CollectionType) => {
+  if (collection === 'cotton-quick') {
+    return {
+      resolve: resolveCottonQuick,
+      resolved: resolvedCottonQuick,
+      resolvingError: resolvingCottonQuickError
+    }
+  }
   if (collection === 'catania-color') {
     return {
       resolve: resolveColor,
@@ -46,6 +71,14 @@ export const getResolveActions = (collection: CollectionType) => {
 }
 
 export const getResolveSelectors = (collection: CollectionType) => {
+  if (collection === 'cotton-quick') {
+    return {
+      selectHasResolveError: selectHasResolveErrorCottonQuick,
+      selectIsIdResolved: selectIsIdResolvedCottonQuick,
+      selectIsIdResolving: selectIsIdResolvingCottonQuick,
+      selectResolveData: selectResolveDataCottonQuick
+    }
+  }
   if (collection === 'catania-color') {
     return {
       selectHasResolveError: selectHasResolveErrorColor,
@@ -63,6 +96,13 @@ export const getResolveSelectors = (collection: CollectionType) => {
 }
 
 export const getUpdateActions = (collection: CollectionType) => {
+  if (collection === 'cotton-quick') {
+    return {
+      update: updateCottonQuick,
+      updated: updatedCottonQuick,
+      updateError: updateCottonQuickError
+    }
+  }
   if (collection === 'catania-color') {
     return {
       update: updateColor,
@@ -78,6 +118,11 @@ export const getUpdateActions = (collection: CollectionType) => {
 }
 
 export const getUpdateSelectors = (collection: CollectionType) => {
+  if (collection === 'cotton-quick') {
+    return {
+      selectIsUpdatingType: selectIsUpdatingTypeCottonQuick
+    }
+  }
   if (collection === 'catania-color') {
     return {
       selectIsUpdatingType: selectIsUpdatingTypeColor
