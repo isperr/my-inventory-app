@@ -10,6 +10,8 @@ import cataniaColorHomeReducer from '../modules/catania-color/home/slice'
 import cataniaColorSearchReducer from '../modules/catania-color/search/slice'
 import gruendlAddReducer from '../modules/schachenmayr/add/slice'
 import cottonQuickSearchReducer from '../modules/cotton-quick/search/slice'
+import cottonQuickHomeReducer from '../modules/cotton-quick/home/slice'
+import cottonQuickReducer from '../modules/cotton-quick/results/slice'
 
 export const store = configureStore({
   reducer: {
@@ -20,6 +22,8 @@ export const store = configureStore({
     cataniaColor: cataniaColorReducer,
     cataniaColorHome: cataniaColorHomeReducer,
     cataniaColorSearch: cataniaColorSearchReducer,
+    cottonQuick: cottonQuickReducer,
+    cottonQuickHome: cottonQuickHomeReducer,
     cottonQuickSearch: cottonQuickSearchReducer,
     gruendlAdd: gruendlAddReducer,
     schachenmayrAdd: schachenmayrAddReducer
@@ -29,11 +33,14 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [
           'cataniaColorHome/loadingError',
-          'cataniaColorResults/loadingError',
+          'cataniaColor/loadingError',
           'cataniaColorSearch/loadingError',
           'cataniaHome/loadingError',
-          'cataniaResults/loadingError',
-          'cataniaSearch/loadingError'
+          'catania/loadingError',
+          'cataniaSearch/loadingError',
+          'cottonQuickHome/loadingError',
+          'cottonQuick/loadingError',
+          'cottonQuickSearch/loadingError'
         ],
         ignoredActionPaths: ['payload']
       }

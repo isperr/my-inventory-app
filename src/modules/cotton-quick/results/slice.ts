@@ -1,6 +1,6 @@
 import {createResultsSlice} from '../../utils/results/slice'
 
-export const cataniaColorState = createResultsSlice('cataniaColor')
+export const cottonQuickState = createResultsSlice('cottonQuick')
 
 export const {
   load,
@@ -14,6 +14,6 @@ export const {
   updateError,
   updated,
   setIsActivated
-} = cataniaColorState.actions
+} = cottonQuickState.actions
 
-export default cataniaColorState.reducer
+export default cottonQuickState.reducer

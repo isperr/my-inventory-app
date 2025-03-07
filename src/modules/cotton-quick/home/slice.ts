@@ -1,10 +1,9 @@
 import {createHomeSelectors} from '../../utils/home/selectors'
 import {createHomeSlice} from '../../utils/home/slice'
 
-export const cataniaColorHomeState = createHomeSlice('cataniaColorHome')
+export const cottonQuickHomeState = createHomeSlice('cottonQuickHome')
 
-export const {load, loaded, loadingError, insert} =
-  cataniaColorHomeState.actions
+export const {load, loaded, loadingError, insert} = cottonQuickHomeState.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const {
@@ -13,6 +12,6 @@ export const {
   selectError,
   selectIsLoaded,
   selectIsLoading
-} = createHomeSelectors('cataniaColorHome')
+} = createHomeSelectors('cottonQuickHome')
 
-export default cataniaColorHomeState.reducer
+export default cottonQuickHomeState.reducer

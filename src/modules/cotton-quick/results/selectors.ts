@@ -19,4 +19,4 @@ export const {
   selectIsIdResolving,
   selectIsUpdatingType,
   selectResolveData
-} = createResultsSelectors('catania')
+} = createResultsSelectors('cottonQuick')
