@@ -13,8 +13,10 @@ import {
   selectIsbn,
   selectColor
 } from '../../../modules/schachenmayr/add/slice'
-import {insert as cottonQuickInsert} from '../../../modules/cotton-quick/home/slice'
-import {insert as cottonQuickListInsert} from '../../../modules/cotton-quick/results/slice'
+import {insert as colorHomeInsert} from '../../../modules/catania-color/home/slice'
+import {insert as colorListInsert} from '../../../modules/catania-color/results/slice'
+import {insert as homeInsert} from '../../../modules/catania/home/slice'
+import {insert as listInsert} from '../../../modules/catania/results/slice'
 import {WoolDocumentData} from '../../../modules/types'
 import {useAppDispatch, useAppSelector} from '../../../utils/store-hooks'
 
@@ -71,9 +73,12 @@ export const useAddSchachenmayr = () => {
   const onSuccessfulAdd = useCallback(
     (data: WoolDocumentData, collection: CollectionType) => {
       dispatch(added())
-      if (collection === 'cotton-quick') {
-        dispatch(cottonQuickListInsert(data))
-        dispatch(cottonQuickInsert(data))
+      if (collection === 'catania') {
+        dispatch(listInsert(data))
+        dispatch(homeInsert(data))
+      } else if (collection === 'catania-color') {
+        dispatch(colorListInsert(data))
+        dispatch(colorHomeInsert(data))
       }
     },
     [dispatch]
