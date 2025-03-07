@@ -45,7 +45,7 @@ const WoolDetail = ({
 
       {imgUrl ? (
         <img
-          className="max-h-[180px] min-h-[150px] min-w-[250px] max-w-[300px] m-auto"
+          className="max-h-[180px] min-h-[150px] min-w-[250px] max-w-[300px] m-auto rounded-full"
           alt={name}
           src={imgUrl}
         />

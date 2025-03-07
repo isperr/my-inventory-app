@@ -25,6 +25,15 @@ import {
   selectIsLoaded as selectIsLoadedCottonQuick,
   selectIsLoading as selectIsLoadingCottonQuick
 } from '../../../modules/cotton-quick/home/slice'
+import {
+  load as loadCottonQuickPrint,
+  loaded as loadedCottonQuickPrint,
+  loadingError as loadingCottonQuickPrintError,
+  selectData as selectDataCottonQuickPrint,
+  selectError as selectErrorCottonQuickPrint,
+  selectIsLoaded as selectIsLoadedCottonQuickPrint,
+  selectIsLoading as selectIsLoadingCottonQuickPrint
+} from '../../../modules/cotton-quick-print/home/slice'
 
 import {CollectionType} from '../../HomePage/types'
 
@@ -35,6 +44,12 @@ export const getActions = (collection: CollectionType) => {
         load: loadCottonQuick,
         loaded: loadedCottonQuick,
         loadingError: loadingCottonQuickError
+      }
+    case 'cotton-quick-print':
+      return {
+        load: loadCottonQuickPrint,
+        loaded: loadedCottonQuickPrint,
+        loadingError: loadingCottonQuickPrintError
       }
     case 'catania-color':
       return {
@@ -59,6 +74,13 @@ export const getSelectors = (collection: CollectionType) => {
         selectError: selectErrorCottonQuick,
         selectIsLoaded: selectIsLoadedCottonQuick,
         selectIsLoading: selectIsLoadingCottonQuick
+      }
+    case 'cotton-quick-print':
+      return {
+        selectData: selectDataCottonQuickPrint,
+        selectError: selectErrorCottonQuickPrint,
+        selectIsLoaded: selectIsLoadedCottonQuickPrint,
+        selectIsLoading: selectIsLoadingCottonQuickPrint
       }
     case 'catania-color':
       return {

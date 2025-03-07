@@ -36,6 +36,16 @@ import {
 } from '../../../modules/cotton-quick/search/slice'
 import {resolved as resolvedCottonQuick} from '../../../modules/cotton-quick/results/slice'
 import {
+  load as loadCottonQuickPrint,
+  loaded as loadedCottonQuickPrint,
+  loadingError as loadingCottonQuickPrintError,
+  selectData as selectDataCottonQuickPrint,
+  selectError as selectErrorCottonQuickPrint,
+  selectIsLoaded as selectIsLoadedCottonQuickPrint,
+  selectIsLoading as selectIsLoadingCottonQuickPrint
+} from '../../../modules/cotton-quick-print/search/slice'
+import {resolved as resolvedCottonQuickPrint} from '../../../modules/cotton-quick-print/results/slice'
+import {
   reset as gruendlAddReset,
   setIsbnOrColor as gruendlAddSetIsbnOrColor
 } from '../../../modules/gruendl/add/slice'
@@ -50,6 +60,13 @@ export const getActions = (collection: CollectionType) => {
         loaded: loadedCottonQuick,
         loadingError: loadingCottonQuickError,
         resolved: resolvedCottonQuick
+      }
+    case 'cotton-quick-print':
+      return {
+        load: loadCottonQuickPrint,
+        loaded: loadedCottonQuickPrint,
+        loadingError: loadingCottonQuickPrintError,
+        resolved: resolvedCottonQuickPrint
       }
     case 'catania-color':
       return {
@@ -76,6 +93,13 @@ export const getSelectors = (collection: CollectionType) => {
         selectError: selectErrorCottonQuick,
         selectIsLoaded: selectIsLoadedCottonQuick,
         selectIsLoading: selectIsLoadingCottonQuick
+      }
+    case 'cotton-quick-print':
+      return {
+        selectData: selectDataCottonQuickPrint,
+        selectError: selectErrorCottonQuickPrint,
+        selectIsLoaded: selectIsLoadedCottonQuickPrint,
+        selectIsLoading: selectIsLoadingCottonQuickPrint
       }
     case 'catania-color':
       return {

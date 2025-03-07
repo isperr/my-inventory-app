@@ -12,6 +12,9 @@ import gruendlAddReducer from '../modules/schachenmayr/add/slice'
 import cottonQuickSearchReducer from '../modules/cotton-quick/search/slice'
 import cottonQuickHomeReducer from '../modules/cotton-quick/home/slice'
 import cottonQuickReducer from '../modules/cotton-quick/results/slice'
+import cottonQuickPrintSearchReducer from '../modules/cotton-quick-print/search/slice'
+import cottonQuickPrintHomeReducer from '../modules/cotton-quick-print/home/slice'
+import cottonQuickPrintReducer from '../modules/cotton-quick-print/results/slice'
 
 export const store = configureStore({
   reducer: {
@@ -25,6 +28,9 @@ export const store = configureStore({
     cottonQuick: cottonQuickReducer,
     cottonQuickHome: cottonQuickHomeReducer,
     cottonQuickSearch: cottonQuickSearchReducer,
+    cottonQuickPrint: cottonQuickPrintReducer,
+    cottonQuickPrintHome: cottonQuickPrintHomeReducer,
+    cottonQuickPrintSearch: cottonQuickPrintSearchReducer,
     gruendlAdd: gruendlAddReducer,
     schachenmayrAdd: schachenmayrAddReducer
   },
@@ -40,7 +46,10 @@ export const store = configureStore({
           'cataniaSearch/loadingError',
           'cottonQuickHome/loadingError',
           'cottonQuick/loadingError',
-          'cottonQuickSearch/loadingError'
+          'cottonQuickSearch/loadingError',
+          'cottonQuickPrintHome/loadingError',
+          'cottonQuickPrint/loadingError',
+          'cottonQuickSearchPrint/loadingError'
         ],
         ignoredActionPaths: ['payload']
       }

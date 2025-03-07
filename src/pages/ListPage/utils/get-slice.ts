@@ -26,7 +26,7 @@ import {
   selectIsLoaded as selectIsLoadedColor,
   selectIsLoading as selectIsLoadingColor
 } from '../../../modules/catania-color/results/selectors'
-// catania-color
+// cotton-quick
 import {
   load as loadCottonQuick,
   loaded as loadedCottonQuick,
@@ -40,6 +40,20 @@ import {
   selectIsLoaded as selectIsLoadedCottonQuick,
   selectIsLoading as selectIsLoadingCottonQuick
 } from '../../../modules/cotton-quick/results/selectors'
+// cotton-quick-print
+import {
+  load as loadCottonQuickPrint,
+  loaded as loadedCottonQuickPrint,
+  loadingError as loadingCottonQuickPrintError,
+  setIsActivated as setIsActivatedCottonQuickPrint
+} from '../../../modules/cotton-quick-print/results/slice'
+import {
+  selectData as selectDataCottonQuickPrint,
+  selectError as selectErrorCottonQuickPrint,
+  selectIsActivated as selectIsActivatedCottonQuickPrint,
+  selectIsLoaded as selectIsLoadedCottonQuickPrint,
+  selectIsLoading as selectIsLoadingCottonQuickPrint
+} from '../../../modules/cotton-quick-print/results/selectors'
 
 import {CollectionType} from '../../HomePage/types'
 
@@ -51,6 +65,13 @@ export const getActions = (collection: CollectionType) => {
         loaded: loadedCottonQuick,
         loadingError: loadingCottonQuickError,
         setIsActivated: setIsActivatedCottonQuick
+      }
+    case 'cotton-quick-print':
+      return {
+        load: loadCottonQuickPrint,
+        loaded: loadedCottonQuickPrint,
+        loadingError: loadingCottonQuickPrintError,
+        setIsActivated: setIsActivatedCottonQuickPrint
       }
     case 'catania-color':
       return {
@@ -78,6 +99,14 @@ export const getSelectors = (collection: CollectionType) => {
         selectIsActivated: selectIsActivatedCottonQuick,
         selectIsLoaded: selectIsLoadedCottonQuick,
         selectIsLoading: selectIsLoadingCottonQuick
+      }
+    case 'cotton-quick-print':
+      return {
+        selectData: selectDataCottonQuickPrint,
+        selectError: selectErrorCottonQuickPrint,
+        selectIsActivated: selectIsActivatedCottonQuickPrint,
+        selectIsLoaded: selectIsLoadedCottonQuickPrint,
+        selectIsLoading: selectIsLoadingCottonQuickPrint
       }
     case 'catania-color':
       return {

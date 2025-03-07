@@ -1,8 +1,9 @@
 import {useCallback, useEffect} from 'react'
-import {doc, getDoc, getFirestore, setDoc} from 'firebase/firestore'
+import {doc, getFirestore, setDoc} from 'firebase/firestore'
 import {getStorage, ref, uploadBytes} from 'firebase/storage'
 
 import {CollectionType} from '../../HomePage/types'
+import {onResolveData} from '../../../hooks/use-resolve'
 import {
   add,
   added,
@@ -15,6 +16,8 @@ import {
 } from '../../../modules/gruendl/add/slice'
 import {insert as cottonQuickInsert} from '../../../modules/cotton-quick/home/slice'
 import {insert as cottonQuickListInsert} from '../../../modules/cotton-quick/results/slice'
+import {insert as cottonQuickPrintInsert} from '../../../modules/cotton-quick-print/home/slice'
+import {insert as cottonQuickPrintListInsert} from '../../../modules/cotton-quick-print/results/slice'
 import {useAppDispatch, useAppSelector} from '../../../utils/store-hooks'
 import {WoolDocumentData} from '../../../modules/types'
 
@@ -29,20 +32,6 @@ export const useAddGruendl = () => {
   const isAdding = useAppSelector(selectIsAdding)
   const isAdded = useAppSelector(selectIsAdded)
   const isDisabled = isAdded || isAdding
-
-  const onCreate = async (
-    data: CreateItemDataType,
-    collection: CollectionType
-  ) => {
-    await setDoc(doc(db, collection, data.color.toString()), data).catch(
-      error => {
-        // error is handled within handleSubmit
-        throw error
-      }
-    )
-    const gruendlDoc = await getDoc(doc(db, collection, data.color.toString()))
-    return {...gruendlDoc.data(), imgUrl: null}
-  }
 
   const onCreateImage = async ({
     collection,
@@ -64,6 +53,20 @@ export const useAddGruendl = () => {
     })
   }
 
+  const onCreate = async (
+    data: CreateItemDataType,
+    collection: CollectionType,
+    file?: File
+  ) => {
+    const id = data.color.toString()
+    await setDoc(doc(db, collection, id), data).catch(error => {
+      // error is handled within handleSubmit
+      throw error
+    })
+    await onCreateImage({collection, color: data.color, file})
+    return await onResolveData(id, collection)
+  }
+
   const onStartAdd = useCallback(() => {
     dispatch(add())
   }, [dispatch])
@@ -74,6 +77,9 @@ export const useAddGruendl = () => {
       if (collection === 'cotton-quick') {
         dispatch(cottonQuickListInsert(data))
         dispatch(cottonQuickInsert(data))
+      } else if (collection === 'cotton-quick-print') {
+        dispatch(cottonQuickPrintListInsert(data))
+        dispatch(cottonQuickPrintInsert(data))
       }
     },
     [dispatch]
@@ -89,9 +95,13 @@ export const useAddGruendl = () => {
     file?: File
   }) => {
     onStartAdd()
-    await onCreate(data, collection)
+    await onCreate(data, collection, file)
       .then(async docData => {
         await onCreateImage({collection, color: data.color, file})
+        // this should not be happening in reality, but just to be save...
+        if (!docData) {
+          throw Error('Document was not found')
+        }
         onSuccessfulAdd(docData, collection)
       })
       .catch(error => {

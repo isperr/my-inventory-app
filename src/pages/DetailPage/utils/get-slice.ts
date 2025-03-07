@@ -38,97 +38,140 @@ import {
   update as updateCottonQuick,
   updated as updatedCottonQuick,
   updateError as updateCottonQuickError
-} from '../../../modules/catania-color/results/slice'
+} from '../../../modules/cotton-quick/results/slice'
 import {
   selectHasResolveError as selectHasResolveErrorCottonQuick,
   selectIsIdResolved as selectIsIdResolvedCottonQuick,
   selectIsIdResolving as selectIsIdResolvingCottonQuick,
   selectResolveData as selectResolveDataCottonQuick,
   selectIsUpdatingType as selectIsUpdatingTypeCottonQuick
-} from '../../../modules/catania-color/results/selectors'
+} from '../../../modules/cotton-quick/results/selectors'
+// cotton-quick-print
+import {
+  resolve as resolveCottonQuickPrint,
+  resolved as resolvedCottonQuickPrint,
+  resolvingError as resolvingCottonQuickPrintError,
+  update as updateCottonQuickPrint,
+  updated as updatedCottonQuickPrint,
+  updateError as updateCottonQuickPrintError
+} from '../../../modules/cotton-quick-print/results/slice'
+import {
+  selectHasResolveError as selectHasResolveErrorCottonQuickPrint,
+  selectIsIdResolved as selectIsIdResolvedCottonQuickPrint,
+  selectIsIdResolving as selectIsIdResolvingCottonQuickPrint,
+  selectResolveData as selectResolveDataCottonQuickPrint,
+  selectIsUpdatingType as selectIsUpdatingTypeCottonQuickPrint
+} from '../../../modules/cotton-quick-print/results/selectors'
 import {CollectionType} from '../../HomePage/types'
 
 export const getResolveActions = (collection: CollectionType) => {
-  if (collection === 'cotton-quick') {
-    return {
-      resolve: resolveCottonQuick,
-      resolved: resolvedCottonQuick,
-      resolvingError: resolvingCottonQuickError
-    }
-  }
-  if (collection === 'catania-color') {
-    return {
-      resolve: resolveColor,
-      resolved: resolvedColor,
-      resolvingError: resolvingColorError
-    }
-  }
-  return {
-    resolve: resolveReg,
-    resolved: resolvedReg,
-    resolvingError: resolvingRegError
+  switch (collection) {
+    case 'cotton-quick':
+      return {
+        resolve: resolveCottonQuick,
+        resolved: resolvedCottonQuick,
+        resolvingError: resolvingCottonQuickError
+      }
+    case 'cotton-quick-print':
+      return {
+        resolve: resolveCottonQuickPrint,
+        resolved: resolvedCottonQuickPrint,
+        resolvingError: resolvingCottonQuickPrintError
+      }
+    case 'catania-color':
+      return {
+        resolve: resolveColor,
+        resolved: resolvedColor,
+        resolvingError: resolvingColorError
+      }
+    default:
+      return {
+        resolve: resolveReg,
+        resolved: resolvedReg,
+        resolvingError: resolvingRegError
+      }
   }
 }
 
 export const getResolveSelectors = (collection: CollectionType) => {
-  if (collection === 'cotton-quick') {
-    return {
-      selectHasResolveError: selectHasResolveErrorCottonQuick,
-      selectIsIdResolved: selectIsIdResolvedCottonQuick,
-      selectIsIdResolving: selectIsIdResolvingCottonQuick,
-      selectResolveData: selectResolveDataCottonQuick
-    }
-  }
-  if (collection === 'catania-color') {
-    return {
-      selectHasResolveError: selectHasResolveErrorColor,
-      selectIsIdResolved: selectIsIdResolvedColor,
-      selectIsIdResolving: selectIsIdResolvingColor,
-      selectResolveData: selectResolveDataColor
-    }
-  }
-  return {
-    selectHasResolveError: selectHasResolveErrorReg,
-    selectIsIdResolved: selectIsIdResolvedReg,
-    selectIsIdResolving: selectIsIdResolvingReg,
-    selectResolveData: selectResolveDataReg
+  switch (collection) {
+    case 'cotton-quick':
+      return {
+        selectHasResolveError: selectHasResolveErrorCottonQuick,
+        selectIsIdResolved: selectIsIdResolvedCottonQuick,
+        selectIsIdResolving: selectIsIdResolvingCottonQuick,
+        selectResolveData: selectResolveDataCottonQuick
+      }
+    case 'cotton-quick-print':
+      return {
+        selectHasResolveError: selectHasResolveErrorCottonQuickPrint,
+        selectIsIdResolved: selectIsIdResolvedCottonQuickPrint,
+        selectIsIdResolving: selectIsIdResolvingCottonQuickPrint,
+        selectResolveData: selectResolveDataCottonQuickPrint
+      }
+    case 'catania-color':
+      return {
+        selectHasResolveError: selectHasResolveErrorColor,
+        selectIsIdResolved: selectIsIdResolvedColor,
+        selectIsIdResolving: selectIsIdResolvingColor,
+        selectResolveData: selectResolveDataColor
+      }
+    default:
+      return {
+        selectHasResolveError: selectHasResolveErrorReg,
+        selectIsIdResolved: selectIsIdResolvedReg,
+        selectIsIdResolving: selectIsIdResolvingReg,
+        selectResolveData: selectResolveDataReg
+      }
   }
 }
 
 export const getUpdateActions = (collection: CollectionType) => {
-  if (collection === 'cotton-quick') {
-    return {
-      update: updateCottonQuick,
-      updated: updatedCottonQuick,
-      updateError: updateCottonQuickError
-    }
-  }
-  if (collection === 'catania-color') {
-    return {
-      update: updateColor,
-      updated: updatedColor,
-      updateError: updateColorError
-    }
-  }
-  return {
-    update: updateReg,
-    updated: updatedReg,
-    updateError: updateRegError
+  switch (collection) {
+    case 'cotton-quick':
+      return {
+        update: updateCottonQuick,
+        updated: updatedCottonQuick,
+        updateError: updateCottonQuickError
+      }
+    case 'cotton-quick-print':
+      return {
+        update: updateCottonQuickPrint,
+        updated: updatedCottonQuickPrint,
+        updateError: updateCottonQuickPrintError
+      }
+    case 'catania-color':
+      return {
+        update: updateColor,
+        updated: updatedColor,
+        updateError: updateColorError
+      }
+    default:
+      return {
+        update: updateReg,
+        updated: updatedReg,
+        updateError: updateRegError
+      }
   }
 }
 
 export const getUpdateSelectors = (collection: CollectionType) => {
-  if (collection === 'cotton-quick') {
-    return {
-      selectIsUpdatingType: selectIsUpdatingTypeCottonQuick
-    }
-  }
-  if (collection === 'catania-color') {
-    return {
-      selectIsUpdatingType: selectIsUpdatingTypeColor
-    }
-  }
-  return {
-    selectIsUpdatingType: selectIsUpdatingTypeReg
+  switch (collection) {
+    case 'cotton-quick':
+      return {
+        selectIsUpdatingType: selectIsUpdatingTypeCottonQuick
+      }
+    case 'cotton-quick-print':
+      return {
+        selectIsUpdatingType: selectIsUpdatingTypeCottonQuickPrint
+      }
+    case 'catania-color':
+      return {
+        selectIsUpdatingType: selectIsUpdatingTypeColor
+      }
+    default:
+      return {
+        selectIsUpdatingType: selectIsUpdatingTypeReg
+      }
   }
 }

@@ -3,7 +3,10 @@ import {RootState} from '../../../utils/store'
 export type HomeState = Pick<
   RootState,
   // add all search modules here in order for the util to work
-  'cataniaHome' | 'cataniaColorHome' | 'cottonQuickHome'
+  | 'cataniaHome'
+  | 'cataniaColorHome'
+  | 'cottonQuickHome'
+  | 'cottonQuickPrintHome'
 >
 
 export const createHomeSelectors = (name: keyof HomeState) => {

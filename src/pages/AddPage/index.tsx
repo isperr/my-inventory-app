@@ -17,7 +17,7 @@ const AddPage = () => {
   const navigate = useNavigate()
   const notifications = useNotifications()
   const [collection, setCollection] = useState<CollectionType | undefined>(
-    'catania'
+    undefined
   )
 
   const handleCollectionChange = (

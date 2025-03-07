@@ -14,7 +14,7 @@ import {useSearchData} from './hooks/use-search-data'
 import SearchInputs from './components/SearchInputs'
 
 // always change if there are more collections added
-const COLLECTION_COUNT = 3
+const COLLECTION_COUNT = 4
 
 const SearchPage = () => {
   const navigate = useNavigate()
@@ -46,15 +46,35 @@ const SearchPage = () => {
     isLoading: isCottonQuickLoading,
     onLoadData: onLoadCottonQuickData
   } = useSearchData('cotton-quick')
+  const {
+    data: cottonQuickPrintData,
+    hasError: hasCottonQuickPrintError,
+    hasNoData: hasNoCottonQuickPrintData,
+    isLoaded: isCottonQuickPrintLoaded,
+    isLoading: isCottonQuickPrintLoading,
+    onLoadData: onLoadCottonQuickPrintData
+  } = useSearchData('cotton-quick-print')
 
   const hasNoData =
-    hasNoCataniaData && hasNoCataniaColorData && hasNoCottonQuickData
+    hasNoCataniaData &&
+    hasNoCataniaColorData &&
+    hasNoCottonQuickData &&
+    hasNoCottonQuickPrintData
   const isLoaded =
-    isCataniaLoaded && isCataniaColorLoaded && isCottonQuickLoaded
+    isCataniaLoaded &&
+    isCataniaColorLoaded &&
+    isCottonQuickLoaded &&
+    isCottonQuickPrintLoaded
   const isLoading =
-    isCataniaLoading || isCataniaColorLoading || isCottonQuickLoading
+    isCataniaLoading ||
+    isCataniaColorLoading ||
+    isCottonQuickLoading ||
+    isCottonQuickPrintLoading
   const isInAllCollections =
-    cataniaData.length + cataniaColorData.length + cottonQuickData.length ===
+    cataniaData.length +
+      cataniaColorData.length +
+      cottonQuickData.length +
+      cottonQuickPrintData.length ===
     COLLECTION_COUNT
 
   const [isColorSearch, setIsColorSearch] = useState<boolean>(false)
@@ -92,6 +112,13 @@ const SearchPage = () => {
     })
 
     await onLoadCottonQuickData({
+      isColorSearch,
+      num: isColorSearch
+        ? Number(formElements.color.value)
+        : Number(formElements.isbn.value)
+    })
+
+    await onLoadCottonQuickPrintData({
       isColorSearch,
       num: isColorSearch
         ? Number(formElements.color.value)
@@ -151,6 +178,19 @@ const SearchPage = () => {
           'px-2',
           // only show header & list when data is loaded and has items in list
           !(isCottonQuickLoaded && Boolean(cottonQuickData.length)) && 'hidden'
+        )}
+      />
+
+      <WoolListPreview
+        collection="cotton-quick-print"
+        data={cottonQuickPrintData as WoolListItemType[]}
+        hasError={hasCottonQuickPrintError}
+        isLoading={false}
+        listClassName={twMerge(
+          'px-2',
+          // only show header & list when data is loaded and has items in list
+          !(isCottonQuickPrintLoaded && Boolean(cottonQuickPrintData.length)) &&
+            'hidden'
         )}
       />
 

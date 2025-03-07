@@ -45,6 +45,17 @@ const App = () => {
             />
           </Route>
 
+          <Route path="cotton-quick-print" element={<CollectionPage />}>
+            <Route
+              index
+              element={<ListPage collection="cotton-quick-print" />}
+            />
+            <Route
+              path=":color"
+              element={<DetailPage collection="cotton-quick-print" />}
+            />
+          </Route>
+
           <Route path="scan" element={<ScanPage />}>
             <Route index element={<SearchPage />} />
             <Route path="add" element={<AddPage />} />

@@ -12,7 +12,7 @@ const HomePage = () => {
   const {onLogout, username} = useFirebaseAuth()
 
   return (
-    <PageTemplate className="my-0">
+    <PageTemplate className="mt-10 mb-6 h-fit">
       <Logo>Willkommen zurück{username ? `, ${username}` : ''}!</Logo>
       <IconButton
         aria-label="logout"
@@ -27,6 +27,7 @@ const HomePage = () => {
       <PreviewList collection="catania" />
       <PreviewList collection="catania-color" />
       <PreviewList collection="cotton-quick" />
+      <PreviewList collection="cotton-quick-print" />
 
       <FloatingButton ariaLabel="scan" icon="scan" path="/scan" />
     </PageTemplate>
