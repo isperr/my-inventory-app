@@ -1,16 +1,16 @@
-import {useCallback} from 'react'
+import {useCallback, useEffect} from 'react'
 import {useNotifications} from '@toolpad/core'
 
 import {resolved} from '../../../modules/catania/results/slice'
 import {useAppDispatch, useAppSelector} from '../../../utils/store-hooks'
-import {setIsbnOrColor} from '../../../modules/catania/add/slice'
+import {setIsbnOrColor, reset} from '../../../modules/catania/add/slice'
 import {getToastConfig} from '../../../utils/toast/get-toast-config'
 import {onResolveDataByGivenData} from '../../CataniaDetailPage/hooks/use-resolve'
 import {CollectionType} from '../../HomePage/types'
 
 import {getActions, getSelectors} from '../utils/get-slice'
 
-export const useLoadCataniaColorData = (collection: CollectionType) => {
+export const useLoadCataniaData = (collection: CollectionType) => {
   const dispatch = useAppDispatch()
   const notifications = useNotifications()
 
@@ -51,6 +51,13 @@ export const useLoadCataniaColorData = (collection: CollectionType) => {
   )
 
   const hasError = Boolean(error)
+
+  useEffect(() => {
+    return () => {
+      dispatch(reset())
+    }
+  }, [])
+
   return {
     data,
     hasError,

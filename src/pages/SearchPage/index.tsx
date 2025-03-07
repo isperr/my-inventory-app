@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState} from 'react'
+import {useCallback, useState} from 'react'
 import {useNavigate} from 'react-router'
 import {twMerge} from 'tailwind-merge'
 import {Paper, Typography} from '@mui/material'
@@ -6,19 +6,18 @@ import {Paper, Typography} from '@mui/material'
 import FloatingButton from '../../atoms/FloatingButton'
 import Loading from '../../atoms/ListPreview/Loading'
 import NotInList from '../../atoms/ListPreview/NotInList'
-import {reset as resetCataniaColor} from '../../modules/catania/search/slice'
-import PageTemplate from '../../templates/Page'
-import {useAppDispatch} from '../../utils/store-hooks'
-
 import WoolListPreview from '../../molecules/WoolListPreview'
 import {WoolListItemType} from '../../molecules/WoolList/components/WoolListItem'
+import PageTemplate from '../../templates/Page'
 
-import {useLoadCataniaColorData} from './hooks/use-load-catania-color-data'
+import {useLoadCataniaData} from './hooks/use-load-catania-data'
 import SearchInputs from './components/SearchInputs'
+
+// always change if there are more collections added
+const COLLECTION_COUNT = 2
 
 const SearchPage = () => {
   const navigate = useNavigate()
-  const dispatch = useAppDispatch()
 
   const [tempIsbn, setTempIsbn] = useState<number | undefined>(undefined)
   const [tempColor, setTempColor] = useState<number | undefined>(undefined)
@@ -30,7 +29,7 @@ const SearchPage = () => {
     isLoaded: isCataniaLoaded,
     isLoading: isCataniaLoading,
     onLoadData: onLoadCataniaData
-  } = useLoadCataniaColorData('catania')
+  } = useLoadCataniaData('catania')
   const {
     data: cataniaColorData,
     hasError: hasCataniaColorError,
@@ -38,7 +37,11 @@ const SearchPage = () => {
     isLoaded: isCataniaColorLoaded,
     isLoading: isCataniaColorLoading,
     onLoadData: onLoadCataniaColorData
-  } = useLoadCataniaColorData('catania-color')
+  } = useLoadCataniaData('catania-color')
+  const hasNoData = hasNoCataniaData && hasNoCataniaColorData
+  const isLoaded = isCataniaLoaded && isCataniaColorLoaded
+  const isInAllCollections =
+    cataniaData.length + cataniaColorData.length === COLLECTION_COUNT
 
   const [isColorSearch, setIsColorSearch] = useState<boolean>(false)
   const handleSearchTypeChange = useCallback(() => {
@@ -75,17 +78,11 @@ const SearchPage = () => {
     })
   }
 
-  const handleAddCataniaClick = () => {
+  const handleAddClick = () => {
     navigate('/scan/add')
     setTempIsbn(undefined)
     setTempColor(undefined)
   }
-
-  useEffect(() => {
-    return () => {
-      dispatch(resetCataniaColor())
-    }
-  }, [])
 
   return (
     <PageTemplate className="h-fit gap-4">
@@ -132,12 +129,24 @@ const SearchPage = () => {
       {
         hasNoCataniaData && hasNoCataniaColorData && (
           <NotInList
+            amount="none"
             color={tempColor}
             isbn={tempIsbn}
-            onClick={handleAddCataniaClick}
+            onClick={handleAddClick}
           />
         ) /* should be expanded to isLoading from different wool types */
       }
+      {!hasNoData &&
+        isLoaded &&
+        !isInAllCollections &&
+        (!hasNoCataniaColorData || !hasNoCataniaColorData) && (
+          <NotInList
+            amount="some"
+            color={tempColor}
+            isbn={tempIsbn}
+            onClick={handleAddClick}
+          />
+        )}
 
       <FloatingButton />
     </PageTemplate>
