@@ -1,6 +1,12 @@
 import {memo} from 'react'
 import {useNavigate} from 'react-router'
-import {List, ListSubheader, Typography} from '@mui/material'
+import {
+  List,
+  ListItem,
+  ListItemText,
+  ListSubheader,
+  Typography
+} from '@mui/material'
 
 import Loading from '../../atoms/ListPreview/Loading'
 import ErrorComponent from '../../atoms/ListPreview/Error'
@@ -55,6 +61,14 @@ const WoolListPreview = ({
             onNavigate={onNavigate}
           />
         ))}
+        {!data.length && (
+          <ListItem>
+            <ListItemText
+              className="text-[#6d5b54] italic"
+              primary="Es befinden sich keine Wollknäuel in der Sammlung."
+            />
+          </ListItem>
+        )}
       </List>
       {isLoading && <Loading />}
       {hasError && <ErrorComponent />}

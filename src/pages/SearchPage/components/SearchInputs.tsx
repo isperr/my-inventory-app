@@ -33,6 +33,7 @@ const SearchInputs = ({
       />
       {isColorSearch && (
         <TextField
+          autoFocus
           className="w-full"
           id="color"
           label="Farbe"
@@ -43,6 +44,7 @@ const SearchInputs = ({
       )}
       {!isColorSearch && (
         <TextField
+          autoFocus
           className="w-full"
           id="isbn"
           label="ISBN"
