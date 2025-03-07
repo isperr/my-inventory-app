@@ -148,6 +148,7 @@ const SearchPage = () => {
         collection="catania"
         data={cataniaData as WoolListItemType[]}
         hasError={hasCataniaError}
+        isLoaded={isCataniaLoaded}
         isLoading={false}
         listClassName={twMerge(
           'px-2',
@@ -160,6 +161,7 @@ const SearchPage = () => {
         collection="catania-color"
         data={cataniaColorData as WoolListItemType[]}
         hasError={hasCataniaColorError}
+        isLoaded={isCataniaColorLoaded}
         isLoading={false}
         listClassName={twMerge(
           'px-2',
@@ -173,6 +175,7 @@ const SearchPage = () => {
         collection="cotton-quick"
         data={cottonQuickData as WoolListItemType[]}
         hasError={hasCottonQuickError}
+        isLoaded={isCottonQuickLoaded}
         isLoading={false}
         listClassName={twMerge(
           'px-2',
@@ -185,6 +188,7 @@ const SearchPage = () => {
         collection="cotton-quick-print"
         data={cottonQuickPrintData as WoolListItemType[]}
         hasError={hasCottonQuickPrintError}
+        isLoaded={isCottonQuickPrintLoaded}
         isLoading={false}
         listClassName={twMerge(
           'px-2',

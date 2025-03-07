@@ -19,6 +19,7 @@ export type WoolListPreviewProps = {
   collection: CollectionType
   data: WoolListItemType[]
   hasError: boolean
+  isLoaded: boolean
   isLoading: boolean
   listClassName?: string
 }
@@ -27,6 +28,7 @@ const WoolListPreview = ({
   collection,
   data,
   hasError,
+  isLoaded,
   isLoading,
   listClassName
 }: WoolListPreviewProps) => {
@@ -61,7 +63,7 @@ const WoolListPreview = ({
             onNavigate={onNavigate}
           />
         ))}
-        {!data.length && (
+        {isLoaded && !data.length && (
           <ListItem>
             <ListItemText
               className="text-[#6d5b54] italic"

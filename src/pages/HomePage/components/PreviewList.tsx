@@ -36,6 +36,7 @@ const PreviewList = ({collection}: {collection: CollectionType}) => {
         collection={collection}
         data={data as WoolListItemType[]}
         hasError={Boolean(error)}
+        isLoaded={isLoaded}
         isLoading={isLoading}
       />
       <div className="w-auto flex px-4">
