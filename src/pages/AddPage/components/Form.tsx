@@ -65,9 +65,7 @@ const Form = ({
         <ListSubheader>Gründl</ListSubheader>
         <MenuItem value="cotton-quick">Cotton Quick</MenuItem>
         <MenuItem value="cotton-quick-print">Cotton Quick Print</MenuItem>
-        <MenuItem disabled value="funny">
-          Funny
-        </MenuItem>
+        <MenuItem value="funny-uni">Funny uni</MenuItem>
       </Select>
     </FormControl>
 

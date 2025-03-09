@@ -34,11 +34,26 @@ import {
   selectIsLoaded as selectIsLoadedCottonQuickPrint,
   selectIsLoading as selectIsLoadingCottonQuickPrint
 } from '../../../modules/cotton-quick-print/home/slice'
+import {
+  load as loadFunnyUni,
+  loaded as loadedFunnyUni,
+  loadingError as loadingFunnyUniError,
+  selectData as selectDataFunnyUni,
+  selectError as selectErrorFunnyUni,
+  selectIsLoaded as selectIsLoadedFunnyUni,
+  selectIsLoading as selectIsLoadingFunnyUni
+} from '../../../modules/funny-uni/home/slice'
 
 import {CollectionType} from '../../HomePage/types'
 
 export const getActions = (collection: CollectionType) => {
   switch (collection) {
+    case 'funny-uni':
+      return {
+        load: loadFunnyUni,
+        loaded: loadedFunnyUni,
+        loadingError: loadingFunnyUniError
+      }
     case 'cotton-quick':
       return {
         load: loadCottonQuick,
@@ -68,6 +83,13 @@ export const getActions = (collection: CollectionType) => {
 
 export const getSelectors = (collection: CollectionType) => {
   switch (collection) {
+    case 'funny-uni':
+      return {
+        selectData: selectDataFunnyUni,
+        selectError: selectErrorFunnyUni,
+        selectIsLoaded: selectIsLoadedFunnyUni,
+        selectIsLoading: selectIsLoadingFunnyUni
+      }
     case 'cotton-quick':
       return {
         selectData: selectDataCottonQuick,

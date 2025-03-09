@@ -3,7 +3,7 @@ export const collectionNames = {
   'catania-color': 'Schachenmayr Catania Color',
   'cotton-quick': 'Gründl Cotton Quick',
   'cotton-quick-print': 'Gründl Cotton Quick Print',
-  funny: 'Gründl Funny'
+  'funny-uni': 'Gründl Funny uni'
 }
 export type CollectionNamesType = typeof collectionNames
 

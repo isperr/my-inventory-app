@@ -28,6 +28,7 @@ const HomePage = () => {
       <PreviewList collection="catania-color" />
       <PreviewList collection="cotton-quick" />
       <PreviewList collection="cotton-quick-print" />
+      <PreviewList collection="funny-uni" />
 
       <FloatingButton ariaLabel="scan" icon="scan" path="/scan" />
     </PageTemplate>

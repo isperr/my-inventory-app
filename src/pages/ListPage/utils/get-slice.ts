@@ -54,11 +54,32 @@ import {
   selectIsLoaded as selectIsLoadedCottonQuickPrint,
   selectIsLoading as selectIsLoadingCottonQuickPrint
 } from '../../../modules/cotton-quick-print/results/selectors'
+// funny-uni
+import {
+  load as loadFunnyUni,
+  loaded as loadedFunnyUni,
+  loadingError as loadingFunnyUniError,
+  setIsActivated as setIsActivatedFunnyUni
+} from '../../../modules/catania/results/slice'
+import {
+  selectData as selectDataFunnyUni,
+  selectError as selectErrorFunnyUni,
+  selectIsActivated as selectIsActivatedFunnyUni,
+  selectIsLoaded as selectIsLoadedFunnyUni,
+  selectIsLoading as selectIsLoadingFunnyUni
+} from '../../../modules/catania/results/selectors'
 
 import {CollectionType} from '../../HomePage/types'
 
 export const getActions = (collection: CollectionType) => {
   switch (collection) {
+    case 'funny-uni':
+      return {
+        load: loadFunnyUni,
+        loaded: loadedFunnyUni,
+        loadingError: loadingFunnyUniError,
+        setIsActivated: setIsActivatedFunnyUni
+      }
     case 'cotton-quick':
       return {
         load: loadCottonQuick,
@@ -92,6 +113,14 @@ export const getActions = (collection: CollectionType) => {
 
 export const getSelectors = (collection: CollectionType) => {
   switch (collection) {
+    case 'funny-uni':
+      return {
+        selectData: selectDataFunnyUni,
+        selectError: selectErrorFunnyUni,
+        selectIsActivated: selectIsActivatedFunnyUni,
+        selectIsLoaded: selectIsLoadedFunnyUni,
+        selectIsLoading: selectIsLoadingFunnyUni
+      }
     case 'cotton-quick':
       return {
         selectData: selectDataCottonQuick,

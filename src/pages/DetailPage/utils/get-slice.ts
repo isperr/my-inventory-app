@@ -62,10 +62,32 @@ import {
   selectResolveData as selectResolveDataCottonQuickPrint,
   selectIsUpdatingType as selectIsUpdatingTypeCottonQuickPrint
 } from '../../../modules/cotton-quick-print/results/selectors'
+// funny-uni
+import {
+  resolve as resolveFunnyUni,
+  resolved as resolvedFunnyUni,
+  resolvingError as resolvingFunnyUniError,
+  update as updateFunnyUni,
+  updated as updatedFunnyUni,
+  updateError as updateFunnyUniError
+} from '../../../modules/funny-uni/results/slice'
+import {
+  selectHasResolveError as selectHasResolveErrorFunnyUni,
+  selectIsIdResolved as selectIsIdResolvedFunnyUni,
+  selectIsIdResolving as selectIsIdResolvingFunnyUni,
+  selectResolveData as selectResolveDataFunnyUni,
+  selectIsUpdatingType as selectIsUpdatingTypeFunnyUni
+} from '../../../modules/funny-uni/results/selectors'
 import {CollectionType} from '../../HomePage/types'
 
 export const getResolveActions = (collection: CollectionType) => {
   switch (collection) {
+    case 'funny-uni':
+      return {
+        resolve: resolveFunnyUni,
+        resolved: resolvedFunnyUni,
+        resolvingError: resolvingFunnyUniError
+      }
     case 'cotton-quick':
       return {
         resolve: resolveCottonQuick,
@@ -95,6 +117,13 @@ export const getResolveActions = (collection: CollectionType) => {
 
 export const getResolveSelectors = (collection: CollectionType) => {
   switch (collection) {
+    case 'funny-uni':
+      return {
+        selectHasResolveError: selectHasResolveErrorFunnyUni,
+        selectIsIdResolved: selectIsIdResolvedFunnyUni,
+        selectIsIdResolving: selectIsIdResolvingFunnyUni,
+        selectResolveData: selectResolveDataFunnyUni
+      }
     case 'cotton-quick':
       return {
         selectHasResolveError: selectHasResolveErrorCottonQuick,
@@ -128,6 +157,12 @@ export const getResolveSelectors = (collection: CollectionType) => {
 
 export const getUpdateActions = (collection: CollectionType) => {
   switch (collection) {
+    case 'funny-uni':
+      return {
+        update: updateFunnyUni,
+        updated: updatedFunnyUni,
+        updateError: updateFunnyUniError
+      }
     case 'cotton-quick':
       return {
         update: updateCottonQuick,
@@ -157,6 +192,10 @@ export const getUpdateActions = (collection: CollectionType) => {
 
 export const getUpdateSelectors = (collection: CollectionType) => {
   switch (collection) {
+    case 'funny-uni':
+      return {
+        selectIsUpdatingType: selectIsUpdatingTypeFunnyUni
+      }
     case 'cotton-quick':
       return {
         selectIsUpdatingType: selectIsUpdatingTypeCottonQuick

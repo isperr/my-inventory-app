@@ -7,6 +7,7 @@ export type SearchState = Pick<
   | 'cataniaSearch'
   | 'cottonQuickSearch'
   | 'cottonQuickPrintSearch'
+  | 'funnyUniSearch'
 >
 
 export const createSearchSelectors = (name: keyof SearchState) => {

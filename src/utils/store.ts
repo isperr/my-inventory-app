@@ -15,7 +15,9 @@ import cottonQuickReducer from '../modules/cotton-quick/results/slice'
 import cottonQuickPrintSearchReducer from '../modules/cotton-quick-print/search/slice'
 import cottonQuickPrintHomeReducer from '../modules/cotton-quick-print/home/slice'
 import cottonQuickPrintReducer from '../modules/cotton-quick-print/results/slice'
-
+import funnyUniReducer from '../modules/funny-uni/results/slice'
+import funnyUniHomeReducer from '../modules/funny-uni/home/slice'
+import funnyUniSearchReducer from '../modules/funny-uni/search/slice'
 export const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -32,7 +34,10 @@ export const store = configureStore({
     cottonQuickPrintHome: cottonQuickPrintHomeReducer,
     cottonQuickPrintSearch: cottonQuickPrintSearchReducer,
     gruendlAdd: gruendlAddReducer,
-    schachenmayrAdd: schachenmayrAddReducer
+    schachenmayrAdd: schachenmayrAddReducer,
+    funnyUni: funnyUniReducer,
+    funnyUniHome: funnyUniHomeReducer,
+    funnyUniSearch: funnyUniSearchReducer
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
@@ -49,7 +54,10 @@ export const store = configureStore({
           'cottonQuickSearch/loadingError',
           'cottonQuickPrintHome/loadingError',
           'cottonQuickPrint/loadingError',
-          'cottonQuickSearchPrint/loadingError'
+          'cottonQuickSearchPrint/loadingError',
+          'funnyUniHome/loadingError',
+          'funnyUni/loadingError',
+          'funnyUniSearch/loadingError'
         ],
         ignoredActionPaths: ['payload']
       }

@@ -5,7 +5,7 @@ import {ResolveStateReturnType, ResolveStateDataReturnType} from '../../types'
 export type ResultsState = Pick<
   RootState,
   // add all search modules here in order for the util to work
-  'catania' | 'cataniaColor' | 'cottonQuick' | 'cottonQuickPrint'
+  'catania' | 'cataniaColor' | 'cottonQuick' | 'cottonQuickPrint' | 'funnyUni'
 >
 
 export const createResultsSelectors = (name: keyof ResultsState) => {

@@ -49,11 +49,28 @@ import {
   reset as gruendlAddReset,
   setIsbnOrColor as gruendlAddSetIsbnOrColor
 } from '../../../modules/gruendl/add/slice'
+import {
+  load as loadFunnyUni,
+  loaded as loadedFunnyUni,
+  loadingError as loadingFunnyUniError,
+  selectData as selectDataFunnyUni,
+  selectError as selectErrorFunnyUni,
+  selectIsLoaded as selectIsLoadedFunnyUni,
+  selectIsLoading as selectIsLoadingFunnyUni
+} from '../../../modules/funny-uni/search/slice'
+import {resolved as resolvedFunnyUni} from '../../../modules/funny-uni/results/slice'
 
 import {CollectionType} from '../../HomePage/types'
 
 export const getActions = (collection: CollectionType) => {
   switch (collection) {
+    case 'funny-uni':
+      return {
+        load: loadFunnyUni,
+        loaded: loadedFunnyUni,
+        loadingError: loadingFunnyUniError,
+        resolved: resolvedFunnyUni
+      }
     case 'cotton-quick':
       return {
         load: loadCottonQuick,
@@ -87,6 +104,13 @@ export const getActions = (collection: CollectionType) => {
 
 export const getSelectors = (collection: CollectionType) => {
   switch (collection) {
+    case 'funny-uni':
+      return {
+        selectData: selectDataFunnyUni,
+        selectError: selectErrorFunnyUni,
+        selectIsLoaded: selectIsLoadedFunnyUni,
+        selectIsLoading: selectIsLoadingFunnyUni
+      }
     case 'cotton-quick':
       return {
         selectData: selectDataCottonQuick,
@@ -122,7 +146,7 @@ export const getAddActions = (collection: CollectionType) => {
   switch (collection) {
     case 'cotton-quick':
     case 'cotton-quick-print':
-    case 'funny':
+    case 'funny-uni':
       return {
         reset: gruendlAddReset,
         setIsbnOrColor: gruendlAddSetIsbnOrColor

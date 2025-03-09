@@ -56,6 +56,14 @@ const App = () => {
             />
           </Route>
 
+          <Route path="funny-uni" element={<CollectionPage />}>
+            <Route index element={<ListPage collection="funny-uni" />} />
+            <Route
+              path=":color"
+              element={<DetailPage collection="funny-uni" />}
+            />
+          </Route>
+
           <Route path="scan" element={<ScanPage />}>
             <Route index element={<SearchPage />} />
             <Route path="add" element={<AddPage />} />

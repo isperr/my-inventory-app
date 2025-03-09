@@ -18,6 +18,8 @@ import {insert as cottonQuickInsert} from '../../../modules/cotton-quick/home/sl
 import {insert as cottonQuickListInsert} from '../../../modules/cotton-quick/results/slice'
 import {insert as cottonQuickPrintInsert} from '../../../modules/cotton-quick-print/home/slice'
 import {insert as cottonQuickPrintListInsert} from '../../../modules/cotton-quick-print/results/slice'
+import {insert as funnyUniInsert} from '../../../modules/funny-uni/home/slice'
+import {insert as funnyUniListInsert} from '../../../modules/funny-uni/results/slice'
 import {useAppDispatch, useAppSelector} from '../../../utils/store-hooks'
 import {WoolDocumentData} from '../../../modules/types'
 
@@ -80,6 +82,9 @@ export const useAddGruendl = () => {
       } else if (collection === 'cotton-quick-print') {
         dispatch(cottonQuickPrintListInsert(data))
         dispatch(cottonQuickPrintInsert(data))
+      } else if (collection === 'funny-uni') {
+        dispatch(funnyUniListInsert(data))
+        dispatch(funnyUniInsert(data))
       }
     },
     [dispatch]

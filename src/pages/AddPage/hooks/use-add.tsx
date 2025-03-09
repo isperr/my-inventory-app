@@ -22,7 +22,7 @@ export const useAdd = (collection?: CollectionType) => {
   if (
     collection === 'cotton-quick' ||
     collection === 'cotton-quick-print' ||
-    collection === 'funny'
+    collection === 'funny-uni'
   ) {
     return {handleAdd: handleAddGruendl, ...gruendlState}
   }
