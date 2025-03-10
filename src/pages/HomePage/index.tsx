@@ -29,6 +29,8 @@ const HomePage = () => {
       <PreviewList collection="cotton-quick" />
       <PreviewList collection="cotton-quick-print" />
       <PreviewList collection="funny-uni" />
+      <PreviewList collection="samt" />
+      <PreviewList collection="samt-baby" />
 
       <FloatingButton ariaLabel="scan" icon="scan" path="/scan" />
     </PageTemplate>

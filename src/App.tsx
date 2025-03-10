@@ -64,10 +64,25 @@ const App = () => {
             />
           </Route>
 
+          <Route path="samt" element={<CollectionPage />}>
+            <Route index element={<ListPage collection="samt" />} />
+            <Route path=":color" element={<DetailPage collection="samt" />} />
+          </Route>
+
+          <Route path="samt-baby" element={<CollectionPage />}>
+            <Route index element={<ListPage collection="samt-baby" />} />
+            <Route
+              path=":color"
+              element={<DetailPage collection="samt-baby" />}
+            />
+          </Route>
+
           <Route path="scan" element={<ScanPage />}>
             <Route index element={<SearchPage />} />
             <Route path="add" element={<AddPage />} />
           </Route>
+
+          <Route path="*" element={<HomePage />} />
         </>
       )}
       {!isLoggedIn && <Route path="*" element={<LoginPage />} />}

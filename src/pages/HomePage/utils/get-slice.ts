@@ -1,3 +1,4 @@
+// catania
 import {
   load as loadReg,
   loaded as loadedReg,
@@ -7,6 +8,7 @@ import {
   selectIsLoaded as selectIsLoadedReg,
   selectIsLoading as selectIsLoadingReg
 } from '../../../modules/catania/home/slice'
+// catania-color
 import {
   load as loadColor,
   loaded as loadedColor,
@@ -16,6 +18,7 @@ import {
   selectIsLoaded as selectIsLoadedColor,
   selectIsLoading as selectIsLoadingColor
 } from '../../../modules/catania-color/home/slice'
+// cotton-quick
 import {
   load as loadCottonQuick,
   loaded as loadedCottonQuick,
@@ -25,6 +28,7 @@ import {
   selectIsLoaded as selectIsLoadedCottonQuick,
   selectIsLoading as selectIsLoadingCottonQuick
 } from '../../../modules/cotton-quick/home/slice'
+// cotton-quick-print
 import {
   load as loadCottonQuickPrint,
   loaded as loadedCottonQuickPrint,
@@ -34,6 +38,7 @@ import {
   selectIsLoaded as selectIsLoadedCottonQuickPrint,
   selectIsLoading as selectIsLoadingCottonQuickPrint
 } from '../../../modules/cotton-quick-print/home/slice'
+// funny-uni
 import {
   load as loadFunnyUni,
   loaded as loadedFunnyUni,
@@ -43,11 +48,43 @@ import {
   selectIsLoaded as selectIsLoadedFunnyUni,
   selectIsLoading as selectIsLoadingFunnyUni
 } from '../../../modules/funny-uni/home/slice'
+// samt
+import {
+  load as loadSamt,
+  loaded as loadedSamt,
+  loadingError as loadingSamtError,
+  selectData as selectDataSamt,
+  selectError as selectErrorSamt,
+  selectIsLoaded as selectIsLoadedSamt,
+  selectIsLoading as selectIsLoadingSamt
+} from '../../../modules/samt/home/slice'
+// samt-baby
+import {
+  load as loadSamtBaby,
+  loaded as loadedSamtBaby,
+  loadingError as loadingSamtBabyError,
+  selectData as selectDataSamtBaby,
+  selectError as selectErrorSamtBaby,
+  selectIsLoaded as selectIsLoadedSamtBaby,
+  selectIsLoading as selectIsLoadingSamtBaby
+} from '../../../modules/samt-baby/home/slice'
 
 import {CollectionType} from '../../HomePage/types'
 
 export const getActions = (collection: CollectionType) => {
   switch (collection) {
+    case 'samt':
+      return {
+        load: loadSamt,
+        loaded: loadedSamt,
+        loadingError: loadingSamtError
+      }
+    case 'samt-baby':
+      return {
+        load: loadSamtBaby,
+        loaded: loadedSamtBaby,
+        loadingError: loadingSamtBabyError
+      }
     case 'funny-uni':
       return {
         load: loadFunnyUni,
@@ -83,6 +120,20 @@ export const getActions = (collection: CollectionType) => {
 
 export const getSelectors = (collection: CollectionType) => {
   switch (collection) {
+    case 'samt':
+      return {
+        selectData: selectDataSamt,
+        selectError: selectErrorSamt,
+        selectIsLoaded: selectIsLoadedSamt,
+        selectIsLoading: selectIsLoadingSamt
+      }
+    case 'samt-baby':
+      return {
+        selectData: selectDataSamtBaby,
+        selectError: selectErrorSamtBaby,
+        selectIsLoaded: selectIsLoadedSamtBaby,
+        selectIsLoading: selectIsLoadingSamtBaby
+      }
     case 'funny-uni':
       return {
         selectData: selectDataFunnyUni,

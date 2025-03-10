@@ -78,10 +78,55 @@ import {
   selectResolveData as selectResolveDataFunnyUni,
   selectIsUpdatingType as selectIsUpdatingTypeFunnyUni
 } from '../../../modules/funny-uni/results/selectors'
+// samt
+import {
+  resolve as resolveSamt,
+  resolved as resolvedSamt,
+  resolvingError as resolvingSamtError,
+  update as updateSamt,
+  updated as updatedSamt,
+  updateError as updateSamtError
+} from '../../../modules/samt/results/slice'
+import {
+  selectHasResolveError as selectHasResolveErrorSamt,
+  selectIsIdResolved as selectIsIdResolvedSamt,
+  selectIsIdResolving as selectIsIdResolvingSamt,
+  selectResolveData as selectResolveDataSamt,
+  selectIsUpdatingType as selectIsUpdatingTypeSamt
+} from '../../../modules/samt/results/selectors'
+// samt-baby
+import {
+  resolve as resolveSamtBaby,
+  resolved as resolvedSamtBaby,
+  resolvingError as resolvingSamtBabyError,
+  update as updateSamtBaby,
+  updated as updatedSamtBaby,
+  updateError as updateSamtBabyError
+} from '../../../modules/samt-baby/results/slice'
+import {
+  selectHasResolveError as selectHasResolveErrorSamtBaby,
+  selectIsIdResolved as selectIsIdResolvedSamtBaby,
+  selectIsIdResolving as selectIsIdResolvingSamtBaby,
+  selectResolveData as selectResolveDataSamtBaby,
+  selectIsUpdatingType as selectIsUpdatingTypeSamtBaby
+} from '../../../modules/samt-baby/results/selectors'
+
 import {CollectionType} from '../../HomePage/types'
 
 export const getResolveActions = (collection: CollectionType) => {
   switch (collection) {
+    case 'samt':
+      return {
+        resolve: resolveSamt,
+        resolved: resolvedSamt,
+        resolvingError: resolvingSamtError
+      }
+    case 'samt-baby':
+      return {
+        resolve: resolveSamtBaby,
+        resolved: resolvedSamtBaby,
+        resolvingError: resolvingSamtBabyError
+      }
     case 'funny-uni':
       return {
         resolve: resolveFunnyUni,
@@ -117,6 +162,20 @@ export const getResolveActions = (collection: CollectionType) => {
 
 export const getResolveSelectors = (collection: CollectionType) => {
   switch (collection) {
+    case 'samt':
+      return {
+        selectHasResolveError: selectHasResolveErrorSamt,
+        selectIsIdResolved: selectIsIdResolvedSamt,
+        selectIsIdResolving: selectIsIdResolvingSamt,
+        selectResolveData: selectResolveDataSamt
+      }
+    case 'samt-baby':
+      return {
+        selectHasResolveError: selectHasResolveErrorSamtBaby,
+        selectIsIdResolved: selectIsIdResolvedSamtBaby,
+        selectIsIdResolving: selectIsIdResolvingSamtBaby,
+        selectResolveData: selectResolveDataSamtBaby
+      }
     case 'funny-uni':
       return {
         selectHasResolveError: selectHasResolveErrorFunnyUni,
@@ -157,6 +216,18 @@ export const getResolveSelectors = (collection: CollectionType) => {
 
 export const getUpdateActions = (collection: CollectionType) => {
   switch (collection) {
+    case 'samt':
+      return {
+        update: updateSamt,
+        updated: updatedSamt,
+        updateError: updateSamtError
+      }
+    case 'samt-baby':
+      return {
+        update: updateSamtBaby,
+        updated: updatedSamtBaby,
+        updateError: updateSamtBabyError
+      }
     case 'funny-uni':
       return {
         update: updateFunnyUni,
@@ -192,6 +263,14 @@ export const getUpdateActions = (collection: CollectionType) => {
 
 export const getUpdateSelectors = (collection: CollectionType) => {
   switch (collection) {
+    case 'samt':
+      return {
+        selectIsUpdatingType: selectIsUpdatingTypeSamt
+      }
+    case 'samt-baby':
+      return {
+        selectIsUpdatingType: selectIsUpdatingTypeSamtBaby
+      }
     case 'funny-uni':
       return {
         selectIsUpdatingType: selectIsUpdatingTypeFunnyUni

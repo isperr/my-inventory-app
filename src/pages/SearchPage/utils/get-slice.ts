@@ -60,10 +60,56 @@ import {
 } from '../../../modules/funny-uni/search/slice'
 import {resolved as resolvedFunnyUni} from '../../../modules/funny-uni/results/slice'
 
+// MYBOSHI
+import {
+  load as loadSamt,
+  loaded as loadedSamt,
+  loadingError as loadingSamtError,
+  selectData as selectDataSamt,
+  selectError as selectErrorSamt,
+  selectIsLoaded as selectIsLoadedSamt,
+  selectIsLoading as selectIsLoadingSamt
+} from '../../../modules/samt/search/slice'
+import {resolved as resolvedSamt} from '../../../modules/samt/results/slice'
+import {
+  reset as myboshiAddReset,
+  setIsbnOrColor as myboshiAddSetIsbnOrColor
+} from '../../../modules/myboshi/add/slice'
+
+// AYOS
+import {
+  load as loadSamtBaby,
+  loaded as loadedSamtBaby,
+  loadingError as loadingSamtBabyError,
+  selectData as selectDataSamtBaby,
+  selectError as selectErrorSamtBaby,
+  selectIsLoaded as selectIsLoadedSamtBaby,
+  selectIsLoading as selectIsLoadingSamtBaby
+} from '../../../modules/samt-baby/search/slice'
+import {resolved as resolvedSamtBaby} from '../../../modules/samt-baby/results/slice'
+import {
+  reset as ayosAddReset,
+  setIsbnOrColor as ayosAddSetIsbnOrColor
+} from '../../../modules/ayos/add/slice'
+
 import {CollectionType} from '../../HomePage/types'
 
 export const getActions = (collection: CollectionType) => {
   switch (collection) {
+    case 'samt':
+      return {
+        load: loadSamt,
+        loaded: loadedSamt,
+        loadingError: loadingSamtError,
+        resolved: resolvedSamt
+      }
+    case 'samt-baby':
+      return {
+        load: loadSamtBaby,
+        loaded: loadedSamtBaby,
+        loadingError: loadingSamtBabyError,
+        resolved: resolvedSamtBaby
+      }
     case 'funny-uni':
       return {
         load: loadFunnyUni,
@@ -104,6 +150,20 @@ export const getActions = (collection: CollectionType) => {
 
 export const getSelectors = (collection: CollectionType) => {
   switch (collection) {
+    case 'samt':
+      return {
+        selectData: selectDataSamt,
+        selectError: selectErrorSamt,
+        selectIsLoaded: selectIsLoadedSamt,
+        selectIsLoading: selectIsLoadingSamt
+      }
+    case 'samt-baby':
+      return {
+        selectData: selectDataSamtBaby,
+        selectError: selectErrorSamtBaby,
+        selectIsLoaded: selectIsLoadedSamtBaby,
+        selectIsLoading: selectIsLoadingSamtBaby
+      }
     case 'funny-uni':
       return {
         selectData: selectDataFunnyUni,
@@ -150,6 +210,16 @@ export const getAddActions = (collection: CollectionType) => {
       return {
         reset: gruendlAddReset,
         setIsbnOrColor: gruendlAddSetIsbnOrColor
+      }
+    case 'samt':
+      return {
+        reset: myboshiAddReset,
+        setIsbnOrColor: myboshiAddSetIsbnOrColor
+      }
+    case 'samt-baby':
+      return {
+        reset: ayosAddReset,
+        setIsbnOrColor: ayosAddSetIsbnOrColor
       }
     default:
       return {
