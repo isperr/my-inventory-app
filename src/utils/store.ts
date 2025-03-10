@@ -82,7 +82,6 @@ export const store = configureStore({
           'samtHome/loadingError',
           'samt/loadingError',
           'samtSearch/loadingError',
-          ,
           'samtBabyHome/loadingError',
           'samtBaby/loadingError',
           'samtBabySearch/loadingError'
