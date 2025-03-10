@@ -1,6 +1,7 @@
 import {configureStore} from '@reduxjs/toolkit'
 
 import authReducer from '../modules/auth/slice'
+// SCHACHENMAYR
 import schachenmayrAddReducer from '../modules/schachenmayr/add/slice'
 import cataniaReducer from '../modules/catania/results/slice'
 import cataniaHomeReducer from '../modules/catania/home/slice'
@@ -8,6 +9,7 @@ import cataniaSearchReducer from '../modules/catania/search/slice'
 import cataniaColorReducer from '../modules/catania-color/results/slice'
 import cataniaColorHomeReducer from '../modules/catania-color/home/slice'
 import cataniaColorSearchReducer from '../modules/catania-color/search/slice'
+// GRÜNDL
 import gruendlAddReducer from '../modules/schachenmayr/add/slice'
 import cottonQuickSearchReducer from '../modules/cotton-quick/search/slice'
 import cottonQuickHomeReducer from '../modules/cotton-quick/home/slice'
@@ -18,26 +20,45 @@ import cottonQuickPrintReducer from '../modules/cotton-quick-print/results/slice
 import funnyUniReducer from '../modules/funny-uni/results/slice'
 import funnyUniHomeReducer from '../modules/funny-uni/home/slice'
 import funnyUniSearchReducer from '../modules/funny-uni/search/slice'
+// MYBOSHI
+import myboshiAddReducer from '../modules/myboshi/add/slice'
+import samtReducer from '../modules/samt/results/slice'
+import samtHomeReducer from '../modules/samt/home/slice'
+import samtSearchReducer from '../modules/samt/search/slice'
+// AYOS
+import ayosAddReducer from '../modules/ayos/add/slice'
+import samtBabyReducer from '../modules/samt-baby/results/slice'
+import samtBabyHomeReducer from '../modules/samt-baby/home/slice'
+import samtBabySearchReducer from '../modules/samt-baby/search/slice'
+
 export const store = configureStore({
   reducer: {
     auth: authReducer,
+    schachenmayrAdd: schachenmayrAddReducer,
     catania: cataniaReducer,
     cataniaHome: cataniaHomeReducer,
     cataniaSearch: cataniaSearchReducer,
     cataniaColor: cataniaColorReducer,
     cataniaColorHome: cataniaColorHomeReducer,
     cataniaColorSearch: cataniaColorSearchReducer,
+    gruendlAdd: gruendlAddReducer,
     cottonQuick: cottonQuickReducer,
     cottonQuickHome: cottonQuickHomeReducer,
     cottonQuickSearch: cottonQuickSearchReducer,
     cottonQuickPrint: cottonQuickPrintReducer,
     cottonQuickPrintHome: cottonQuickPrintHomeReducer,
     cottonQuickPrintSearch: cottonQuickPrintSearchReducer,
-    gruendlAdd: gruendlAddReducer,
-    schachenmayrAdd: schachenmayrAddReducer,
     funnyUni: funnyUniReducer,
     funnyUniHome: funnyUniHomeReducer,
-    funnyUniSearch: funnyUniSearchReducer
+    funnyUniSearch: funnyUniSearchReducer,
+    myboshiAdd: myboshiAddReducer,
+    samt: samtReducer,
+    samtHome: samtHomeReducer,
+    samtSearch: samtSearchReducer,
+    ayosAdd: ayosAddReducer,
+    samtBaby: samtBabyReducer,
+    samtBabyHome: samtBabyHomeReducer,
+    samtBabySearch: samtBabySearchReducer
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
@@ -57,7 +78,14 @@ export const store = configureStore({
           'cottonQuickSearchPrint/loadingError',
           'funnyUniHome/loadingError',
           'funnyUni/loadingError',
-          'funnyUniSearch/loadingError'
+          'funnyUniSearch/loadingError',
+          'samtHome/loadingError',
+          'samt/loadingError',
+          'samtSearch/loadingError',
+          ,
+          'samtBabyHome/loadingError',
+          'samtBaby/loadingError',
+          'samtBabySearch/loadingError'
         ],
         ignoredActionPaths: ['payload']
       }

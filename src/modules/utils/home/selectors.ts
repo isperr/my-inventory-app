@@ -8,6 +8,8 @@ export type HomeState = Pick<
   | 'cottonQuickHome'
   | 'cottonQuickPrintHome'
   | 'funnyUniHome'
+  | 'samtHome'
+  | 'samtBabyHome'
 >
 
 export const createHomeSelectors = (name: keyof HomeState) => {

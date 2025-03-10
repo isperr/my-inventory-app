@@ -8,6 +8,8 @@ export type SearchState = Pick<
   | 'cottonQuickSearch'
   | 'cottonQuickPrintSearch'
   | 'funnyUniSearch'
+  | 'samtSearch'
+  | 'samtBabySearch'
 >
 
 export const createSearchSelectors = (name: keyof SearchState) => {
