@@ -1,4 +1,4 @@
-import {useCallback, useState} from 'react'
+import {useCallback, useEffect, useState} from 'react'
 import {useNavigate} from 'react-router'
 import {twMerge} from 'tailwind-merge'
 import {Paper, Typography} from '@mui/material'
@@ -8,7 +8,9 @@ import Loading from '../../atoms/ListPreview/Loading'
 import NotInList from '../../atoms/ListPreview/NotInList'
 import WoolListPreview from '../../molecules/WoolListPreview'
 import {WoolListItemType} from '../../molecules/WoolList/components/WoolListItem'
+import {reset} from '../../modules/wool/add/slice'
 import PageTemplate from '../../templates/Page'
+import {useAppDispatch} from '../../utils/store-hooks'
 
 import {useSearchData} from './hooks/use-search-data'
 import SearchInputs from './components/SearchInputs'
@@ -18,9 +20,16 @@ const COLLECTION_COUNT = 7
 
 const SearchPage = () => {
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
 
   const [tempIsbn, setTempIsbn] = useState<number | undefined>(undefined)
   const [tempColor, setTempColor] = useState<number | undefined>(undefined)
+
+  useEffect(() => {
+    return () => {
+      dispatch(reset())
+    }
+  }, [])
 
   const {
     data: cataniaData,

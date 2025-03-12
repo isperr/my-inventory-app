@@ -2,10 +2,10 @@ import {createAddSelectors} from '../../utils/add/selectors'
 import {createAddSlice} from '../../utils/add/slice'
 
 /* USED FOR GRÜNDL (COTTON-QUICK, COTTON-QUICK PRINT FUNNY) */
-export const gruendlAddState = createAddSlice('gruendlAdd')
+export const woolAddState = createAddSlice('woolAdd')
 
 export const {add, added, addingError, reset, setIsbnOrColor} =
-  gruendlAddState.actions
+  woolAddState.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const {
@@ -14,6 +14,6 @@ export const {
   selectIsAdded,
   selectIsAdding,
   selectIsbn
-} = createAddSelectors('gruendlAdd')
+} = createAddSelectors('woolAdd')
 
-export default gruendlAddState.reducer
+export default woolAddState.reducer

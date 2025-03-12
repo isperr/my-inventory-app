@@ -19,10 +19,6 @@ import {
   selectIsLoading as selectIsLoadingColor
 } from '../../../modules/catania-color/search/slice'
 import {resolved as resolvedColor} from '../../../modules/catania-color/results/slice'
-import {
-  reset as schachenmayrAddReset,
-  setIsbnOrColor as schachenmayrAddSetIsbnOrColor
-} from '../../../modules/schachenmayr/add/slice'
 
 // GRÜNDL
 import {
@@ -46,10 +42,6 @@ import {
 } from '../../../modules/cotton-quick-print/search/slice'
 import {resolved as resolvedCottonQuickPrint} from '../../../modules/cotton-quick-print/results/slice'
 import {
-  reset as gruendlAddReset,
-  setIsbnOrColor as gruendlAddSetIsbnOrColor
-} from '../../../modules/gruendl/add/slice'
-import {
   load as loadFunnyUni,
   loaded as loadedFunnyUni,
   loadingError as loadingFunnyUniError,
@@ -71,10 +63,6 @@ import {
   selectIsLoading as selectIsLoadingSamt
 } from '../../../modules/samt/search/slice'
 import {resolved as resolvedSamt} from '../../../modules/samt/results/slice'
-import {
-  reset as myboshiAddReset,
-  setIsbnOrColor as myboshiAddSetIsbnOrColor
-} from '../../../modules/myboshi/add/slice'
 
 // AYOS
 import {
@@ -87,10 +75,6 @@ import {
   selectIsLoading as selectIsLoadingSamtBaby
 } from '../../../modules/samt-baby/search/slice'
 import {resolved as resolvedSamtBaby} from '../../../modules/samt-baby/results/slice'
-import {
-  reset as ayosAddReset,
-  setIsbnOrColor as ayosAddSetIsbnOrColor
-} from '../../../modules/ayos/add/slice'
 
 import {CollectionType} from '../../HomePage/types'
 
@@ -198,33 +182,6 @@ export const getSelectors = (collection: CollectionType) => {
         selectError: selectErrorCatania,
         selectIsLoaded: selectIsLoadedCatania,
         selectIsLoading: selectIsLoadingCatania
-      }
-  }
-}
-
-export const getAddActions = (collection: CollectionType) => {
-  switch (collection) {
-    case 'cotton-quick':
-    case 'cotton-quick-print':
-    case 'funny-uni':
-      return {
-        reset: gruendlAddReset,
-        setIsbnOrColor: gruendlAddSetIsbnOrColor
-      }
-    case 'samt':
-      return {
-        reset: myboshiAddReset,
-        setIsbnOrColor: myboshiAddSetIsbnOrColor
-      }
-    case 'samt-baby':
-      return {
-        reset: ayosAddReset,
-        setIsbnOrColor: ayosAddSetIsbnOrColor
-      }
-    default:
-      return {
-        reset: schachenmayrAddReset,
-        setIsbnOrColor: schachenmayrAddSetIsbnOrColor
       }
   }
 }

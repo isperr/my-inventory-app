@@ -3,7 +3,7 @@ import {RootState} from '../../../utils/store'
 export type AddState = Pick<
   RootState,
   // add all add modules here in order for the util to work
-  'schachenmayrAdd' | 'gruendlAdd' | 'ayosAdd' | 'myboshiAdd'
+  'woolAdd'
 >
 
 export const createAddSelectors = (name: keyof AddState) => {

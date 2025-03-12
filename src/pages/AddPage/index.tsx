@@ -16,9 +16,7 @@ import Form from './components/Form'
 const AddPage = () => {
   const navigate = useNavigate()
   const notifications = useNotifications()
-  const [collection, setCollection] = useState<CollectionType | undefined>(
-    'catania'
-  )
+  const [collection, setCollection] = useState<CollectionType>('catania')
 
   const handleCollectionChange = (
     event: SelectChangeEvent<typeof collection>
@@ -26,8 +24,7 @@ const AddPage = () => {
     setCollection(event.target.value as typeof collection)
   }
 
-  const {color, isAdded, isAdding, isDisabled, isbn, handleAdd} =
-    useAdd(collection)
+  const {color, isAdded, isAdding, isDisabled, isbn, handleAdd} = useAdd()
 
   const handleSubmit = async (event: React.SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault()

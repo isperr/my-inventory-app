@@ -56,9 +56,6 @@ const Form = ({
         required
         onChange={handleCollectionChange}
       >
-        <MenuItem value="">
-          <em>Keine Kollektion ausgewählt</em>
-        </MenuItem>
         <ListSubheader>Schachenmayr</ListSubheader>
         <MenuItem value="catania">Catania</MenuItem>
         <MenuItem value="catania-color">Catania Color</MenuItem>

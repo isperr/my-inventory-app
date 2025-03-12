@@ -1,10 +1,11 @@
-import {useCallback, useEffect} from 'react'
+import {useCallback} from 'react'
 
-import {useAppDispatch, useAppSelector} from '../../../utils/store-hooks'
 import {onResolveDataByGivenData} from '../../../hooks/use-resolve'
+import {setIsbnOrColor} from '../../../modules/wool/add/slice'
+import {useAppDispatch, useAppSelector} from '../../../utils/store-hooks'
 import {CollectionType} from '../../HomePage/types'
 
-import {getActions, getAddActions, getSelectors} from '../utils/get-slice'
+import {getActions, getSelectors} from '../utils/get-slice'
 
 export const useSearchData = (collection: CollectionType) => {
   const dispatch = useAppDispatch()
@@ -12,7 +13,6 @@ export const useSearchData = (collection: CollectionType) => {
   const {load, loaded, loadingError, resolved} = getActions(collection)
   const {selectData, selectError, selectIsLoaded, selectIsLoading} =
     getSelectors(collection)
-  const {setIsbnOrColor, reset} = getAddActions(collection)
 
   const data = useAppSelector(selectData)
   const error = useAppSelector(selectError)
@@ -43,12 +43,6 @@ export const useSearchData = (collection: CollectionType) => {
   )
 
   const hasError = Boolean(error)
-
-  useEffect(() => {
-    return () => {
-      dispatch(reset())
-    }
-  }, [])
 
   return {
     data,

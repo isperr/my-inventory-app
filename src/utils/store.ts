@@ -1,8 +1,8 @@
 import {configureStore} from '@reduxjs/toolkit'
 
 import authReducer from '../modules/auth/slice'
+import woolAddReducer from '../modules/wool/add/slice'
 // SCHACHENMAYR
-import schachenmayrAddReducer from '../modules/schachenmayr/add/slice'
 import cataniaReducer from '../modules/catania/results/slice'
 import cataniaHomeReducer from '../modules/catania/home/slice'
 import cataniaSearchReducer from '../modules/catania/search/slice'
@@ -10,7 +10,6 @@ import cataniaColorReducer from '../modules/catania-color/results/slice'
 import cataniaColorHomeReducer from '../modules/catania-color/home/slice'
 import cataniaColorSearchReducer from '../modules/catania-color/search/slice'
 // GRÜNDL
-import gruendlAddReducer from '../modules/schachenmayr/add/slice'
 import cottonQuickSearchReducer from '../modules/cotton-quick/search/slice'
 import cottonQuickHomeReducer from '../modules/cotton-quick/home/slice'
 import cottonQuickReducer from '../modules/cotton-quick/results/slice'
@@ -21,27 +20,29 @@ import funnyUniReducer from '../modules/funny-uni/results/slice'
 import funnyUniHomeReducer from '../modules/funny-uni/home/slice'
 import funnyUniSearchReducer from '../modules/funny-uni/search/slice'
 // MYBOSHI
-import myboshiAddReducer from '../modules/myboshi/add/slice'
 import samtReducer from '../modules/samt/results/slice'
 import samtHomeReducer from '../modules/samt/home/slice'
 import samtSearchReducer from '../modules/samt/search/slice'
 // AYOS
-import ayosAddReducer from '../modules/ayos/add/slice'
 import samtBabyReducer from '../modules/samt-baby/results/slice'
 import samtBabyHomeReducer from '../modules/samt-baby/home/slice'
 import samtBabySearchReducer from '../modules/samt-baby/search/slice'
+// HIMALAYA
+//import himalayaAddReducer from '../modules/himalaya/add/slice'
+//import dolphinBabyReducer from '../modules/dolphin-baby/results/slice'
+//import dolphinBabyHomeReducer from '../modules/dolphin-baby/home/slice'
+//import dolphinBabySearchReducer from '../modules/dolphin-baby/search/slice'
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
-    schachenmayrAdd: schachenmayrAddReducer,
+    woolAdd: woolAddReducer,
     catania: cataniaReducer,
     cataniaHome: cataniaHomeReducer,
     cataniaSearch: cataniaSearchReducer,
     cataniaColor: cataniaColorReducer,
     cataniaColorHome: cataniaColorHomeReducer,
     cataniaColorSearch: cataniaColorSearchReducer,
-    gruendlAdd: gruendlAddReducer,
     cottonQuick: cottonQuickReducer,
     cottonQuickHome: cottonQuickHomeReducer,
     cottonQuickSearch: cottonQuickSearchReducer,
@@ -51,11 +52,9 @@ export const store = configureStore({
     funnyUni: funnyUniReducer,
     funnyUniHome: funnyUniHomeReducer,
     funnyUniSearch: funnyUniSearchReducer,
-    myboshiAdd: myboshiAddReducer,
     samt: samtReducer,
     samtHome: samtHomeReducer,
     samtSearch: samtSearchReducer,
-    ayosAdd: ayosAddReducer,
     samtBaby: samtBabyReducer,
     samtBabyHome: samtBabyHomeReducer,
     samtBabySearch: samtBabySearchReducer
