@@ -10,6 +10,7 @@ export type SearchState = Pick<
   | 'funnyUniSearch'
   | 'samtSearch'
   | 'samtBabySearch'
+  | 'dolphinBabySearch'
 >
 
 export const createSearchSelectors = (name: keyof SearchState) => {

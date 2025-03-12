@@ -23,11 +23,20 @@ import {insert as samtListInsert} from '../../../modules/samt/results/slice'
 // samt-baby
 import {insert as samtBabyInsert} from '../../../modules/samt-baby/home/slice'
 import {insert as samtBabyListInsert} from '../../../modules/samt-baby/results/slice'
+// HIMALAYA ----------------------------------------------------------------
+// dolphin-baby
+import {insert as dolphinBabyInsert} from '../../../modules/dolphin-baby/home/slice'
+import {insert as dolphinBabyListInsert} from '../../../modules/dolphin-baby/results/slice'
 // ----------------------------------------------------------------
 import {CollectionType} from '../../HomePage/types'
 
 export const getAddInserts = (collection: CollectionType) => {
   switch (collection) {
+    case 'dolphin-baby':
+      return {
+        homeInsert: dolphinBabyInsert,
+        listInsert: dolphinBabyListInsert
+      }
     case 'samt':
       return {
         homeInsert: samtInsert,
@@ -58,6 +67,7 @@ export const getAddInserts = (collection: CollectionType) => {
         homeInsert: cataniaColorHomeInsert,
         listInsert: cataniaColorListInsert
       }
+    case 'catania':
     default:
       return {
         homeInsert: cataniaHomeInsert,

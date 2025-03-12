@@ -77,6 +77,14 @@ const App = () => {
             />
           </Route>
 
+          <Route path="dolphin-baby" element={<CollectionPage />}>
+            <Route index element={<ListPage collection="dolphin-baby" />} />
+            <Route
+              path=":color"
+              element={<DetailPage collection="dolphin-baby" />}
+            />
+          </Route>
+
           <Route path="scan" element={<ScanPage />}>
             <Route index element={<SearchPage />} />
             <Route path="add" element={<AddPage />} />

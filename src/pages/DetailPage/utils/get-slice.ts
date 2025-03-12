@@ -110,11 +110,33 @@ import {
   selectResolveData as selectResolveDataSamtBaby,
   selectIsUpdatingType as selectIsUpdatingTypeSamtBaby
 } from '../../../modules/samt-baby/results/selectors'
+// dolphin-baby
+import {
+  resolve as resolveDolphinBaby,
+  resolved as resolvedDolphinBaby,
+  resolvingError as resolvingDolphinBabyError,
+  update as updateDolphinBaby,
+  updated as updatedDolphinBaby,
+  updateError as updateDolphinBabyError
+} from '../../../modules/dolphin-baby/results/slice'
+import {
+  selectHasResolveError as selectHasResolveErrorDolphinBaby,
+  selectIsIdResolved as selectIsIdResolvedDolphinBaby,
+  selectIsIdResolving as selectIsIdResolvingDolphinBaby,
+  selectResolveData as selectResolveDataDolphinBaby,
+  selectIsUpdatingType as selectIsUpdatingTypeDolphinBaby
+} from '../../../modules/dolphin-baby/results/selectors'
 
 import {CollectionType} from '../../HomePage/types'
 
 export const getResolveActions = (collection: CollectionType) => {
   switch (collection) {
+    case 'dolphin-baby':
+      return {
+        resolve: resolveDolphinBaby,
+        resolved: resolvedDolphinBaby,
+        resolvingError: resolvingDolphinBabyError
+      }
     case 'samt':
       return {
         resolve: resolveSamt,
@@ -162,6 +184,13 @@ export const getResolveActions = (collection: CollectionType) => {
 
 export const getResolveSelectors = (collection: CollectionType) => {
   switch (collection) {
+    case 'dolphin-baby':
+      return {
+        selectHasResolveError: selectHasResolveErrorDolphinBaby,
+        selectIsIdResolved: selectIsIdResolvedDolphinBaby,
+        selectIsIdResolving: selectIsIdResolvingDolphinBaby,
+        selectResolveData: selectResolveDataDolphinBaby
+      }
     case 'samt':
       return {
         selectHasResolveError: selectHasResolveErrorSamt,
@@ -216,6 +245,12 @@ export const getResolveSelectors = (collection: CollectionType) => {
 
 export const getUpdateActions = (collection: CollectionType) => {
   switch (collection) {
+    case 'dolphin-baby':
+      return {
+        update: updateDolphinBaby,
+        updated: updatedDolphinBaby,
+        updateError: updateDolphinBabyError
+      }
     case 'samt':
       return {
         update: updateSamt,
@@ -263,6 +298,10 @@ export const getUpdateActions = (collection: CollectionType) => {
 
 export const getUpdateSelectors = (collection: CollectionType) => {
   switch (collection) {
+    case 'dolphin-baby':
+      return {
+        selectIsUpdatingType: selectIsUpdatingTypeDolphinBaby
+      }
     case 'samt':
       return {
         selectIsUpdatingType: selectIsUpdatingTypeSamt

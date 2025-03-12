@@ -12,6 +12,7 @@ export type ResultsState = Pick<
   | 'funnyUni'
   | 'samt'
   | 'samtBaby'
+  | 'dolphinBaby'
 >
 
 export const createResultsSelectors = (name: keyof ResultsState) => {

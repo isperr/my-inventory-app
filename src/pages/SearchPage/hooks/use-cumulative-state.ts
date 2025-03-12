@@ -1,7 +1,7 @@
 import {useSearchDataState} from './use-search-data'
 
 // always change if there are more collections added
-const COLLECTION_COUNT = 7
+const COLLECTION_COUNT = 8
 
 export const useCumulativeState = () => {
   const {
@@ -46,6 +46,12 @@ export const useCumulativeState = () => {
     isLoaded: isSamtBabyLoaded,
     isLoading: isSamtBabyLoading
   } = useSearchDataState('samt-baby')
+  const {
+    data: dolphinBabyData,
+    hasNoData: hasNoDolphinBabyData,
+    isLoaded: isDolphinBabyLoaded,
+    isLoading: isDolphinBabyLoading
+  } = useSearchDataState('dolphin-baby')
 
   return {
     hasNoData:
@@ -55,7 +61,8 @@ export const useCumulativeState = () => {
       hasNoCottonQuickPrintData &&
       hasNoFunnyUniData &&
       hasNoSamtData &&
-      hasNoSamtBabyData,
+      hasNoSamtBabyData &&
+      hasNoDolphinBabyData,
     isLoaded:
       isCataniaLoaded &&
       isCataniaColorLoaded &&
@@ -63,7 +70,8 @@ export const useCumulativeState = () => {
       isCottonQuickPrintLoaded &&
       isFunnyUniLoaded &&
       isSamtLoaded &&
-      isSamtBabyLoaded,
+      isSamtBabyLoaded &&
+      isDolphinBabyLoaded,
     isLoading:
       isCataniaLoading ||
       isCataniaColorLoading ||
@@ -71,7 +79,8 @@ export const useCumulativeState = () => {
       isCottonQuickPrintLoading ||
       isFunnyUniLoading ||
       isSamtLoading ||
-      isSamtBabyLoading,
+      isSamtBabyLoading ||
+      isDolphinBabyLoading,
     isInAllCollections:
       cataniaData.length +
         cataniaColorData.length +
@@ -79,7 +88,8 @@ export const useCumulativeState = () => {
         cottonQuickPrintData.length +
         funnyUniData.length +
         samtData.length +
-        samtBabyData.length ===
+        samtBabyData.length +
+        dolphinBabyData.length ===
       COLLECTION_COUNT
   }
 }

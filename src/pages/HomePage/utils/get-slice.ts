@@ -68,11 +68,27 @@ import {
   selectIsLoaded as selectIsLoadedSamtBaby,
   selectIsLoading as selectIsLoadingSamtBaby
 } from '../../../modules/samt-baby/home/slice'
+// dolphin-baby
+import {
+  load as loadDolphinBaby,
+  loaded as loadedDolphinBaby,
+  loadingError as loadingDolphinBabyError,
+  selectData as selectDataDolphinBaby,
+  selectError as selectErrorDolphinBaby,
+  selectIsLoaded as selectIsLoadedDolphinBaby,
+  selectIsLoading as selectIsLoadingDolphinBaby
+} from '../../../modules/dolphin-baby/home/slice'
 
 import {CollectionType} from '../../HomePage/types'
 
 export const getActions = (collection: CollectionType) => {
   switch (collection) {
+    case 'dolphin-baby':
+      return {
+        load: loadDolphinBaby,
+        loaded: loadedDolphinBaby,
+        loadingError: loadingDolphinBabyError
+      }
     case 'samt':
       return {
         load: loadSamt,
@@ -120,6 +136,13 @@ export const getActions = (collection: CollectionType) => {
 
 export const getSelectors = (collection: CollectionType) => {
   switch (collection) {
+    case 'dolphin-baby':
+      return {
+        selectData: selectDataDolphinBaby,
+        selectError: selectErrorDolphinBaby,
+        selectIsLoaded: selectIsLoadedDolphinBaby,
+        selectIsLoading: selectIsLoadingDolphinBaby
+      }
     case 'samt':
       return {
         selectData: selectDataSamt,

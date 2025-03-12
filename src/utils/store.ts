@@ -28,10 +28,9 @@ import samtBabyReducer from '../modules/samt-baby/results/slice'
 import samtBabyHomeReducer from '../modules/samt-baby/home/slice'
 import samtBabySearchReducer from '../modules/samt-baby/search/slice'
 // HIMALAYA
-//import himalayaAddReducer from '../modules/himalaya/add/slice'
-//import dolphinBabyReducer from '../modules/dolphin-baby/results/slice'
-//import dolphinBabyHomeReducer from '../modules/dolphin-baby/home/slice'
-//import dolphinBabySearchReducer from '../modules/dolphin-baby/search/slice'
+import dolphinBabyReducer from '../modules/dolphin-baby/results/slice'
+import dolphinBabyHomeReducer from '../modules/dolphin-baby/home/slice'
+import dolphinBabySearchReducer from '../modules/dolphin-baby/search/slice'
 
 export const store = configureStore({
   reducer: {
@@ -57,7 +56,10 @@ export const store = configureStore({
     samtSearch: samtSearchReducer,
     samtBaby: samtBabyReducer,
     samtBabyHome: samtBabyHomeReducer,
-    samtBabySearch: samtBabySearchReducer
+    samtBabySearch: samtBabySearchReducer,
+    dolphinBaby: dolphinBabyReducer,
+    dolphinBabyHome: dolphinBabyHomeReducer,
+    dolphinBabySearch: dolphinBabySearchReducer
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
@@ -83,7 +85,10 @@ export const store = configureStore({
           'samtSearch/loadingError',
           'samtBabyHome/loadingError',
           'samtBaby/loadingError',
-          'samtBabySearch/loadingError'
+          'samtBabySearch/loadingError',
+          'dolphinBabyHome/loadingError',
+          'dolphinBaby/loadingError',
+          'dolphinBabySearch/loadingError'
         ],
         ignoredActionPaths: ['payload']
       }

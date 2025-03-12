@@ -5,7 +5,8 @@ export const collectionNames = {
   'cotton-quick-print': 'Gründl Cotton Quick Print',
   'funny-uni': 'Gründl Funny uni',
   samt: 'myboshi SAMT',
-  'samt-baby': 'Ayos Samt Baby'
+  'samt-baby': 'Ayos Samt Baby',
+  'dolphin-baby': 'Himalaya Dolphin Baby'
 }
 export type CollectionNamesType = typeof collectionNames
 

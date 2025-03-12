@@ -3,6 +3,7 @@ import {
   load as loadCatania,
   loaded as loadedCatania,
   loadingError as loadingCataniaError,
+  reset as resetCatania,
   selectData as selectDataCatania,
   selectError as selectErrorCatania,
   selectIsLoaded as selectIsLoadedCatania,
@@ -13,6 +14,7 @@ import {
   load as loadColor,
   loaded as loadedColor,
   loadingError as loadingColorError,
+  reset as resetCataniaColor,
   selectData as selectDataColor,
   selectError as selectErrorColor,
   selectIsLoaded as selectIsLoadedColor,
@@ -25,6 +27,7 @@ import {
   load as loadCottonQuick,
   loaded as loadedCottonQuick,
   loadingError as loadingCottonQuickError,
+  reset as resetCottonQuick,
   selectData as selectDataCottonQuick,
   selectError as selectErrorCottonQuick,
   selectIsLoaded as selectIsLoadedCottonQuick,
@@ -35,6 +38,7 @@ import {
   load as loadCottonQuickPrint,
   loaded as loadedCottonQuickPrint,
   loadingError as loadingCottonQuickPrintError,
+  reset as resetCottonQuickPrint,
   selectData as selectDataCottonQuickPrint,
   selectError as selectErrorCottonQuickPrint,
   selectIsLoaded as selectIsLoadedCottonQuickPrint,
@@ -45,6 +49,7 @@ import {
   load as loadFunnyUni,
   loaded as loadedFunnyUni,
   loadingError as loadingFunnyUniError,
+  reset as resetFunnyUni,
   selectData as selectDataFunnyUni,
   selectError as selectErrorFunnyUni,
   selectIsLoaded as selectIsLoadedFunnyUni,
@@ -57,6 +62,7 @@ import {
   load as loadSamt,
   loaded as loadedSamt,
   loadingError as loadingSamtError,
+  reset as resetSamt,
   selectData as selectDataSamt,
   selectError as selectErrorSamt,
   selectIsLoaded as selectIsLoadedSamt,
@@ -69,6 +75,7 @@ import {
   load as loadSamtBaby,
   loaded as loadedSamtBaby,
   loadingError as loadingSamtBabyError,
+  reset as resetSamtBaby,
   selectData as selectDataSamtBaby,
   selectError as selectErrorSamtBaby,
   selectIsLoaded as selectIsLoadedSamtBaby,
@@ -76,64 +83,100 @@ import {
 } from '../../../modules/samt-baby/search/slice'
 import {resolved as resolvedSamtBaby} from '../../../modules/samt-baby/results/slice'
 
+// HIMALAYA
+import {
+  load as loadDolphinBaby,
+  loaded as loadedDolphinBaby,
+  loadingError as loadingDolphinBabyError,
+  reset as resetDolphinBaby,
+  selectData as selectDataDolphinBaby,
+  selectError as selectErrorDolphinBaby,
+  selectIsLoaded as selectIsLoadedDolphinBaby,
+  selectIsLoading as selectIsLoadingDolphinBaby
+} from '../../../modules/dolphin-baby/search/slice'
+import {resolved as resolvedDolphinBaby} from '../../../modules/dolphin-baby/results/slice'
+
 import {CollectionType} from '../../HomePage/types'
 
 export const getActions = (collection: CollectionType) => {
   switch (collection) {
+    case 'dolphin-baby':
+      return {
+        load: loadDolphinBaby,
+        loaded: loadedDolphinBaby,
+        loadingError: loadingDolphinBabyError,
+        resolved: resolvedDolphinBaby,
+        reset: resetDolphinBaby
+      }
     case 'samt':
       return {
         load: loadSamt,
         loaded: loadedSamt,
         loadingError: loadingSamtError,
-        resolved: resolvedSamt
+        resolved: resolvedSamt,
+        reset: resetSamt
       }
     case 'samt-baby':
       return {
         load: loadSamtBaby,
         loaded: loadedSamtBaby,
         loadingError: loadingSamtBabyError,
-        resolved: resolvedSamtBaby
+        resolved: resolvedSamtBaby,
+        reset: resetSamtBaby
       }
     case 'funny-uni':
       return {
         load: loadFunnyUni,
         loaded: loadedFunnyUni,
         loadingError: loadingFunnyUniError,
-        resolved: resolvedFunnyUni
+        resolved: resolvedFunnyUni,
+        reset: resetFunnyUni
       }
     case 'cotton-quick':
       return {
         load: loadCottonQuick,
         loaded: loadedCottonQuick,
         loadingError: loadingCottonQuickError,
-        resolved: resolvedCottonQuick
+        resolved: resolvedCottonQuick,
+        reset: resetCottonQuick
       }
     case 'cotton-quick-print':
       return {
         load: loadCottonQuickPrint,
         loaded: loadedCottonQuickPrint,
         loadingError: loadingCottonQuickPrintError,
-        resolved: resolvedCottonQuickPrint
+        resolved: resolvedCottonQuickPrint,
+        reset: resetCottonQuickPrint
       }
     case 'catania-color':
       return {
         load: loadColor,
         loaded: loadedColor,
         loadingError: loadingColorError,
-        resolved: resolvedColor
+        resolved: resolvedColor,
+        reset: resetCataniaColor
       }
+    case 'catania':
     default:
       return {
         load: loadCatania,
         loaded: loadedCatania,
         loadingError: loadingCataniaError,
-        resolved: resolvedCatania
+        resolved: resolvedCatania,
+        reset: resetCatania
       }
   }
 }
 
 export const getSelectors = (collection: CollectionType) => {
   switch (collection) {
+    case 'dolphin-baby':
+      return {
+        selectData: selectDataDolphinBaby,
+        selectError: selectErrorDolphinBaby,
+        selectIsLoaded: selectIsLoadedDolphinBaby,
+        selectIsLoading: selectIsLoadingDolphinBaby
+      }
     case 'samt':
       return {
         selectData: selectDataSamt,
