@@ -7,10 +7,7 @@ import {CollectionType} from '../../HomePage/types'
 
 import {getActions, getSelectors} from '../utils/get-slice'
 
-export const useSearchData = (collection: CollectionType) => {
-  const dispatch = useAppDispatch()
-
-  const {load, loaded, loadingError, resolved} = getActions(collection)
+export const useSearchDataState = (collection: CollectionType) => {
   const {selectData, selectError, selectIsLoaded, selectIsLoading} =
     getSelectors(collection)
 
@@ -18,6 +15,23 @@ export const useSearchData = (collection: CollectionType) => {
   const error = useAppSelector(selectError)
   const isLoaded = useAppSelector(selectIsLoaded)
   const isLoading = useAppSelector(selectIsLoading)
+  const hasError = Boolean(error)
+
+  return {
+    data,
+    hasError,
+    hasNoData: !hasError && isLoaded && !data.length,
+    isLoaded,
+    isLoading
+  }
+}
+
+export const useSearchData = (collection: CollectionType) => {
+  const dispatch = useAppDispatch()
+
+  const {load, loaded, loadingError, resolved} = getActions(collection)
+  const {data, hasError, hasNoData, isLoaded, isLoading} =
+    useSearchDataState(collection)
 
   const onLoadData = useCallback(
     async ({isColorSearch, num}: {isColorSearch: boolean; num: number}) => {
@@ -42,12 +56,10 @@ export const useSearchData = (collection: CollectionType) => {
     [collection]
   )
 
-  const hasError = Boolean(error)
-
   return {
     data,
     hasError,
-    hasNoData: !hasError && isLoaded && !data.length,
+    hasNoData,
     isLoaded,
     isLoading,
     onLoadData
