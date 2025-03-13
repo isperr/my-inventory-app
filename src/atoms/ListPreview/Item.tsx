@@ -2,12 +2,23 @@ import {IconButton, ListItem, ListItemButton, ListItemText} from '@mui/material'
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight'
 
 import {WoolListItemType} from '../../molecules/WoolList/components/WoolListItem'
+import ActivatedChip from '../ActivatedChip'
 
-export type ListPreviewItemProps = Pick<WoolListItemType, 'color' | 'name'> & {
+export type ListPreviewItemProps = Pick<
+  WoolListItemType,
+  'color' | 'isActivated' | 'name'
+> & {
   onNavigate: (color: number) => void
+  showIsActivatedChip: boolean
 }
 
-const Item = ({color, name, onNavigate}: ListPreviewItemProps) => {
+const Item = ({
+  color,
+  isActivated,
+  name,
+  onNavigate,
+  showIsActivatedChip
+}: ListPreviewItemProps) => {
   const handleNavigation = () => {
     onNavigate(color)
   }
@@ -30,7 +41,20 @@ const Item = ({color, name, onNavigate}: ListPreviewItemProps) => {
       <ListItemButton onClick={handleNavigation}>
         <ListItemText
           className="text-[#6d5b54]"
-          primary={`${color}, ${name}`}
+          primary={
+            <div className="flex items-center justify-between">
+              <span>
+                {color} ({name})
+              </span>
+              {showIsActivatedChip && (
+                <ActivatedChip
+                  clickable={false}
+                  isActivated={isActivated}
+                  size="small"
+                />
+              )}
+            </div>
+          }
         />
       </ListItemButton>
     </ListItem>

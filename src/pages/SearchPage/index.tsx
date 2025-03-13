@@ -118,14 +118,16 @@ const SearchPage = () => {
         isColorSearch={isColorSearch}
       />
 
-      <SearchPreview collection="catania" />
-      <SearchPreview collection="catania-color" />
-      <SearchPreview collection="cotton-quick-print" />
-      <SearchPreview collection="cotton-quick" />
-      <SearchPreview collection="funny-uni" />
-      <SearchPreview collection="samt" />
-      <SearchPreview collection="samt-baby" />
-      <SearchPreview collection="dolphin-baby" />
+      <Paper className="mt-3 flex flex-col gap-2" elevation={0} square>
+        <SearchPreview collection="catania" />
+        <SearchPreview collection="catania-color" />
+        <SearchPreview collection="cotton-quick-print" />
+        <SearchPreview collection="cotton-quick" />
+        <SearchPreview collection="funny-uni" />
+        <SearchPreview collection="samt" />
+        <SearchPreview collection="samt-baby" />
+        <SearchPreview collection="dolphin-baby" />
+      </Paper>
 
       {isLoading && <Loading />}
       {hasNoData && (

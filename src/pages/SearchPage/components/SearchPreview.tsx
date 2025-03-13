@@ -18,10 +18,11 @@ const SearchPreview = ({collection}: {collection: CollectionType}) => {
       isLoaded={isLoaded}
       isLoading={false}
       listClassName={twMerge(
-        'px-2',
+        'px-2 pb-0',
         // only show header & list when data is loaded and has items in list
         !(isLoaded && Boolean(data.length)) && 'hidden'
       )}
+      showIsActivatedChip
     />
   )
 }

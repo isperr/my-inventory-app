@@ -13,6 +13,7 @@ export type WoolListItemType = {
   color: number
   count: number
   imgUrl?: string | null
+  isActivated: boolean
   name: string
 }
 
@@ -58,7 +59,7 @@ const WoolListItem = ({
           </Avatar>
         </ListItemAvatar>
         <ListItemText
-          primary={`${color} - ${name}`}
+          primary={`${color} (${name})`}
           secondary={`Anzahl: ${count}`}
         />
       </ListItemButton>

@@ -22,6 +22,7 @@ export type WoolListPreviewProps = {
   isLoaded: boolean
   isLoading: boolean
   listClassName?: string
+  showIsActivatedChip?: boolean
 }
 
 const WoolListPreview = ({
@@ -30,7 +31,8 @@ const WoolListPreview = ({
   hasError,
   isLoaded,
   isLoading,
-  listClassName
+  listClassName,
+  showIsActivatedChip = false
 }: WoolListPreviewProps) => {
   const navigate = useNavigate()
 
@@ -59,8 +61,10 @@ const WoolListPreview = ({
           <Item
             key={`${collection}-preview-item-${item.color}`}
             color={item.color}
+            isActivated={item.isActivated}
             name={item.name}
             onNavigate={onNavigate}
+            showIsActivatedChip={showIsActivatedChip}
           />
         ))}
         {isLoaded && !data.length && (

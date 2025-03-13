@@ -1,5 +1,4 @@
 import {
-  Chip,
   Dialog,
   DialogActions,
   DialogContent,
@@ -8,6 +7,7 @@ import {
 } from '@mui/material'
 import {memo, useState} from 'react'
 import Button from '../../../atoms/Button'
+import ActivatedChip from '../../../atoms/ActivatedChip'
 
 export type ActivateDialogProps = {
   activeChipText?: string
@@ -49,11 +49,12 @@ const ActivateDialog = ({
 
   return (
     <>
-      <Chip
+      <ActivatedChip
+        activeText={activeChipText}
         className="w-fit mx-auto"
-        color={isActivated ? 'success' : 'error'}
         clickable={!isActivated}
-        label={isActivated ? activeChipText : inactiveChipText}
+        inactiveText={inactiveChipText}
+        isActivated={isActivated}
         onClick={handleClick}
       />
 

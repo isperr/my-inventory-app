@@ -28,6 +28,7 @@ const WoolList = ({data, error, isLoading, link}: WoolListProps) => {
             color={item.color}
             count={item.count}
             imgUrl={item.imgUrl}
+            isActivated={item.isActivated}
             name={item.name}
             parentLink={link}
           />

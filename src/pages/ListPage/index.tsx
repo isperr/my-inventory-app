@@ -7,14 +7,22 @@ import FloatingButton from '../../atoms/FloatingButton'
 import PageTemplate from '../../templates/Page'
 
 import {collectionNames, CollectionType} from '../HomePage/types'
-import List from './components/List'
 import {useLoadData} from './hooks/use-load-data'
+import WoolList from '../../molecules/WoolList'
+import {WoolListItemType} from '../../molecules/WoolList/components/WoolListItem'
 
 const ListPage = ({collection}: {collection: CollectionType}) => {
   const effectRan = useRef<boolean>(false)
 
-  const {isActivated, isLoaded, handleActivatedChange, handleLoadData} =
-    useLoadData(collection)
+  const {
+    data,
+    error,
+    isActivated,
+    isLoaded,
+    isLoading,
+    handleActivatedChange,
+    handleLoadData
+  } = useLoadData(collection)
 
   useEffect(() => {
     if (!effectRan.current && !isLoaded) {
@@ -40,10 +48,25 @@ const ListPage = ({collection}: {collection: CollectionType}) => {
             inputProps={{'aria-label': 'controlled'}}
           />
         }
-        label={isActivated ? 'in der Sammlung' : 'noch nicht in der Sammlung'}
+        label={
+          isActivated ? (
+            <>in der Sammlung</>
+          ) : (
+            <>
+              noch <b>nicht</b> in der Sammlung
+            </>
+          )
+        }
         value={isActivated}
       />
-      <List collection={collection} />
+
+      <WoolList
+        data={data as WoolListItemType[]}
+        error={error}
+        isLoading={isLoading}
+        link={`/${collection}`}
+      />
+
       <FloatingButton />
     </PageTemplate>
   )
