@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useRef, useState} from 'react'
+import {useCallback, useEffect, useState} from 'react'
 import {useNavigate} from 'react-router'
 import {Paper, Typography} from '@mui/material'
 
@@ -17,7 +17,6 @@ import {useSearchData} from './hooks/use-search-data'
 const SearchPage = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const hasMounted = useRef(false)
 
   const [tempIsbn, setTempIsbn] = useState<number | undefined>(undefined)
   const [tempColor, setTempColor] = useState<number | undefined>(undefined)
@@ -43,24 +42,17 @@ const SearchPage = () => {
 
   useEffect(() => {
     return () => {
-      // only dispatch when user navigates away from page
-      if (hasMounted.current) {
-        dispatch(reset())
+      dispatch(reset())
 
-        // reset all search-states
-        onResetCatania()
-        onResetCataniaColor()
-        onResetCottonQuick()
-        onResetCottonQuickPrint()
-        onResetFunnyUni()
-        onResetSamt()
-        onResetSamtBaby()
-        onResetDolphinBaby()
-      }
-      // when page is originally mounted
-      if (!hasMounted.current) {
-        hasMounted.current = true
-      }
+      // reset all search-states
+      onResetCatania()
+      onResetCataniaColor()
+      onResetCottonQuick()
+      onResetCottonQuickPrint()
+      onResetFunnyUni()
+      onResetSamt()
+      onResetSamtBaby()
+      onResetDolphinBaby()
     }
   }, [])
 
