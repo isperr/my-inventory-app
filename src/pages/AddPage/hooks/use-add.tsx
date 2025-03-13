@@ -111,9 +111,12 @@ export const useAdd = () => {
 
   useEffect(() => {
     return () => {
-      dispatch(reset())
+      // only reset if data was actually added
+      if (isAdded) {
+        dispatch(reset())
+      }
     }
-  }, [])
+  }, [isAdded])
 
   return {
     color,

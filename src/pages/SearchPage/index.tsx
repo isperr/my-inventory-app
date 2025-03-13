@@ -40,24 +40,25 @@ const SearchPage = () => {
   const {onLoadData: onLoadDolphinBabyData, onReset: onResetDolphinBaby} =
     useSearchData('dolphin-baby')
 
-  useEffect(() => {
-    return () => {
-      dispatch(reset())
-
-      // reset all search-states
-      onResetCatania()
-      onResetCataniaColor()
-      onResetCottonQuick()
-      onResetCottonQuickPrint()
-      onResetFunnyUni()
-      onResetSamt()
-      onResetSamtBaby()
-      onResetDolphinBaby()
-    }
-  }, [])
-
   const {hasNoData, isInAllCollections, isLoaded, isLoading} =
     useCumulativeState()
+
+  useEffect(() => {
+    return () => {
+      if (isLoaded) {
+        dispatch(reset())
+        // reset all search-states
+        onResetCatania()
+        onResetCataniaColor()
+        onResetCottonQuick()
+        onResetCottonQuickPrint()
+        onResetFunnyUni()
+        onResetSamt()
+        onResetSamtBaby()
+        onResetDolphinBaby()
+      }
+    }
+  }, [isLoaded])
 
   const [isColorSearch, setIsColorSearch] = useState<boolean>(false)
   const handleSearchTypeChange = useCallback(() => {

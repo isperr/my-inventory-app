@@ -13,10 +13,19 @@ export const useLoadData = (collection: CollectionType) => {
   const notifications = useNotifications()
 
   const {load, loaded, loadingError, setIsActivated} = getActions(collection)
-  const {selectIsActivated, selectIsLoaded} = getSelectors(collection)
+  const {
+    selectData,
+    selectError,
+    selectIsActivated,
+    selectIsLoaded,
+    selectIsLoading
+  } = getSelectors(collection)
 
+  const data = useAppSelector(selectData)
+  const error = useAppSelector(selectError)
   const isActivated = useAppSelector(selectIsActivated)
   const isLoaded = useAppSelector(selectIsLoaded)
+  const isLoading = useAppSelector(selectIsLoading)
 
   const handleLoadData = useCallback(
     async (isActivated: boolean) => {
@@ -42,8 +51,11 @@ export const useLoadData = (collection: CollectionType) => {
   }, [isActivated, dispatch, handleLoadData])
 
   return {
+    data,
+    error,
     isActivated,
     isLoaded,
+    isLoading,
     handleActivatedChange,
     handleLoadData
   }
