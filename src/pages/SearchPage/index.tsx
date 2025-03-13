@@ -22,6 +22,25 @@ const SearchPage = () => {
   const [tempIsbn, setTempIsbn] = useState<number | undefined>(undefined)
   const [tempColor, setTempColor] = useState<number | undefined>(undefined)
 
+  const {onLoadData: onLoadCataniaData, onReset: onResetCatania} =
+    useSearchData('catania')
+  const {onLoadData: onLoadCataniaColorData, onReset: onResetCataniaColor} =
+    useSearchData('catania-color')
+  const {onLoadData: onLoadCottonQuickData, onReset: onResetCottonQuick} =
+    useSearchData('cotton-quick')
+  const {
+    onLoadData: onLoadCottonQuickPrintData,
+    onReset: onResetCottonQuickPrint
+  } = useSearchData('cotton-quick-print')
+  const {onLoadData: onLoadFunnyUniData, onReset: onResetFunnyUni} =
+    useSearchData('funny-uni')
+  const {onLoadData: onLoadSamtData, onReset: onResetSamt} =
+    useSearchData('samt')
+  const {onLoadData: onLoadSamtBabyData, onReset: onResetSamtBaby} =
+    useSearchData('samt-baby')
+  const {onLoadData: onLoadDolphinBabyData, onReset: onResetDolphinBaby} =
+    useSearchData('dolphin-baby')
+
   useEffect(() => {
     return () => {
       // only dispatch when user navigates away from page
@@ -44,25 +63,6 @@ const SearchPage = () => {
       }
     }
   }, [])
-
-  const {onLoadData: onLoadCataniaData, onReset: onResetCatania} =
-    useSearchData('catania')
-  const {onLoadData: onLoadCataniaColorData, onReset: onResetCataniaColor} =
-    useSearchData('catania-color')
-  const {onLoadData: onLoadCottonQuickData, onReset: onResetCottonQuick} =
-    useSearchData('cotton-quick')
-  const {
-    onLoadData: onLoadCottonQuickPrintData,
-    onReset: onResetCottonQuickPrint
-  } = useSearchData('cotton-quick-print')
-  const {onLoadData: onLoadFunnyUniData, onReset: onResetFunnyUni} =
-    useSearchData('funny-uni')
-  const {onLoadData: onLoadSamtData, onReset: onResetSamt} =
-    useSearchData('samt')
-  const {onLoadData: onLoadSamtBabyData, onReset: onResetSamtBaby} =
-    useSearchData('samt-baby')
-  const {onLoadData: onLoadDolphinBabyData, onReset: onResetDolphinBaby} =
-    useSearchData('dolphin-baby')
 
   const {hasNoData, isInAllCollections, isLoaded, isLoading} =
     useCumulativeState()
