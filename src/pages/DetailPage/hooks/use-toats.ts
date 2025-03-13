@@ -16,13 +16,13 @@ export const useToasts = () => {
   const updateSuccessToast = (type: UpdatingType) => {
     notifications.show(
       `Ein Wollknäuel wurde erfolgreich ${TOAST_TEXT[type].success}.`,
-      getToastConfig({severity: 'success'})
+      getToastConfig({key: 'update-wool-amount-success', severity: 'success'})
     )
   }
   const updateErrorToast = (type: UpdatingType) => {
     notifications.show(
       `Beim ${TOAST_TEXT[type].error} des Wollknäuel ist leider ein Fehler aufgetreten.`,
-      getToastConfig({})
+      getToastConfig({key: 'update-wool-amount-error'})
     )
   }
 
