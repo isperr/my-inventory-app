@@ -145,7 +145,7 @@ export const createResultsSlice = (name: string) =>
       ) => {
         const {field, id, value} = action.payload
 
-        const idx = state.data.findIndex(it => it.color === id)
+        const idx = state.data.findIndex(it => it.color === Number(id))
         // only try to update data if items in list are loaded
         if (idx !== -1) {
           const newData = {...state.data[idx], [field]: value}
