@@ -38,16 +38,17 @@ const Form = ({
   isbn
 }: AddPageFormProps) => (
   <Paper
-    className="flex flex-col px-6 gap-4"
+    className="flex flex-col px-6 gap-4 pb-12"
     component="form"
     elevation={0}
     onSubmit={handleSubmit}
   >
-    <UploadButton />
+    <UploadButton isDisabled={isDisabled} />
 
     <FormControl id="collection-form" required>
       <InputLabel id="collection-label">Kollektion</InputLabel>
       <Select
+        disabled={isDisabled}
         labelId="collection-label"
         value={collection}
         id="collection"
@@ -68,7 +69,7 @@ const Form = ({
         <ListSubheader>
           my<b>boshi</b>
         </ListSubheader>
-        <MenuItem value="samt">Catania</MenuItem>
+        <MenuItem value="samt">Samt</MenuItem>
 
         <ListSubheader>Ayos</ListSubheader>
         <MenuItem value="samt-baby">Samt Baby</MenuItem>

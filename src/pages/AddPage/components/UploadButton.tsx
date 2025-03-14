@@ -5,7 +5,7 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import DeleteIcon from '@mui/icons-material/Delete'
 import ImageIcon from '@mui/icons-material/Image'
 
-const UploadButton = () => {
+const UploadButton = ({isDisabled}: {isDisabled: boolean}) => {
   const imgRef = useRef<HTMLInputElement | null>(null)
   const [preview, setPreview] = useState<string | undefined>(undefined)
 
@@ -56,6 +56,7 @@ const UploadButton = () => {
             aria-label="remove"
             className="absolute"
             color="inherit"
+            disabled={isDisabled}
             onClick={resetImage}
           >
             <DeleteIcon
@@ -71,6 +72,7 @@ const UploadButton = () => {
         className="mb-6 w-fit mx-auto"
         color={preview ? 'success' : 'primary'}
         component="label"
+        disabled={isDisabled}
         role={undefined}
         startIcon={<CloudUploadIcon />}
         tabIndex={-1}
