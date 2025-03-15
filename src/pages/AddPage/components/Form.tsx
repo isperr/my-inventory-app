@@ -71,7 +71,7 @@ const Form = ({
         </ListSubheader>
         <MenuItem value="samt">Samt</MenuItem>
 
-        <ListSubheader>Ayos</ListSubheader>
+        <ListSubheader>Ayos Tex</ListSubheader>
         <MenuItem value="samt-baby">Samt Baby</MenuItem>
 
         <ListSubheader>Himalaya</ListSubheader>
