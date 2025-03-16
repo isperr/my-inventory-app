@@ -38,7 +38,7 @@ const Form = ({
   isbn
 }: AddPageFormProps) => (
   <Paper
-    className="flex flex-col px-6 gap-4 pb-12"
+    className="flex flex-col px-6 gap-4"
     component="form"
     elevation={0}
     onSubmit={handleSubmit}

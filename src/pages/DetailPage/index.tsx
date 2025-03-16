@@ -32,7 +32,7 @@ const DetailPage = ({collection}: {collection: CollectionType}) => {
   }, [isResolved, params?.color])
 
   return (
-    <PageTemplate className="h-fit my-10 gap-12">
+    <PageTemplate className="h-fit my-10 gap-12 pb-12">
       <WoolDetailContent
         collection={collection}
         hasResolveError={hasResolveError}

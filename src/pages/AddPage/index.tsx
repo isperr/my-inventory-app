@@ -69,7 +69,7 @@ const AddPage = () => {
   }
 
   return (
-    <PageTemplate className="h-fit gap-4">
+    <PageTemplate className="h-fit gap-4 pb-12">
       <Paper className="mx-6" elevation={0}>
         <Typography variant="h5">
           Wollknäuel zum Wollbestand hinzufügen:
