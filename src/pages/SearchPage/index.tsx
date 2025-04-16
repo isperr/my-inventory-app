@@ -109,7 +109,9 @@ const SearchPage = () => {
   return (
     <PageTemplate className="h-fit gap-4">
       <Box className="mx-6">
-        <Typography variant="h5">Wollknäuel scannen:</Typography>
+        <Typography className="text-center" variant="h5">
+          Wollknäuel scannen
+        </Typography>
       </Box>
 
       <SearchInputs
