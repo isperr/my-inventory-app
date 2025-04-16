@@ -1,3 +1,4 @@
+import {twMerge} from 'tailwind-merge'
 import {IconButton, ListItem, ListItemButton, ListItemText} from '@mui/material'
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight'
 
@@ -8,11 +9,13 @@ export type ListPreviewItemProps = Pick<
   WoolListItemType,
   'color' | 'isActivated' | 'name'
 > & {
+  className: string
   onNavigate: (color: number) => void
   showIsActivatedChip: boolean
 }
 
 const Item = ({
+  className,
   color,
   isActivated,
   name,
@@ -26,7 +29,7 @@ const Item = ({
   return (
     <ListItem
       key={`preview-item-${color}`}
-      className="px-0"
+      className={twMerge('pl-0', className)}
       secondaryAction={
         <IconButton
           color="primary"
@@ -38,9 +41,11 @@ const Item = ({
         </IconButton>
       }
     >
-      <ListItemButton onClick={handleNavigation}>
+      <ListItemButton
+        className={twMerge('px-3', showIsActivatedChip && 'pr-0')}
+        onClick={handleNavigation}
+      >
         <ListItemText
-          className="text-[#6d5b54]"
           primary={
             <div className="flex items-center justify-between">
               <span>
@@ -48,6 +53,7 @@ const Item = ({
               </span>
               {showIsActivatedChip && (
                 <ActivatedChip
+                  className="leading-[1]"
                   clickable={false}
                   isActivated={isActivated}
                   size="small"

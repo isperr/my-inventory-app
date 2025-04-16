@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 import {useNavigate} from 'react-router'
-
-import {Paper, Typography} from '@mui/material'
+import {Box, Typography} from '@mui/material'
 import {SelectChangeEvent} from '@mui/material/Select'
 import {useNotifications} from '@toolpad/core'
 
@@ -70,11 +69,11 @@ const AddPage = () => {
 
   return (
     <PageTemplate className="h-fit gap-4 pb-12">
-      <Paper className="mx-6" elevation={0}>
+      <Box className="mx-6">
         <Typography variant="h5">
           Wollknäuel zum Wollbestand hinzufügen:
         </Typography>
-      </Paper>
+      </Box>
 
       <Form
         collection={collection}

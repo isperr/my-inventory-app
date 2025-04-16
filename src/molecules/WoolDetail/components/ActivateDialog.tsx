@@ -68,7 +68,7 @@ const ActivateDialog = ({
         <DialogContent>
           <DialogContentText>{text}</DialogContentText>
         </DialogContent>
-        <DialogActions className="pb-5 pr-5">
+        <DialogActions className="pb-5 flex justify-evenly items-center">
           <Button onClick={closeDialog}>{cancelText}</Button>
           <Button onClick={handleConfirm} autoFocus>
             {confirmText}

@@ -1,11 +1,14 @@
-import {memo, useCallback, useRef, useState} from 'react'
+import React, {memo, useCallback, useRef, useState} from 'react'
 import {twMerge} from 'tailwind-merge'
 import {NumberField} from '@base-ui-components/react/number-field'
 import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
-import {IconButton, Paper} from '@mui/material'
+import {Box, IconButton} from '@mui/material'
+
+import {ThemePaletteModeContext} from '../../../context'
 
 const CountField = ({isDisabled}: {isDisabled: boolean}) => {
+  const themePaletteModeContext = React.useContext(ThemePaletteModeContext)
   const countRef = useRef<HTMLInputElement | null>(null)
 
   const [isFocused, setIsFocused] = useState<boolean>(false)
@@ -28,20 +31,25 @@ const CountField = ({isDisabled}: {isDisabled: boolean}) => {
       onFocus={onFocus}
     >
       <NumberField.ScrubArea>
-        <Paper
+        <Box
           className={twMerge(
-            'absolute bg-white text-base px-1 py-0.5',
+            'absolute text-base px-1 py-0.5',
             'left-[66px] top-3 h-fit w-fit transition-all',
             (isFocused || countRef.current?.value) &&
-              '-translate-x-5 -translate-y-6 scale-[0.75]'
+              '-translate-x-5 -translate-y-6 scale-[0.75]',
+            themePaletteModeContext.themePaletteMode === 'light' && 'bg-white',
+            themePaletteModeContext.themePaletteMode === 'dark' &&
+              'bg-[#303031]',
+            themePaletteModeContext.themePaletteMode === 'dark' &&
+              !isFocused &&
+              'text-[#C8CBCB]'
           )}
           component="label"
-          elevation={0}
           htmlFor="count"
           sx={{color: isFocused ? 'primary.main' : '#00000099'}}
         >
           Anzahl der Wollknäuel *
-        </Paper>
+        </Box>
         <NumberField.ScrubAreaCursor>
           <AddIcon />
         </NumberField.ScrubAreaCursor>
@@ -50,16 +58,15 @@ const CountField = ({isDisabled}: {isDisabled: boolean}) => {
       <NumberField.Group className="flex justify-center items-center">
         <NumberField.Decrement
           className={twMerge(
-            'rounded-l-md border-[#c16f50] border-solid',
+            'rounded-l-md border-solid',
             'flex justify-center items-center p-[8.5px_10px]',
-            'bg-transparent text-[#c16f50]'
+            'bg-transparent'
           )}
           render={props => (
             <IconButton
               aria-label="Decrease"
               className={twMerge(
                 'border-solid border-2 rounded-r-none rounded-l-md',
-                !isDisabled && 'border-[#c16f50]',
                 isDisabled && 'border-[#00000042]'
               )}
               color="secondary"
@@ -84,24 +91,31 @@ const CountField = ({isDisabled}: {isDisabled: boolean}) => {
         />
         <NumberField.Input
           className={twMerge(
-            'border-solid border-[1px] border-[#c4c4c4] outline-[#86694c]',
+            'border-solid border-[1px] border-[#C8CBCB]',
             'p-[16.5px_14px] outline-[1px] w-screen text-[16px] leading-[21px]',
-            'font-[Roboto]'
+            'font-[Roboto] bg-transparent',
+            isFocused && 'border-[#8E75E0] outline-[#8E75E0]',
+            themePaletteModeContext.themePaletteMode === 'dark' && 'text-white',
+            !isFocused &&
+              themePaletteModeContext.themePaletteMode === 'light' &&
+              'hover:border-[#333]',
+            !isFocused &&
+              themePaletteModeContext.themePaletteMode === 'dark' &&
+              'hover:border-[#fefefe]'
           )}
           ref={countRef}
         />
         <NumberField.Increment
           className={twMerge(
-            'rounded-r-md border-[#c16f50] border-solid',
+            'rounded-r-md border-solid',
             'flex justify-center items-center p-[11.25px_14px]',
-            'bg-transparent text-[#c16f50]'
+            'bg-transparent'
           )}
           render={props => (
             <IconButton
               aria-label="Increase"
               className={twMerge(
                 'border-solid border-2 rounded-l-none rounded-r-md',
-                !isDisabled && 'border-[#c16f50]',
                 isDisabled && 'border-[#00000042]'
               )}
               color="secondary"

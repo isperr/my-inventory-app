@@ -1,6 +1,6 @@
 import {useCallback, useEffect, useState} from 'react'
 import {useNavigate} from 'react-router'
-import {Paper, Typography} from '@mui/material'
+import {Box, Typography} from '@mui/material'
 
 import FloatingButton from '../../atoms/FloatingButton'
 import Loading from '../../atoms/ListPreview/Loading'
@@ -108,9 +108,9 @@ const SearchPage = () => {
 
   return (
     <PageTemplate className="h-fit gap-4">
-      <Paper className="mx-6" elevation={0}>
+      <Box className="mx-6">
         <Typography variant="h5">Wollknäuel scannen:</Typography>
-      </Paper>
+      </Box>
 
       <SearchInputs
         handleSubmit={handleSubmit}
@@ -118,16 +118,18 @@ const SearchPage = () => {
         isColorSearch={isColorSearch}
       />
 
-      <Paper className="mt-3 flex flex-col gap-2" elevation={0} square>
-        <SearchPreview collection="catania" />
-        <SearchPreview collection="catania-color" />
-        <SearchPreview collection="cotton-quick-print" />
-        <SearchPreview collection="cotton-quick" />
-        <SearchPreview collection="funny-uni" />
-        <SearchPreview collection="samt" />
-        <SearchPreview collection="samt-baby" />
-        <SearchPreview collection="dolphin-baby" />
-      </Paper>
+      {(!hasNoData || isLoading) && (
+        <Box className="mx-2 mt-3 flex flex-col gap-2">
+          <SearchPreview collection="catania" />
+          <SearchPreview collection="catania-color" />
+          <SearchPreview collection="cotton-quick-print" />
+          <SearchPreview collection="cotton-quick" />
+          <SearchPreview collection="funny-uni" />
+          <SearchPreview collection="samt" />
+          <SearchPreview collection="samt-baby" />
+          <SearchPreview collection="dolphin-baby" />
+        </Box>
+      )}
 
       {isLoading && <Loading />}
       {hasNoData && (

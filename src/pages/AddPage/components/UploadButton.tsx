@@ -1,6 +1,6 @@
 import {ChangeEvent, useRef, useState} from 'react'
 import {twMerge} from 'tailwind-merge'
-import {Button, IconButton, Paper} from '@mui/material'
+import {Box, Button, IconButton} from '@mui/material'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import DeleteIcon from '@mui/icons-material/Delete'
 import ImageIcon from '@mui/icons-material/Image'
@@ -29,21 +29,19 @@ const UploadButton = ({isDisabled}: {isDisabled: boolean}) => {
   return (
     <>
       {!preview && (
-        <Paper
+        <Box
           className={twMerge(
             'w-[300px] h-[170px] mx-auto text-[4rem]',
             'rounded-full bg-[#bdbdbd] flex justify-center items-center text-[#f4f3f2]'
           )}
-          elevation={0}
         >
           <ImageIcon color="inherit" fontSize="inherit" />
-        </Paper>
+        </Box>
       )}
       {preview && (
-        <Paper
+        <Box
           className="flex justify-center items-center text-[#f4f3f2]"
           component="label"
-          elevation={0}
           tabIndex={-1}
           role={undefined}
         >
@@ -55,7 +53,7 @@ const UploadButton = ({isDisabled}: {isDisabled: boolean}) => {
           <IconButton
             aria-label="remove"
             className="absolute"
-            color="inherit"
+            color="secondary"
             disabled={isDisabled}
             onClick={resetImage}
           >
@@ -65,7 +63,7 @@ const UploadButton = ({isDisabled}: {isDisabled: boolean}) => {
               fontSize="inherit"
             />
           </IconButton>
-        </Paper>
+        </Box>
       )}
 
       <Button

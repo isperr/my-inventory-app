@@ -44,11 +44,7 @@ const CountButton = ({
       <div className="relative">
         <IconButton
           aria-label={ariaLabel}
-          className={twMerge(
-            'border-solid border-2',
-            !isDisabled && 'border-[#c16f50]',
-            isDisabled && 'border-[#00000042]'
-          )}
+          className={twMerge('border-solid border-2')}
           color="secondary"
           disabled={isDisabled}
           onClick={handleClick}

@@ -8,7 +8,11 @@ import {WoolListItemType} from '../../../molecules/WoolList/components/WoolListI
 import {useSearchDataState} from '../hooks/use-search-data'
 
 const SearchPreview = ({collection}: {collection: CollectionType}) => {
-  const {data, hasError, isLoaded} = useSearchDataState(collection)
+  const {data, hasError, hasNoData, isLoaded} = useSearchDataState(collection)
+
+  if (hasNoData) {
+    return null
+  }
 
   return (
     <WoolListPreview
@@ -18,7 +22,7 @@ const SearchPreview = ({collection}: {collection: CollectionType}) => {
       isLoaded={isLoaded}
       isLoading={false}
       listClassName={twMerge(
-        'px-2 pb-0',
+        'px-0 pb-0',
         // only show header & list when data is loaded and has items in list
         !(isLoaded && Boolean(data.length)) && 'hidden'
       )}

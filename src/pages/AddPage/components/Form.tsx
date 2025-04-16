@@ -1,11 +1,11 @@
 import {memo, ReactNode} from 'react'
 import {
+  Box,
   Button,
   FormControl,
   InputLabel,
   ListSubheader,
   MenuItem,
-  Paper,
   TextField
 } from '@mui/material'
 import Select, {SelectChangeEvent} from '@mui/material/Select'
@@ -37,10 +37,9 @@ const Form = ({
   isDisabled,
   isbn
 }: AddPageFormProps) => (
-  <Paper
+  <Box
     className="flex flex-col px-6 gap-4"
     component="form"
-    elevation={0}
     onSubmit={handleSubmit}
   >
     <UploadButton isDisabled={isDisabled} />
@@ -119,7 +118,7 @@ const Form = ({
     >
       Hinzufügen
     </Button>
-  </Paper>
+  </Box>
 )
 
 export default memo(Form)
