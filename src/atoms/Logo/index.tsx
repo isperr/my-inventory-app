@@ -8,7 +8,7 @@ export type LogoProps = {
 
 const Logo = ({children}: LogoProps) => (
   <div className="flex flex-col items-center gap-4">
-    <img className="" alt="wool-inventory" src={woolInventory} />
+    <img className="w-[13rem] mt-2" alt="wool-inventory" src={woolInventory} />
     {children && <Typography variant="h5">{children}</Typography>}
   </div>
 )
