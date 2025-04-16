@@ -1,61 +1,48 @@
 import {ThemeOptions} from '@mui/material/styles'
 
 export const themeOptions: ThemeOptions = {
-  typography: {
-    h1: {
-      color: '#6d5b54'
-    },
-    h2: {
-      color: '#6d5b54'
-    },
-    h3: {
-      color: '#6d5b54'
-    },
-    h4: {
-      color: '#6d5b54'
-    },
-    h5: {
-      color: '#6d5b54'
-    },
-    h6: {
-      color: '#6d5b54'
-    }
-  },
   palette: {
-    mode: 'light',
     primary: {
-      main: '#86694c',
-      dark: '#6d5b54'
+      main: '#8E75E0'
     },
     secondary: {
-      main: '#c16f50'
+      main: '#C395E0'
+    },
+    error: {
+      main: '#E04344'
     },
     warning: {
-      main: '#f59a23'
+      main: '#E09D55'
     },
     info: {
-      main: '#007aff'
+      main: '#43A4E0'
     },
     success: {
-      main: '#7ec636'
+      main: '#56E16A'
     },
     background: {
-      default: '#f4f3f2'
-    },
-    text: {
-      primary: '#332929'
+      paper: '#fffafa'
     }
   },
-  spacing: 8,
-  shape: {
-    borderRadius: 4
+  typography: {
+    fontFamily: '"Jost", "Helvetica", "Arial", sans-serif',
+    fontSize: 14,
+    fontWeightLight: 200,
+    fontWeightRegular: 400,
+    fontWeightBold: 700,
+    button: {
+      fontSize: '1rem'
+    }
   },
   components: {
     MuiSwitch: {
+      defaultProps: {
+        size: 'small'
+      },
       styleOverrides: {
         root: {
-          width: 46,
-          height: 27,
+          width: 42,
+          height: 26,
           padding: 0,
           margin: 8
         },
@@ -82,6 +69,78 @@ export const themeOptions: ThemeOptions = {
           transition:
             'background-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms'
         }
+      }
+    },
+    MuiList: {
+      defaultProps: {
+        dense: true
+      }
+    },
+    MuiMenuItem: {
+      defaultProps: {
+        dense: true
+      }
+    },
+    MuiTable: {
+      defaultProps: {
+        size: 'small'
+      }
+    },
+    MuiButton: {
+      defaultProps: {
+        size: 'small'
+      }
+    },
+    MuiButtonGroup: {
+      defaultProps: {
+        size: 'small'
+      }
+    },
+    MuiCheckbox: {
+      defaultProps: {
+        size: 'small'
+      }
+    },
+    MuiFab: {
+      defaultProps: {
+        size: 'small'
+      }
+    },
+    MuiFormControl: {
+      defaultProps: {
+        margin: 'dense',
+        size: 'small'
+      }
+    },
+    MuiFormHelperText: {
+      defaultProps: {
+        margin: 'dense'
+      }
+    },
+    MuiIconButton: {
+      defaultProps: {
+        size: 'small'
+      }
+    },
+    MuiInputBase: {
+      defaultProps: {
+        margin: 'dense'
+      }
+    },
+    MuiInputLabel: {
+      defaultProps: {
+        margin: 'dense'
+      }
+    },
+    MuiRadio: {
+      defaultProps: {
+        size: 'small'
+      }
+    },
+    MuiTextField: {
+      defaultProps: {
+        margin: 'dense',
+        size: 'small'
       }
     }
   }
