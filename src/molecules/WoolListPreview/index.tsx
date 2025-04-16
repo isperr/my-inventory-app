@@ -54,7 +54,7 @@ const WoolListPreview = ({
           button ? (
             button
           ) : (
-            <ListSubheader className="leading-snug mt-1 px-2 bg-transparent">
+            <ListSubheader className="leading-snug mt-1 px-2.5 bg-transparent">
               <Typography
                 className="font-bold"
                 variant="subtitle1"
