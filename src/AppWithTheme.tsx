@@ -1,11 +1,7 @@
-import {
-  createTheme,
-  PaletteMode,
-  ThemeOptions,
-  ThemeProvider,
-  useMediaQuery
-} from '@mui/material'
-import {ReactNode, useMemo, useState} from 'react'
+import {ReactNode, useMemo} from 'react'
+import {createTheme, ThemeOptions, ThemeProvider} from '@mui/material'
+
+import {useThemePaletteMode} from './hooks/use-theme-palette-mode.tsx'
 import {themeOptions} from './theme.tsx'
 import {ThemePaletteModeContext} from './context.tsx'
 
@@ -16,18 +12,11 @@ const AppWithTheme = ({
   appThemeOptions: ThemeOptions
   children: ReactNode
 }) => {
-  const isSystemDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
-  const [themePaletteMode, setThemePaletteMode] = useState<PaletteMode>(
-    isSystemDarkMode ? 'dark' : 'light'
-  )
+  const {themePaletteMode, toggleThemePaletteMode} = useThemePaletteMode()
 
   const themePaletteModeContextProvider = useMemo(
     () => ({
-      toggleThemePaletteMode: () => {
-        setThemePaletteMode(prevMode =>
-          prevMode === 'light' ? 'dark' : 'light'
-        )
-      },
+      toggleThemePaletteMode,
       themePaletteMode
     }),
     [themePaletteMode]
