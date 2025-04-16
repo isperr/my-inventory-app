@@ -6,7 +6,7 @@ import WoolListPreview from '../../../molecules/WoolListPreview'
 import {WoolListItemType} from '../../../molecules/WoolList/components/WoolListItem'
 
 import {useLoadPreviewData} from '../hooks/use-load-preview-data'
-import {CollectionType} from '../types'
+import {collectionNames, CollectionType} from '../types'
 
 const PreviewList = ({collection}: {collection: CollectionType}) => {
   const navigate = useNavigate()
@@ -31,25 +31,26 @@ const PreviewList = ({collection}: {collection: CollectionType}) => {
   }
 
   return (
-    <div className="px-4">
-      <WoolListPreview
-        collection={collection}
-        data={data as WoolListItemType[]}
-        hasError={Boolean(error)}
-        isLoaded={isLoaded}
-        isLoading={isLoading}
-      />
-      <div className="w-auto flex px-4">
-        <Button
-          fullWidth
-          isDisabled={Boolean(error) || isLoading || !isLoaded}
-          onClick={handleNavigate}
-          size="small"
-        >
-          Gesamte Liste anzeigen
-        </Button>
-      </div>
-    </div>
+    <WoolListPreview
+      button={
+        <span className="pt-2 mx-2 flex">
+          <Button
+            className="flex-1"
+            isDisabled={Boolean(error) || isLoading || !isLoaded}
+            onClick={handleNavigate}
+            size="small"
+          >
+            {collectionNames[collection]}
+          </Button>
+        </span>
+      }
+      collection={collection}
+      data={data as WoolListItemType[]}
+      hasError={Boolean(error)}
+      isLoaded={isLoaded}
+      isLoading={isLoading}
+      listClassName="py-0"
+    />
   )
 }
 

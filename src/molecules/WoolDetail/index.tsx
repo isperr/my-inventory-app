@@ -1,6 +1,6 @@
 import {memo} from 'react'
 import {twMerge} from 'tailwind-merge'
-import {Paper} from '@mui/material'
+import {Box} from '@mui/material'
 import ImageIcon from '@mui/icons-material/Image'
 
 import ActivateDialog from './components/ActivateDialog'
@@ -50,32 +50,31 @@ const WoolDetail = ({
           src={imgUrl}
         />
       ) : (
-        <Paper
+        <Box
           className={twMerge(
             'max-h-[180px] min-h-[120px] min-w-[250px] max-w-[300px] mx-auto my-3.5 text-[4rem]',
             'rounded-full bg-[#bdbdbd] flex justify-center items-center text-[#f4f3f2]'
           )}
-          elevation={0}
         >
           <ImageIcon color="inherit" fontSize="inherit" />
-        </Paper>
+        </Box>
       )}
-      <Paper className="mx-6" elevation={0}>
+      <Box className="mx-6">
         <ColorText heading={`${collectionNames[collection]} Daten:`} />
         <div className="grid grid-cols-4 grid-rows-3">
           <ColorText heading="ISBN:" text={isbn.toString()} />
           <ColorText heading="Farbe:" text={color.toString()} />
           <ColorText heading="Name:" text={name} />
         </div>
-      </Paper>
-      <Paper className="mx-6 flex flex-col gap-8" elevation={0}>
-        <Paper elevation={0}>
+      </Box>
+      <Box className="mx-6 flex flex-col gap-8">
+        <Box>
           <ColorText heading="Wollknäuel Bestand:" />
           <div className="grid grid-cols-4 grid-rows-1">
             <ColorText heading="Anzahl:" text={count.toString()} />
           </div>
-        </Paper>
-        <Paper className="flex justify-around" elevation={0}>
+        </Box>
+        <Box className="flex justify-around">
           <CountButton
             ariaLabel="add"
             count={count}
@@ -93,8 +92,8 @@ const WoolDetail = ({
             onClick={onUpdateCount}
             type="remove"
           />
-        </Paper>
-      </Paper>
+        </Box>
+      </Box>
     </>
   )
 }

@@ -1,13 +1,15 @@
-import {memo} from 'react'
+import React, {memo, ReactNode} from 'react'
 import {useNavigate} from 'react-router'
 import {
   List,
   ListItem,
   ListItemText,
   ListSubheader,
+  Paper,
   Typography
 } from '@mui/material'
 
+import {ThemePaletteModeContext} from '../../context'
 import Loading from '../../atoms/ListPreview/Loading'
 import ErrorComponent from '../../atoms/ListPreview/Error'
 import Item from '../../atoms/ListPreview/Item'
@@ -16,6 +18,7 @@ import {collectionNames, CollectionType} from '../../pages/HomePage/types'
 import {WoolListItemType} from '../WoolList/components/WoolListItem'
 
 export type WoolListPreviewProps = {
+  button?: ReactNode
   collection: CollectionType
   data: WoolListItemType[]
   hasError: boolean
@@ -26,6 +29,7 @@ export type WoolListPreviewProps = {
 }
 
 const WoolListPreview = ({
+  button,
   collection,
   data,
   hasError,
@@ -35,31 +39,42 @@ const WoolListPreview = ({
   showIsActivatedChip = false
 }: WoolListPreviewProps) => {
   const navigate = useNavigate()
+  const themePaletteModeContext = React.useContext(ThemePaletteModeContext)
 
   const onNavigate = (color: number) => {
     navigate(`/${collection}/${color}`)
   }
 
   return (
-    <>
+    <Paper className="mx-4" elevation={2}>
       <List
         className={listClassName}
         dense
         subheader={
-          <ListSubheader className="leading-snug">
-            <Typography
-              className="font-bold"
-              variant="subtitle1"
-              sx={{color: 'primary.dark'}}
-            >
-              {collectionNames[collection]}
-            </Typography>
-          </ListSubheader>
+          button ? (
+            button
+          ) : (
+            <ListSubheader className="leading-snug mt-1 px-2 bg-transparent">
+              <Typography
+                className="font-bold"
+                variant="subtitle1"
+                sx={{
+                  color:
+                    themePaletteModeContext.themePaletteMode === 'light'
+                      ? 'primary.dark'
+                      : 'primary.light'
+                }}
+              >
+                {collectionNames[collection]}
+              </Typography>
+            </ListSubheader>
+          )
         }
       >
         {data.map(item => (
           <Item
             key={`${collection}-preview-item-${item.color}`}
+            className={button ? 'py-0.5' : 'py-0'}
             color={item.color}
             isActivated={item.isActivated}
             name={item.name}
@@ -68,9 +83,9 @@ const WoolListPreview = ({
           />
         ))}
         {isLoaded && !data.length && (
-          <ListItem>
+          <ListItem className="px-2">
             <ListItemText
-              className="text-[#6d5b54] italic"
+              className="italic"
               primary="Es befinden sich keine Wollknäuel in der Sammlung."
             />
           </ListItem>
@@ -78,7 +93,7 @@ const WoolListPreview = ({
       </List>
       {isLoading && <Loading />}
       {hasError && <ErrorComponent />}
-    </>
+    </Paper>
   )
 }
 

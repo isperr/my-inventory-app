@@ -1,6 +1,10 @@
+import React from 'react'
 import LogoutIcon from '@mui/icons-material/Logout'
 import IconButton from '@mui/material/IconButton'
+import LightModeIcon from '@mui/icons-material/LightMode'
+import DarkModeIcon from '@mui/icons-material/DarkMode'
 
+import {ThemePaletteModeContext} from '../../context'
 import FloatingButton from '../../atoms/FloatingButton'
 import Logo from '../../atoms/Logo'
 import useFirebaseAuth from '../../hooks/auth-state/use-firebase-auth'
@@ -10,19 +14,33 @@ import PreviewList from './components/PreviewList'
 
 const HomePage = () => {
   const {onLogout, username} = useFirebaseAuth()
+  const themePaletteModeContext = React.useContext(ThemePaletteModeContext)
 
   return (
-    <PageTemplate className="mt-10 mb-6 h-fit">
+    <PageTemplate className="mt-0 pt-10 mb-6 h-fit gap-4">
       <Logo>Willkommen zurück{username ? `, ${username}` : ''}!</Logo>
-      <IconButton
-        aria-label="logout"
-        className="absolute right-0 top-2"
-        size="large"
-        color="secondary"
-        onClick={onLogout}
-      >
-        <LogoutIcon fontSize="inherit" />
-      </IconButton>
+      <div className="flex flex-row-reverse absolute right-0 top-2">
+        <IconButton
+          aria-label="logout"
+          size="large"
+          color="secondary"
+          onClick={onLogout}
+        >
+          <LogoutIcon fontSize="inherit" />
+        </IconButton>
+        <IconButton
+          aria-label="mode"
+          size="large"
+          color="secondary"
+          onClick={themePaletteModeContext.toggleThemePaletteMode}
+        >
+          {themePaletteModeContext.themePaletteMode === 'light' ? (
+            <LightModeIcon fontSize="inherit" />
+          ) : (
+            <DarkModeIcon fontSize="inherit" />
+          )}
+        </IconButton>
+      </div>
 
       <PreviewList collection="catania" />
       <PreviewList collection="catania-color" />

@@ -1,4 +1,4 @@
-import {Paper, Typography} from '@mui/material'
+import {Box, Typography} from '@mui/material'
 
 import Button from '../Button'
 
@@ -10,7 +10,7 @@ export type NotInListProps = {
 }
 
 const NotInList = ({amount, color, isbn, onClick}: NotInListProps) => (
-  <Paper className="mx-6 flex flex-col gap-4" elevation={0}>
+  <Box className="mx-6 flex flex-col gap-4">
     {amount === 'none' && (
       <Typography className="font-normal" variant="h6">
         Das Wollknäuel{' '}
@@ -35,7 +35,7 @@ const NotInList = ({amount, color, isbn, onClick}: NotInListProps) => (
     <Button onClick={onClick} size="small">
       Ja, hinzufügen
     </Button>
-  </Paper>
+  </Box>
 )
 
 export default NotInList
