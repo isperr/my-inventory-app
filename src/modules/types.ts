@@ -9,7 +9,7 @@ export type WoolEntityType = {
 }
 
 // Resolve data
-export type UpdatingType = 'add' | 'remove' | 'isActivated'
+export type UpdatingType = 'add' | 'remove' | 'activate' | 'deactivate'
 
 export type ResolveStateReturnType = (state: RootState) => boolean
 export type ResolveStateDataReturnType = (

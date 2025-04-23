@@ -23,7 +23,10 @@ export type WoolDetailProps = WoolDetailType & {
   isAdding: boolean
   isSubtractDisabled: boolean
   isSubtracting: boolean
-  onConfirmActivate: (closeDialog: () => void) => void
+  onConfirmChangeIsActivated: (
+    isActivated: boolean,
+    closeDialog: () => void
+  ) => void
   onUpdateCount: (updatedCount: number, type: 'add' | 'remove') => void
 }
 
@@ -33,7 +36,7 @@ const WoolDetail = ({
   isAdding,
   isSubtractDisabled,
   isSubtracting,
-  onConfirmActivate,
+  onConfirmChangeIsActivated,
   onUpdateCount,
   ...item
 }: WoolDetailProps) => {
@@ -41,7 +44,10 @@ const WoolDetail = ({
 
   return (
     <>
-      <ActivateDialog isActivated={isActivated} onConfirm={onConfirmActivate} />
+      <ActivateDialog
+        isActivated={isActivated}
+        onConfirm={onConfirmChangeIsActivated}
+      />
 
       {imgUrl ? (
         <img

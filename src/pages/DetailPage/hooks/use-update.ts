@@ -35,21 +35,23 @@ export const useUpdate = (collection: CollectionType, color?: string) => {
     [collection, color, db]
   )
 
-  const onConfirmActivate = useCallback(
-    (closeDialog: () => void) => {
+  const onConfirmChangeIsActivated = useCallback(
+    (isActivated: boolean, closeDialog: () => void) => {
+      const type = isActivated ? 'activate' : 'deactivate'
+
       if (!color) {
         return
       }
       const ref = doc(db, collection, color)
       try {
-        dispatch(update('isActivated'))
-        setDoc(ref, {isActivated: true}, {merge: true})
-        dispatch(updated({field: 'isActivated', id: color, value: true}))
+        dispatch(update(type))
+        setDoc(ref, {isActivated}, {merge: true})
+        dispatch(updated({field: 'isActivated', id: color, value: isActivated}))
         closeDialog()
-        updateSuccessToast('isActivated')
+        updateSuccessToast(type)
       } catch (error) {
         dispatch(updateError(error as Error))
-        updateErrorToast('isActivated')
+        updateErrorToast(type)
       }
     },
     [collection, color, db]
@@ -59,6 +61,6 @@ export const useUpdate = (collection: CollectionType, color?: string) => {
     isUpdatingAdd,
     isUpdatingRemove,
     onUpdateCount,
-    onConfirmActivate
+    onConfirmChangeIsActivated
   }
 }

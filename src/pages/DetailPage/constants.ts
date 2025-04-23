@@ -7,8 +7,12 @@ export const TOAST_TEXT = {
     error: 'Entfernen',
     success: 'entfernt'
   },
-  isActivated: {
+  activate: {
     error: 'Aktivieren',
     success: 'aktiviert'
+  },
+  deactivate: {
+    error: 'Deaktivieren',
+    success: 'deaktiviert'
   }
 }

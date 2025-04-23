@@ -8,34 +8,18 @@ import {
 import {memo, useState} from 'react'
 import Button from '../../../atoms/Button'
 import ActivatedChip from '../../../atoms/ActivatedChip'
+import {ACTIVATE_DIALOG_TEXT} from '../constants'
 
 export type ActivateDialogProps = {
-  activeChipText?: string
-  cancelText?: string
-  confirmText?: string
-  inactiveChipText?: string
   isActivated: boolean
-  onConfirm: (closeDialog: () => void) => void
-  text?: string
-  title?: string
+  onConfirm: (isActivated: boolean, closeDialog: () => void) => void
 }
 
-const ActivateDialog = ({
-  activeChipText = 'Aktiv',
-  cancelText = 'Abbrechen',
-  confirmText = 'Ja, aktivieren',
-  inactiveChipText = 'Noch nicht aktiviert',
-  isActivated,
-  onConfirm,
-  text = 'Das Wollknäuel war noch nie in deiner Sammlung. Möchtest du es aktivieren & in die Sammlung hinzufügen?',
-  title = 'Wollknäuel ist derzeit noch nicht aktiviert'
-}: ActivateDialogProps) => {
+const ActivateDialog = ({isActivated, onConfirm}: ActivateDialogProps) => {
+  const updatingType = isActivated ? 'activate' : 'deactivate'
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false)
 
   const handleClick = () => {
-    if (isActivated) {
-      return
-    }
     setIsDialogOpen(true)
   }
 
@@ -44,16 +28,16 @@ const ActivateDialog = ({
   }
 
   const handleConfirm = () => {
-    onConfirm(closeDialog)
+    onConfirm(!isActivated, closeDialog)
   }
 
   return (
     <>
       <ActivatedChip
-        activeText={activeChipText}
+        activeText={ACTIVATE_DIALOG_TEXT.activeChipText}
         className="w-fit mx-auto"
-        clickable={!isActivated}
-        inactiveText={inactiveChipText}
+        clickable
+        inactiveText={ACTIVATE_DIALOG_TEXT.inactiveChipText}
         isActivated={isActivated}
         onClick={handleClick}
       />
@@ -64,14 +48,18 @@ const ActivateDialog = ({
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle>{title}</DialogTitle>
+        <DialogTitle>{ACTIVATE_DIALOG_TEXT.title[updatingType]}</DialogTitle>
         <DialogContent>
-          <DialogContentText>{text}</DialogContentText>
+          <DialogContentText>
+            {ACTIVATE_DIALOG_TEXT.text[updatingType]}
+          </DialogContentText>
         </DialogContent>
         <DialogActions className="pb-5 flex justify-evenly items-center">
-          <Button onClick={closeDialog}>{cancelText}</Button>
+          <Button onClick={closeDialog}>
+            {ACTIVATE_DIALOG_TEXT.cancelText}
+          </Button>
           <Button onClick={handleConfirm} autoFocus>
-            {confirmText}
+            {ACTIVATE_DIALOG_TEXT.confirmText[updatingType]}
           </Button>
         </DialogActions>
       </Dialog>

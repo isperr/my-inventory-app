@@ -15,8 +15,12 @@ const DetailPage = ({collection}: {collection: CollectionType}) => {
   const params = useParams()
   const id = params?.color
 
-  const {isUpdatingAdd, isUpdatingRemove, onUpdateCount, onConfirmActivate} =
-    useUpdate(collection, id)
+  const {
+    isUpdatingAdd,
+    isUpdatingRemove,
+    onUpdateCount,
+    onConfirmChangeIsActivated
+  } = useUpdate(collection, id)
 
   const {hasResolveError, item, isResolved, isResolving, handleResolveData} =
     useResolveData(collection, id)
@@ -53,7 +57,7 @@ const DetailPage = ({collection}: {collection: CollectionType}) => {
             isAdding={isUpdatingAdd}
             isSubtractDisabled={isUpdatingAdd || isUpdatingRemove}
             isSubtracting={isUpdatingRemove}
-            onConfirmActivate={onConfirmActivate}
+            onConfirmChangeIsActivated={onConfirmChangeIsActivated}
             onUpdateCount={onUpdateCount}
           />
         )}
