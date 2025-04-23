@@ -1,9 +1,16 @@
-import PageText from '../PageText'
+import {Typography} from '@mui/material'
+import {memo} from 'react'
+import {collectionNames, CollectionType} from '../../pages/HomePage/types'
 
-const ErrorComponent = () => (
-  <PageText className="mx-4 pb-4">
-    Bitte versuche die Seite neu zu Laden.
-  </PageText>
+const ErrorComponent = ({collection}: {collection: CollectionType}) => (
+  <>
+    <Typography className="px-2 py-0.5" color="primary" variant="h6">
+      {collectionNames[collection]}
+    </Typography>
+    <Typography className="px-2 py-0.5 italic">
+      Bitte versuche die Seite neu zu Laden.
+    </Typography>
+  </>
 )
 
-export default ErrorComponent
+export default memo(ErrorComponent)

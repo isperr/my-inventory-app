@@ -107,7 +107,7 @@ const SearchPage = () => {
   }
 
   return (
-    <PageTemplate className="h-fit gap-4">
+    <PageTemplate className="h-fit gap-4 pb-12">
       <Box className="mx-6">
         <Typography className="text-center" variant="h5">
           Wollknäuel scannen

@@ -9,7 +9,7 @@ export type PageTextProps = {
 }
 
 const PageText = ({children, className}: PageTextProps) => (
-  <Paper className={twMerge('mx-6', className)} elevation={0}>
+  <Paper className={twMerge('mx-4 px-2 py-0.5', className)} elevation={2}>
     <Typography color="primary" variant="h6">
       {children}
     </Typography>

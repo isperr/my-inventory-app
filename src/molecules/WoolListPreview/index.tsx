@@ -92,7 +92,7 @@ const WoolListPreview = ({
         )}
       </List>
       {isLoading && <Loading />}
-      {hasError && <ErrorComponent />}
+      {hasError && <ErrorComponent collection={collection} />}
     </Paper>
   )
 }
