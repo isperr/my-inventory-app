@@ -2,6 +2,7 @@ import {memo, useEffect, useRef} from 'react'
 import {useParams} from 'react-router'
 
 import FloatingButton from '../../atoms/FloatingButton'
+import {useScrollToTop} from '../../hooks/use-scroll-to-top'
 import WoolDetailContent from '../../molecules/WoolDetailContent'
 import WoolDetail from '../../molecules/WoolDetail'
 import PageTemplate from '../../templates/Page'
@@ -11,6 +12,7 @@ import {useUpdate} from './hooks/use-update'
 import {useResolveData} from './hooks/use-resolve-data'
 
 const DetailPage = ({collection}: {collection: CollectionType}) => {
+  useScrollToTop()
   const effectRan = useRef<boolean>(false)
   const params = useParams()
   const id = params?.color

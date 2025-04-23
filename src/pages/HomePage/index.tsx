@@ -8,11 +8,13 @@ import {ThemePaletteModeContext} from '../../context'
 import FloatingButton from '../../atoms/FloatingButton'
 import Logo from '../../atoms/Logo'
 import useFirebaseAuth from '../../hooks/auth-state/use-firebase-auth'
+import {useScrollToTop} from '../../hooks/use-scroll-to-top'
 import PageTemplate from '../../templates/Page'
 
 import PreviewList from './components/PreviewList'
 
 const HomePage = () => {
+  useScrollToTop()
   const {onLogout, username} = useFirebaseAuth()
   const themePaletteModeContext = React.useContext(ThemePaletteModeContext)
 

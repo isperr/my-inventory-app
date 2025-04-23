@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography'
 import {FormControlLabel, Switch} from '@mui/material'
 
 import FloatingButton from '../../atoms/FloatingButton'
-
+import {useScrollToTop} from '../../hooks/use-scroll-to-top'
 import PageTemplate from '../../templates/Page'
 
 import {collectionNames, CollectionType} from '../HomePage/types'
@@ -12,6 +12,7 @@ import WoolList from '../../molecules/WoolList'
 import {WoolListItemType} from '../../molecules/WoolList/components/WoolListItem'
 
 const ListPage = ({collection}: {collection: CollectionType}) => {
+  useScrollToTop()
   const effectRan = useRef<boolean>(false)
 
   const {
