@@ -64,12 +64,12 @@ export const onLoadData = async (
   const temp: DocumentData[] = []
 
   const collectionRef = collection(db, collectionName)
-  const cataniaQuery = await query(
+  const woolQuery = await query(
     collectionRef,
     where('isActivated', '==', isActivated),
     orderBy('color', 'asc')
   )
-  const snapshot = await getDocs(cataniaQuery).catch(error => {
+  const snapshot = await getDocs(woolQuery).catch(error => {
     // error is handled within ListPage
     throw error
   })
@@ -86,13 +86,13 @@ export const onLoadPreviewData = async (collectionName: CollectionType) => {
   const temp: DocumentData[] = []
 
   const collectionRef = collection(db, collectionName)
-  const cataniaQuery = await query(
+  const woolQuery = await query(
     collectionRef,
     where('isActivated', '==', true),
     orderBy('color', 'asc'),
     limit(3)
   )
-  const snapshot = await getDocs(cataniaQuery).catch(error => {
+  const snapshot = await getDocs(woolQuery).catch(error => {
     // error is handled within ListPage
     throw error
   })
