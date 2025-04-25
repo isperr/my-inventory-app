@@ -5,11 +5,12 @@ import {Fab} from '@mui/material'
 import HomeIcon from '@mui/icons-material/Home'
 import CropFreeIcon from '@mui/icons-material/CropFree'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import PetsIcon from '@mui/icons-material/Pets'
 
 export type FloatingButtonProps = {
   ariaLabel?: string
   children?: ReactNode
-  icon?: 'back' | 'home' | 'scan'
+  icon?: 'back' | 'home' | 'scan' | 'items'
   path?: string
   position?: 'primary' | 'secondary'
 }
@@ -32,6 +33,8 @@ const FloatingButton = ({
       return ArrowBackIcon
     } else if (icon === 'scan') {
       return CropFreeIcon
+    } else if (icon === 'items') {
+      return PetsIcon
     }
 
     return HomeIcon
