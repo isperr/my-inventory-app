@@ -75,6 +75,9 @@ const Form = ({
 
         <ListSubheader>Himalaya</ListSubheader>
         <MenuItem value="dolphin-baby">Dolphin Baby</MenuItem>
+
+        <ListSubheader>Hobbi</ListSubheader>
+        <MenuItem value="baby-snuggle-solid">Baby Snuggle Solid</MenuItem>
       </Select>
     </FormControl>
 

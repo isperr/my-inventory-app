@@ -52,6 +52,7 @@ const HomePage = () => {
       <PreviewList collection="samt" />
       <PreviewList collection="samt-baby" />
       <PreviewList collection="dolphin-baby" />
+      <PreviewList collection="baby-snuggle-solid" />
 
       <FloatingButton ariaLabel="scan" icon="scan" path="/scan" />
     </PageTemplate>

@@ -78,11 +78,27 @@ import {
   selectIsLoaded as selectIsLoadedDolphinBaby,
   selectIsLoading as selectIsLoadingDolphinBaby
 } from '../../../modules/dolphin-baby/home/slice'
+// baby-snuggle-solid
+import {
+  load as loadBabySnuggle,
+  loaded as loadedBabySnuggle,
+  loadingError as loadingBabySnuggleError,
+  selectData as selectDataBabySnuggle,
+  selectError as selectErrorBabySnuggle,
+  selectIsLoaded as selectIsLoadedBabySnuggle,
+  selectIsLoading as selectIsLoadingBabySnuggle
+} from '../../../modules/baby-snuggle-solid/home/slice'
 
 import {CollectionType} from '../../HomePage/types'
 
 export const getActions = (collection: CollectionType) => {
   switch (collection) {
+    case 'baby-snuggle-solid':
+      return {
+        load: loadBabySnuggle,
+        loaded: loadedBabySnuggle,
+        loadingError: loadingBabySnuggleError
+      }
     case 'dolphin-baby':
       return {
         load: loadDolphinBaby,
@@ -136,6 +152,13 @@ export const getActions = (collection: CollectionType) => {
 
 export const getSelectors = (collection: CollectionType) => {
   switch (collection) {
+    case 'baby-snuggle-solid':
+      return {
+        selectData: selectDataBabySnuggle,
+        selectError: selectErrorBabySnuggle,
+        selectIsLoaded: selectIsLoadedBabySnuggle,
+        selectIsLoading: selectIsLoadingBabySnuggle
+      }
     case 'dolphin-baby':
       return {
         selectData: selectDataDolphinBaby,

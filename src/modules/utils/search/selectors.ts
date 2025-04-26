@@ -11,6 +11,7 @@ export type SearchState = Pick<
   | 'samtSearch'
   | 'samtBabySearch'
   | 'dolphinBabySearch'
+  | 'babySnuggleSearch'
 >
 
 export const createSearchSelectors = (name: keyof SearchState) => {
