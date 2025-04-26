@@ -11,6 +11,7 @@ import AddPage from './pages/AddPage'
 import DetailPage from './pages/DetailPage'
 import SearchPage from './pages/SearchPage'
 import ListPage from './pages/ListPage'
+import {collectionNames, CollectionType} from './pages/HomePage/types'
 
 const App = () => {
   const {isLoggedIn} = useFirebaseAuth()
@@ -21,69 +22,18 @@ const App = () => {
         <>
           <Route path="/" element={<HomePage />} />
 
-          <Route path="catania" element={<CollectionPage />}>
-            <Route index element={<ListPage collection="catania" />} />
-            <Route
-              path=":color"
-              element={<DetailPage collection="catania" />}
-            />
-          </Route>
-
-          <Route path="catania-color" element={<CollectionPage />}>
-            <Route index element={<ListPage collection="catania-color" />} />
-            <Route
-              path=":color"
-              element={<DetailPage collection="catania-color" />}
-            />
-          </Route>
-
-          <Route path="cotton-quick" element={<CollectionPage />}>
-            <Route index element={<ListPage collection="cotton-quick" />} />
-            <Route
-              path=":color"
-              element={<DetailPage collection="cotton-quick" />}
-            />
-          </Route>
-
-          <Route path="cotton-quick-print" element={<CollectionPage />}>
-            <Route
-              index
-              element={<ListPage collection="cotton-quick-print" />}
-            />
-            <Route
-              path=":color"
-              element={<DetailPage collection="cotton-quick-print" />}
-            />
-          </Route>
-
-          <Route path="funny-uni" element={<CollectionPage />}>
-            <Route index element={<ListPage collection="funny-uni" />} />
-            <Route
-              path=":color"
-              element={<DetailPage collection="funny-uni" />}
-            />
-          </Route>
-
-          <Route path="samt" element={<CollectionPage />}>
-            <Route index element={<ListPage collection="samt" />} />
-            <Route path=":color" element={<DetailPage collection="samt" />} />
-          </Route>
-
-          <Route path="samt-baby" element={<CollectionPage />}>
-            <Route index element={<ListPage collection="samt-baby" />} />
-            <Route
-              path=":color"
-              element={<DetailPage collection="samt-baby" />}
-            />
-          </Route>
-
-          <Route path="dolphin-baby" element={<CollectionPage />}>
-            <Route index element={<ListPage collection="dolphin-baby" />} />
-            <Route
-              path=":color"
-              element={<DetailPage collection="dolphin-baby" />}
-            />
-          </Route>
+          {Object.keys(collectionNames).map(key => {
+            const collection = key as CollectionType
+            return (
+              <Route key={key} path={key} element={<CollectionPage />}>
+                <Route index element={<ListPage collection={collection} />} />
+                <Route
+                  path=":color"
+                  element={<DetailPage collection={collection} />}
+                />
+              </Route>
+            )
+          })}
 
           <Route path="scan" element={<ScanPage />}>
             <Route index element={<SearchPage />} />

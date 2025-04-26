@@ -27,11 +27,20 @@ import {insert as samtBabyListInsert} from '../../../modules/samt-baby/results/s
 // dolphin-baby
 import {insert as dolphinBabyInsert} from '../../../modules/dolphin-baby/home/slice'
 import {insert as dolphinBabyListInsert} from '../../../modules/dolphin-baby/results/slice'
+// HOBBII ----------------------------------------------------------------
+// baby-snuggle-solid
+import {insert as babySnuggleHomeInsert} from '../../../modules/baby-snuggle-solid/home/slice'
+import {insert as babySnuggleListInsert} from '../../../modules/baby-snuggle-solid/results/slice'
 // ----------------------------------------------------------------
 import {CollectionType} from '../../HomePage/types'
 
 export const getAddInserts = (collection: CollectionType) => {
   switch (collection) {
+    case 'baby-snuggle-solid':
+      return {
+        homeInsert: babySnuggleHomeInsert,
+        listInsert: babySnuggleListInsert
+      }
     case 'dolphin-baby':
       return {
         homeInsert: dolphinBabyInsert,

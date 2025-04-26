@@ -15,6 +15,7 @@ export const useInsert = () => {
   const samt = getAddInserts('samt')
   const samtBaby = getAddInserts('samt-baby')
   const dolphinBaby = getAddInserts('dolphin-baby')
+  const babySnuggle = getAddInserts('baby-snuggle-solid')
 
   const handleInsert = useCallback(
     (data: WoolDocumentData, collection: CollectionType) => {
@@ -50,6 +51,10 @@ export const useInsert = () => {
         case 'dolphin-baby':
           dispatch(dolphinBaby.homeInsert(data))
           dispatch(dolphinBaby.listInsert(data))
+          break
+        case 'baby-snuggle-solid':
+          dispatch(babySnuggle.homeInsert(data))
+          dispatch(babySnuggle.listInsert(data))
           break
         default:
         // do nothing

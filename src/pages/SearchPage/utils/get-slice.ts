@@ -96,10 +96,31 @@ import {
 } from '../../../modules/dolphin-baby/search/slice'
 import {resolved as resolvedDolphinBaby} from '../../../modules/dolphin-baby/results/slice'
 
+// HOBBII
+import {
+  load as loadBabySnuggle,
+  loaded as loadedBabySnuggle,
+  loadingError as loadingBabySnuggleError,
+  reset as resetBabySnuggle,
+  selectData as selectDataBabySnuggle,
+  selectError as selectErrorBabySnuggle,
+  selectIsLoaded as selectIsLoadedBabySnuggle,
+  selectIsLoading as selectIsLoadingBabySnuggle
+} from '../../../modules/baby-snuggle-solid/search/slice'
+import {resolved as resolvedBabySnuggle} from '../../../modules/baby-snuggle-solid/results/slice'
+
 import {CollectionType} from '../../HomePage/types'
 
 export const getActions = (collection: CollectionType) => {
   switch (collection) {
+    case 'baby-snuggle-solid':
+      return {
+        load: loadBabySnuggle,
+        loaded: loadedBabySnuggle,
+        loadingError: loadingBabySnuggleError,
+        resolved: resolvedBabySnuggle,
+        reset: resetBabySnuggle
+      }
     case 'dolphin-baby':
       return {
         load: loadDolphinBaby,
@@ -170,6 +191,13 @@ export const getActions = (collection: CollectionType) => {
 
 export const getSelectors = (collection: CollectionType) => {
   switch (collection) {
+    case 'baby-snuggle-solid':
+      return {
+        selectData: selectDataBabySnuggle,
+        selectError: selectErrorBabySnuggle,
+        selectIsLoaded: selectIsLoadedBabySnuggle,
+        selectIsLoading: selectIsLoadingBabySnuggle
+      }
     case 'dolphin-baby':
       return {
         selectData: selectDataDolphinBaby,

@@ -110,11 +110,32 @@ import {
   selectIsLoaded as selectIsLoadedDolphinBaby,
   selectIsLoading as selectIsLoadingDolphinBaby
 } from '../../../modules/dolphin-baby/results/selectors'
+// baby-snuggle-solid
+import {
+  load as loadBabySnuggle,
+  loaded as loadedBabySnuggle,
+  loadingError as loadingBabySnuggleError,
+  setIsActivated as setIsActivatedBabySnuggle
+} from '../../../modules/baby-snuggle-solid/results/slice'
+import {
+  selectData as selectDataBabySnuggle,
+  selectError as selectErrorBabySnuggle,
+  selectIsActivated as selectIsActivatedBabySnuggle,
+  selectIsLoaded as selectIsLoadedBabySnuggle,
+  selectIsLoading as selectIsLoadingBabySnuggle
+} from '../../../modules/baby-snuggle-solid/results/selectors'
 
 import {CollectionType} from '../../HomePage/types'
 
 export const getActions = (collection: CollectionType) => {
   switch (collection) {
+    case 'baby-snuggle-solid':
+      return {
+        load: loadBabySnuggle,
+        loaded: loadedBabySnuggle,
+        loadingError: loadingBabySnuggleError,
+        setIsActivated: setIsActivatedBabySnuggle
+      }
     case 'dolphin-baby':
       return {
         load: loadDolphinBaby,
@@ -164,6 +185,7 @@ export const getActions = (collection: CollectionType) => {
         loadingError: loadingColorError,
         setIsActivated: setIsActivatedColor
       }
+    case 'catania':
     default:
       return {
         load: loadReg,
@@ -176,6 +198,14 @@ export const getActions = (collection: CollectionType) => {
 
 export const getSelectors = (collection: CollectionType) => {
   switch (collection) {
+    case 'baby-snuggle-solid':
+      return {
+        selectData: selectDataBabySnuggle,
+        selectError: selectErrorBabySnuggle,
+        selectIsActivated: selectIsActivatedBabySnuggle,
+        selectIsLoaded: selectIsLoadedBabySnuggle,
+        selectIsLoading: selectIsLoadingBabySnuggle
+      }
     case 'dolphin-baby':
       return {
         selectData: selectDataDolphinBaby,
@@ -232,6 +262,7 @@ export const getSelectors = (collection: CollectionType) => {
         selectIsLoaded: selectIsLoadedColor,
         selectIsLoading: selectIsLoadingColor
       }
+    case 'catania':
     default:
       return {
         selectData: selectDataReg,
