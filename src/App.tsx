@@ -12,6 +12,7 @@ import ListPage from './pages/ListPage'
 import ItemListPage from './pages/ItemListPage'
 import ItemDetailPage from './pages/ItemDetailPage'
 import PageHuskTemplate from './templates/PageHusk'
+import ItemEditPage from './pages/ItemEditPage'
 
 const App = () => {
   const {isLoggedIn} = useFirebaseAuth()
@@ -91,13 +92,9 @@ const App = () => {
             <Route path="add" element={<AddPage />} />
           </Route>
 
-          <Route path="finished-items" element={<ItemListPage />}>
-            <Route index element={<SearchPage />} />
-            <Route path="add" element={<AddPage />} />
-          </Route>
-
           <Route path="finished-items" element={<PageHuskTemplate />}>
             <Route index element={<ItemListPage />} />
+            <Route path="add" element={<ItemEditPage />} />
             <Route path=":item" element={<ItemDetailPage />} />
           </Route>
 
