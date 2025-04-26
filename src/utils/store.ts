@@ -32,6 +32,9 @@ import dolphinBabyReducer from '../modules/dolphin-baby/results/slice'
 import dolphinBabyHomeReducer from '../modules/dolphin-baby/home/slice'
 import dolphinBabySearchReducer from '../modules/dolphin-baby/search/slice'
 
+// FINISHED-ITEMS
+import finishedItemsReducer from '../modules/finished-items/results/slice'
+
 export const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -59,7 +62,8 @@ export const store = configureStore({
     samtBabySearch: samtBabySearchReducer,
     dolphinBaby: dolphinBabyReducer,
     dolphinBabyHome: dolphinBabyHomeReducer,
-    dolphinBabySearch: dolphinBabySearchReducer
+    dolphinBabySearch: dolphinBabySearchReducer,
+    finishedItems: finishedItemsReducer
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
@@ -88,7 +92,8 @@ export const store = configureStore({
           'samtBabySearch/loadingError',
           'dolphinBabyHome/loadingError',
           'dolphinBaby/loadingError',
-          'dolphinBabySearch/loadingError'
+          'dolphinBabySearch/loadingError',
+          'finishedItems/loadingError'
         ],
         ignoredActionPaths: ['payload']
       }

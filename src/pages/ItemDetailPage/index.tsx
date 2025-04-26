@@ -9,6 +9,9 @@ const ItemDetailPage = () => {
         DAS DETAIL
       </Typography>
 
+      <FloatingButton position="secondary" icon="back" path="/finished-items">
+        Zur Liste
+      </FloatingButton>
       <FloatingButton />
     </PageTemplate>
   )
