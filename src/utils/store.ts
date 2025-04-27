@@ -31,6 +31,10 @@ import samtBabySearchReducer from '../modules/samt-baby/search/slice'
 import dolphinBabyReducer from '../modules/dolphin-baby/results/slice'
 import dolphinBabyHomeReducer from '../modules/dolphin-baby/home/slice'
 import dolphinBabySearchReducer from '../modules/dolphin-baby/search/slice'
+// HOBBII
+import babySnuggleReducer from '../modules/baby-snuggle-solid/results/slice'
+import babySnuggleHomeReducer from '../modules/baby-snuggle-solid/home/slice'
+import babySnuggleSearchReducer from '../modules/baby-snuggle-solid/search/slice'
 
 // FINISHED-ITEMS
 import finishedItemsReducer from '../modules/finished-items/results/slice'
@@ -63,6 +67,9 @@ export const store = configureStore({
     dolphinBaby: dolphinBabyReducer,
     dolphinBabyHome: dolphinBabyHomeReducer,
     dolphinBabySearch: dolphinBabySearchReducer,
+    babySnuggle: babySnuggleReducer,
+    babySnuggleHome: babySnuggleHomeReducer,
+    babySnuggleSearch: babySnuggleSearchReducer,
     finishedItems: finishedItemsReducer
   },
   middleware: getDefaultMiddleware =>
@@ -93,6 +100,9 @@ export const store = configureStore({
           'dolphinBabyHome/loadingError',
           'dolphinBaby/loadingError',
           'dolphinBabySearch/loadingError',
+          'babySnuggleHome/loadingError',
+          'babySnuggle/loadingError',
+          'babySnuggleSearch/loadingError',
           'finishedItems/loadingError'
         ],
         ignoredActionPaths: ['payload']

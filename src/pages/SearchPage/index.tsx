@@ -39,6 +39,8 @@ const SearchPage = () => {
     useSearchData('samt-baby')
   const {onLoadData: onLoadDolphinBabyData, onReset: onResetDolphinBaby} =
     useSearchData('dolphin-baby')
+  const {onLoadData: onLoadBabySnuggleData, onReset: onResetBabySnuggle} =
+    useSearchData('baby-snuggle-solid')
 
   const {hasNoData, isInAllCollections, isLoaded, isLoading} =
     useCumulativeState()
@@ -56,6 +58,7 @@ const SearchPage = () => {
         onResetSamt()
         onResetSamtBaby()
         onResetDolphinBaby()
+        onResetBabySnuggle()
       }
     }
   }, [isLoaded])
@@ -94,7 +97,8 @@ const SearchPage = () => {
       onLoadFunnyUniData(data),
       onLoadSamtData(data),
       onLoadSamtBabyData(data),
-      onLoadDolphinBabyData(data)
+      onLoadDolphinBabyData(data),
+      onLoadBabySnuggleData(data)
     ])
     // set isbn or color here instead of in the useSearchData hook so it dispatches only once
     dispatch(setIsbnOrColor({data: num, isColorSearch}))
@@ -130,6 +134,7 @@ const SearchPage = () => {
           <SearchPreview collection="samt" />
           <SearchPreview collection="samt-baby" />
           <SearchPreview collection="dolphin-baby" />
+          <SearchPreview collection="baby-snuggle-solid" />
         </Box>
       )}
 

@@ -92,7 +92,12 @@ const WoolListPreview = ({
         )}
       </List>
       {isLoading && <Loading />}
-      {hasError && <ErrorComponent collection={collection} />}
+      {hasError && (
+        <ErrorComponent
+          collection={collection}
+          showCollectionName={showIsActivatedChip}
+        />
+      )}
     </Paper>
   )
 }

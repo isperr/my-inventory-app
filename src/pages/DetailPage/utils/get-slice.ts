@@ -126,11 +126,33 @@ import {
   selectResolveData as selectResolveDataDolphinBaby,
   selectIsUpdatingType as selectIsUpdatingTypeDolphinBaby
 } from '../../../modules/dolphin-baby/results/selectors'
+// baby-snuggle-solid
+import {
+  resolve as resolveBabySnuggle,
+  resolved as resolvedBabySnuggle,
+  resolvingError as resolvingBabySnuggleError,
+  update as updateBabySnuggle,
+  updated as updatedBabySnuggle,
+  updateError as updateBabySnuggleError
+} from '../../../modules/baby-snuggle-solid/results/slice'
+import {
+  selectHasResolveError as selectHasResolveErrorBabySnuggle,
+  selectIsIdResolved as selectIsIdResolvedBabySnuggle,
+  selectIsIdResolving as selectIsIdResolvingBabySnuggle,
+  selectResolveData as selectResolveDataBabySnuggle,
+  selectIsUpdatingType as selectIsUpdatingTypeBabySnuggle
+} from '../../../modules/baby-snuggle-solid/results/selectors'
 
 import {CollectionType} from '../../HomePage/types'
 
 export const getResolveActions = (collection: CollectionType) => {
   switch (collection) {
+    case 'baby-snuggle-solid':
+      return {
+        resolve: resolveBabySnuggle,
+        resolved: resolvedBabySnuggle,
+        resolvingError: resolvingBabySnuggleError
+      }
     case 'dolphin-baby':
       return {
         resolve: resolveDolphinBaby,
@@ -184,6 +206,13 @@ export const getResolveActions = (collection: CollectionType) => {
 
 export const getResolveSelectors = (collection: CollectionType) => {
   switch (collection) {
+    case 'baby-snuggle-solid':
+      return {
+        selectHasResolveError: selectHasResolveErrorBabySnuggle,
+        selectIsIdResolved: selectIsIdResolvedBabySnuggle,
+        selectIsIdResolving: selectIsIdResolvingBabySnuggle,
+        selectResolveData: selectResolveDataBabySnuggle
+      }
     case 'dolphin-baby':
       return {
         selectHasResolveError: selectHasResolveErrorDolphinBaby,
@@ -245,6 +274,12 @@ export const getResolveSelectors = (collection: CollectionType) => {
 
 export const getUpdateActions = (collection: CollectionType) => {
   switch (collection) {
+    case 'baby-snuggle-solid':
+      return {
+        update: updateBabySnuggle,
+        updated: updatedBabySnuggle,
+        updateError: updateBabySnuggleError
+      }
     case 'dolphin-baby':
       return {
         update: updateDolphinBaby,
@@ -298,6 +333,10 @@ export const getUpdateActions = (collection: CollectionType) => {
 
 export const getUpdateSelectors = (collection: CollectionType) => {
   switch (collection) {
+    case 'baby-snuggle-solid':
+      return {
+        selectIsUpdatingType: selectIsUpdatingTypeBabySnuggle
+      }
     case 'dolphin-baby':
       return {
         selectIsUpdatingType: selectIsUpdatingTypeDolphinBaby
