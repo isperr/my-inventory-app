@@ -11,6 +11,7 @@ export type ButtonProps = {
   isLoading?: boolean
   onClick?: React.MouseEventHandler<HTMLButtonElement>
   size?: 'small' | 'medium' | 'large'
+  startIcon?: ReactNode
   type?: 'submit' | 'button' | 'reset'
 }
 
@@ -24,6 +25,7 @@ const Button = ({
   isLoading,
   onClick,
   size,
+  startIcon,
   type
 }: ButtonProps) => (
   <MuiButton
@@ -38,6 +40,7 @@ const Button = ({
     size={size}
     type={type}
     variant="contained"
+    startIcon={startIcon}
   >
     {children}
   </MuiButton>

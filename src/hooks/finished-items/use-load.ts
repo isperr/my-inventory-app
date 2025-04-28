@@ -6,7 +6,7 @@ import {
   orderBy,
   query
 } from 'firebase/firestore'
-import {BaseItemDocumentData} from '../modules/types'
+import {BaseItemDocumentData, ItemCategory} from '../../modules/types'
 
 const IMG_PREFIXES = ['.png', '.jpg', '.jpeg', '.svg', '.tif', '.tiff', '.webp']
 
@@ -48,7 +48,7 @@ const handleImageLoading = async (data: BaseItemDocumentData[]) => {
   }))
 }
 
-export const onLoadFinishedItems = async () => {
+export const onLoad = async () => {
   const db = getFirestore()
 
   const temp: BaseItemDocumentData[] = []
@@ -60,7 +60,13 @@ export const onLoadFinishedItems = async () => {
     throw error
   })
   snapshot.forEach(doc => {
-    temp.push({...doc.data(), id: doc.id})
+    const data = doc.data()
+
+    temp.push({
+      ...data,
+      category: (data.category satisfies ItemCategory) ? data.category : null,
+      id: doc.id
+    })
   })
 
   return await handleImageLoading(temp)

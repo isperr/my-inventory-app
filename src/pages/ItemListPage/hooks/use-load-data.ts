@@ -1,7 +1,7 @@
 import {useCallback} from 'react'
 import {useNotifications} from '@toolpad/core'
 
-import {onLoadFinishedItems} from '../../../hooks/use-load-finished-items'
+import {onLoad} from '../../../hooks/finished-items/use-load'
 import {
   load,
   loaded,
@@ -28,7 +28,7 @@ export const useLoadData = () => {
   const handleLoadData = useCallback(async () => {
     try {
       dispatch(load())
-      const data = await onLoadFinishedItems()
+      const data = await onLoad()
       dispatch(loaded(data))
     } catch (error) {
       dispatch(loadingError(error as Error))

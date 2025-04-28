@@ -18,10 +18,17 @@ export type ResolveStateDataReturnType = (
 ) => WoolDocumentData | null
 
 /* FINISHED-ITEMS DATA */
-export type BaseItemDocumentData = DocumentData & {id: string}
+export type ItemCategory = 'plushy' | 'regular' | 'keychain'
+export type BaseItemDocumentData = DocumentData & {
+  category: ItemCategory
+  id: string
+}
 export type ItemDocumentData = BaseItemDocumentData & {
   imgUrl?: string | undefined
 }
 export type ItemEntityType = {
   [k: string]: ItemDocumentData
 }
+export type ResolveStateItemDataReturnType = (
+  state: RootState
+) => ItemDocumentData | null
