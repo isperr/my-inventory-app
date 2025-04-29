@@ -10,9 +10,9 @@ import {
 } from '@mui/material'
 import Select, {SelectChangeEvent} from '@mui/material/Select'
 
+import CountField from '../../../atoms/CountField'
+import UploadButton from '../../../atoms/UploadButton'
 import {CollectionType} from '../../HomePage/types'
-import UploadButton from './UploadButton'
-import CountField from './CountField'
 
 export type AddPageFormProps = {
   collection?: CollectionType
@@ -42,7 +42,7 @@ const Form = ({
     component="form"
     onSubmit={handleSubmit}
   >
-    <UploadButton isDisabled={isDisabled} />
+    <UploadButton isDisabled={isDisabled} isRounded />
 
     <FormControl id="collection-form" required>
       <InputLabel id="collection-label">Kollektion</InputLabel>
@@ -110,7 +110,11 @@ const Form = ({
       required
     />
 
-    <CountField isDisabled={isDisabled} />
+    <CountField
+      defaultValue={null}
+      extraText="der Wollknäuel"
+      isDisabled={isDisabled}
+    />
 
     <Button
       disabled={isAdded || !collection}

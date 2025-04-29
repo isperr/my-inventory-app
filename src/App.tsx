@@ -7,7 +7,7 @@ import AddPage from './pages/AddPage'
 import DetailPage from './pages/DetailPage'
 import HomePage from './pages/HomePage'
 import ItemDetailPage from './pages/ItemDetailPage'
-import ItemEditPage from './pages/ItemEditPage'
+import ItemAddPage from './pages/ItemAddPage'
 import ItemListPage from './pages/ItemListPage'
 import ListPage from './pages/ListPage'
 import LoginPage from './pages/LoginPage'
@@ -44,7 +44,7 @@ const App = () => {
 
           <Route path="finished-items" element={<PageHuskTemplate />}>
             <Route index element={<ItemListPage />} />
-            <Route path="add" element={<ItemEditPage />} />
+            <Route path="add" element={<ItemAddPage />} />
             <Route path=":item" element={<ItemDetailPage />} />
           </Route>
 

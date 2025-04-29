@@ -67,7 +67,7 @@ const ItemListPage = () => {
 
               <CardContent className="py-2">
                 <Typography className="text-left truncate" component="div">
-                  Neues Werk
+                  Hinzufügen
                 </Typography>
               </CardContent>
             </CardActionArea>

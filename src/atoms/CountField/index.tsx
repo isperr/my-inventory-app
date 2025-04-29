@@ -1,15 +1,36 @@
-import React, {memo, useCallback, useRef, useState} from 'react'
+import React, {useCallback, useMemo, useRef, useState} from 'react'
 import {twMerge} from 'tailwind-merge'
 import {NumberField} from '@base-ui-components/react/number-field'
 import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
 import {Box, IconButton} from '@mui/material'
 
-import {ThemePaletteModeContext} from '../../../context'
+import {ThemePaletteModeContext} from '../../context'
 
-const CountField = ({isDisabled}: {isDisabled: boolean}) => {
+const CountField = ({
+  defaultValue,
+  extraText,
+  isDisabled
+}: {
+  extraText?: string
+  defaultValue: number | null
+  isDisabled: boolean
+}) => {
   const themePaletteModeContext = React.useContext(ThemePaletteModeContext)
   const countRef = useRef<HTMLInputElement | null>(null)
+  const [value, setValue] = useState<number | null>(defaultValue)
+
+  const text = useMemo(() => {
+    const textArr = ['Anzahl']
+
+    if (extraText) {
+      textArr.push(extraText)
+    }
+
+    textArr.push('*')
+
+    return textArr.join(' ')
+  }, [extraText])
 
   const [isFocused, setIsFocused] = useState<boolean>(false)
   const onBlur = useCallback(() => {
@@ -19,8 +40,19 @@ const CountField = ({isDisabled}: {isDisabled: boolean}) => {
     setIsFocused(true)
   }, [])
 
+  const onValueChange = (newValue: number | null, event: Event | undefined) => {
+    // do no set newValue on focusout or input event type
+    // focusout: (Tab + Shift will result in a rounded result e.g. 13 === 10 or 16 === 20)
+    // input: handled within onChange of input field
+    if (event?.type === 'focusout' || event?.type === 'input') {
+      return
+    }
+    setValue(newValue)
+  }
+
   return (
     <NumberField.Root
+      allowWheelScrub
       className="relative"
       disabled={isDisabled}
       id="count"
@@ -29,14 +61,19 @@ const CountField = ({isDisabled}: {isDisabled: boolean}) => {
       required
       onBlur={onBlur}
       onFocus={onFocus}
+      onValueChange={onValueChange}
+      value={value}
     >
       <NumberField.ScrubArea>
         <Box
           className={twMerge(
             'absolute text-base px-1 py-0.5',
-            'left-[66px] top-3 h-fit w-fit transition-all',
-            (isFocused || countRef.current?.value) &&
-              '-translate-x-5 -translate-y-6 scale-[0.75]',
+            'top-3 h-fit w-fit transition-all',
+            (isFocused || value) && '-translate-y-6 scale-[0.75]',
+            extraText && 'left-[66px]',
+            (isFocused || value) && extraText && '-translate-x-5',
+            !extraText && 'left-[70px]',
+            (isFocused || value) && !extraText && '-translate-x-2.5',
             themePaletteModeContext.themePaletteMode === 'light' && 'bg-white',
             themePaletteModeContext.themePaletteMode === 'dark' &&
               'bg-[#303031]',
@@ -48,7 +85,7 @@ const CountField = ({isDisabled}: {isDisabled: boolean}) => {
           htmlFor="count"
           sx={{color: isFocused ? 'primary.main' : '#00000099'}}
         >
-          Anzahl der Wollknäuel *
+          {text}
         </Box>
         <NumberField.ScrubAreaCursor>
           <AddIcon />
@@ -104,6 +141,9 @@ const CountField = ({isDisabled}: {isDisabled: boolean}) => {
               'hover:border-[#fefefe]'
           )}
           ref={countRef}
+          onChange={event => {
+            setValue(event.target.value ? Number(event.target.value) : null)
+          }}
         />
         <NumberField.Increment
           className={twMerge(
@@ -143,4 +183,4 @@ const CountField = ({isDisabled}: {isDisabled: boolean}) => {
   )
 }
 
-export default memo(CountField)
+export default CountField
