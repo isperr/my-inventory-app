@@ -38,6 +38,7 @@ import babySnuggleSearchReducer from '../modules/baby-snuggle-solid/search/slice
 
 // FINISHED-ITEMS
 import finishedItemsReducer from '../modules/finished-items/results/slice'
+import finishedItemsAddReducer from '../modules/finished-items/add/slice'
 
 export const store = configureStore({
   reducer: {
@@ -70,7 +71,8 @@ export const store = configureStore({
     babySnuggle: babySnuggleReducer,
     babySnuggleHome: babySnuggleHomeReducer,
     babySnuggleSearch: babySnuggleSearchReducer,
-    finishedItems: finishedItemsReducer
+    finishedItems: finishedItemsReducer,
+    finishedItemsAdd: finishedItemsAddReducer
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
@@ -103,7 +105,8 @@ export const store = configureStore({
           'babySnuggleHome/loadingError',
           'babySnuggle/loadingError',
           'babySnuggleSearch/loadingError',
-          'finishedItems/loadingError'
+          'finishedItems/loadingError',
+          'finishedItemsAdd/addingError'
         ],
         ignoredActionPaths: ['payload']
       }

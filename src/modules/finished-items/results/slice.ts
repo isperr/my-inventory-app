@@ -57,6 +57,17 @@ const finishedItemResultsSlice = createSlice({
       state.isLoading = false
       state.error = action.payload
     },
+    insert: (state, action: PayloadAction<ItemDocumentData>) => {
+      if (!state.isLoaded) {
+        return
+      }
+      const tempData = [...state.data, action.payload]
+      // update data in state as sorted array by name
+      state.data = tempData.sort((itemA, itemB) =>
+        itemA.name.localeCompare(itemB.name)
+      )
+      state.entities[action.payload.id] = action.payload
+    },
     resolve: (state, action: PayloadAction<string>) => {
       const id = action.payload
 
@@ -117,6 +128,7 @@ export const {
   load,
   loaded,
   loadingError,
+  insert,
   resolve,
   resolved,
   resolvingError,

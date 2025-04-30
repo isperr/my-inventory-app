@@ -40,5 +40,5 @@ export const onResolve = async (id: string) => {
     return undefined
   }
 
-  return await handleImageResolving(data, id)
+  return await handleImageResolving({...data, id}, id)
 }

@@ -1,4 +1,4 @@
-import {memo, ReactNode} from 'react'
+import {ReactNode} from 'react'
 import {
   Box,
   FormControl,
@@ -22,6 +22,7 @@ type ItemProps = {
 }
 
 export type ItemFormProps = ItemProps & {
+  children: ReactNode
   handleCollectionChange?:
     | ((event: SelectChangeEvent<ItemCategory>, child: ReactNode) => void)
     | undefined
@@ -31,6 +32,7 @@ export type ItemFormProps = ItemProps & {
 
 const ItemForm = ({
   category,
+  children,
   count,
   details,
   name,
@@ -99,10 +101,11 @@ const ItemForm = ({
         minRows={4}
         multiline
         variant="outlined"
-        required
       />
+
+      {children}
     </Box>
   )
 }
 
-export default memo(ItemForm)
+export default ItemForm
