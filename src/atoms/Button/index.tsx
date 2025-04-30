@@ -13,6 +13,7 @@ export type ButtonProps = {
   size?: 'small' | 'medium' | 'large'
   startIcon?: ReactNode
   type?: 'submit' | 'button' | 'reset'
+  variant?: 'contained' | 'outlined'
 }
 
 const Button = ({
@@ -26,7 +27,8 @@ const Button = ({
   onClick,
   size,
   startIcon,
-  type
+  type,
+  variant = 'contained'
 }: ButtonProps) => (
   <MuiButton
     aria-label={ariaLabel}
@@ -39,7 +41,7 @@ const Button = ({
     onClick={onClick}
     size={size}
     type={type}
-    variant="contained"
+    variant={variant}
     startIcon={startIcon}
   >
     {children}
