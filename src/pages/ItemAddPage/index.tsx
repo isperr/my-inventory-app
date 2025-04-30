@@ -1,6 +1,5 @@
 import {Typography} from '@mui/material'
 
-import FloatingButton from '../../atoms/FloatingButton'
 import ItemForm from '../../molecules/ItemForm'
 import PageTemplate from '../../templates/Page'
 import {useNotifications} from '@toolpad/core'
@@ -66,19 +65,25 @@ const ItemAddPage = () => {
 
       <ItemForm handleSubmit={handleSubmit} isDisabled={isDisabled}>
         <Button
+          fullWidth
+          isDisabled={isAdded || isAdding}
+          onClick={event => {
+            event.preventDefault()
+            navigate('/finished-items/')
+          }}
+          variant="outlined"
+        >
+          Abbrechen
+        </Button>
+        <Button
+          fullWidth
           isDisabled={isAdded}
           isLoading={isAdding}
-          size="small"
           type="submit"
         >
           Hinzufügen
         </Button>
       </ItemForm>
-
-      <FloatingButton position="secondary" icon="back" path="/finished-items">
-        Zur Liste
-      </FloatingButton>
-      <FloatingButton />
     </PageTemplate>
   )
 }

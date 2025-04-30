@@ -39,73 +39,71 @@ const ItemForm = ({
   handleSubmit,
   isDisabled,
   price
-}: ItemFormProps) => {
-  return (
-    <Box
-      className="flex flex-col px-6 gap-4 pb-12"
-      component="form"
-      onSubmit={handleSubmit}
-    >
-      <TextField
-        className="w-full"
-        defaultValue={name}
+}: ItemFormProps) => (
+  <Box
+    className="flex flex-col px-6 gap-4 pb-6"
+    component="form"
+    onSubmit={handleSubmit}
+  >
+    <TextField
+      className="w-full"
+      defaultValue={name}
+      disabled={isDisabled}
+      id="name"
+      label="Name"
+      variant="outlined"
+      required
+    />
+
+    <UploadButton isDisabled={isDisabled} />
+
+    <FormControl id="category-form" required>
+      <InputLabel id="category-label">Kategorie</InputLabel>
+      <Select
+        defaultValue={category ?? ''}
         disabled={isDisabled}
-        id="name"
-        label="Name"
-        variant="outlined"
+        labelId="category-label"
+        id="category"
+        label="Kategorie"
+        name="category"
         required
-      />
+      >
+        <MenuItem value="plushy">Plushy</MenuItem>
+        <MenuItem value="regular">Normal</MenuItem>
+        <MenuItem value="keychain">Schlüsselanhänger</MenuItem>
+      </Select>
+    </FormControl>
 
-      <UploadButton isDisabled={isDisabled} />
+    <CountField defaultValue={count ?? null} isDisabled={isDisabled} />
 
-      <FormControl id="category-form" required>
-        <InputLabel id="category-label">Kategorie</InputLabel>
-        <Select
-          defaultValue={category ?? ''}
-          disabled={isDisabled}
-          labelId="category-label"
-          id="category"
-          label="Kategorie"
-          name="category"
-          required
-        >
-          <MenuItem value="plushy">Plushy</MenuItem>
-          <MenuItem value="regular">Normal</MenuItem>
-          <MenuItem value="keychain">Schlüsselanhänger</MenuItem>
-        </Select>
-      </FormControl>
+    <TextField
+      className="w-full"
+      defaultValue={price?.toString().replace('.', ',')}
+      disabled={isDisabled}
+      id="price"
+      label="Preis"
+      variant="outlined"
+      slotProps={{
+        input: {
+          startAdornment: <InputAdornment position="start">€</InputAdornment>
+        }
+      }}
+      required
+    />
 
-      <CountField defaultValue={count ?? null} isDisabled={isDisabled} />
+    <TextField
+      className="w-full"
+      defaultValue={details}
+      disabled={isDisabled}
+      id="details"
+      label="Details"
+      minRows={4}
+      multiline
+      variant="outlined"
+    />
 
-      <TextField
-        className="w-full"
-        defaultValue={price?.toString().replace('.', ',')}
-        disabled={isDisabled}
-        id="price"
-        label="Preis"
-        variant="outlined"
-        slotProps={{
-          input: {
-            startAdornment: <InputAdornment position="start">€</InputAdornment>
-          }
-        }}
-        required
-      />
-
-      <TextField
-        className="w-full"
-        defaultValue={details}
-        disabled={isDisabled}
-        id="details"
-        label="Details"
-        minRows={4}
-        multiline
-        variant="outlined"
-      />
-
-      {children}
-    </Box>
-  )
-}
+    <div className="flex gap-2">{children}</div>
+  </Box>
+)
 
 export default ItemForm

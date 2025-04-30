@@ -11,6 +11,8 @@ export const selectError = (state: RootState) => state.finishedItems.error
 export const selectIsLoaded = (state: RootState) => state.finishedItems.isLoaded
 export const selectIsLoading = (state: RootState) =>
   state.finishedItems.isLoading
+export const selectIsEditMode = (state: RootState) =>
+  state.finishedItems.isEditMode
 
 // resolve selectors
 const selectIsResolved = (state: RootState) => state.finishedItems.isResolved

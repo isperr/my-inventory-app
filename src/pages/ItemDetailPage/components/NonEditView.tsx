@@ -9,14 +9,19 @@ import DetailText from '../../../atoms/DetailText'
 
 import {ItemDocumentData} from '../../../modules/types'
 
+type NonEditViewProps = ItemDocumentData & {
+  enterEditMode: () => void
+}
+
 const NonEditView = ({
+  enterEditMode,
   name,
   imgUrl,
   price,
   count,
   details,
   category
-}: ItemDocumentData) => {
+}: NonEditViewProps) => {
   return (
     <>
       <Typography className="px-4 text-center" variant="h4">
@@ -48,7 +53,7 @@ const NonEditView = ({
         </div>
       </Box>
 
-      <Button className="mx-6" isDisabled startIcon={<EditIcon />}>
+      <Button className="mx-6" onClick={enterEditMode} startIcon={<EditIcon />}>
         Bearbeiten
       </Button>
     </>

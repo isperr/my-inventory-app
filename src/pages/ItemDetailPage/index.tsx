@@ -6,6 +6,7 @@ import PageTemplate from '../../templates/Page'
 
 import {useResolveItem} from './hooks/use-resolve-item'
 import Content from './components/Content'
+import {useToggleEditMode} from './hooks/use-toggle-edit-mode'
 
 const ItemDetailPage = () => {
   const effectRan = useRef<boolean>(false)
@@ -13,6 +14,7 @@ const ItemDetailPage = () => {
   const id = params?.item
 
   const {isResolved, handleResolveData} = useResolveItem(id)
+  const {isEditMode} = useToggleEditMode()
 
   useEffect(() => {
     if (!effectRan.current && !isResolved) {
@@ -28,10 +30,18 @@ const ItemDetailPage = () => {
     <PageTemplate className="h-fit gap-2">
       <Content id={id} />
 
-      <FloatingButton position="secondary" icon="back" path="/finished-items">
-        Zur Liste
-      </FloatingButton>
-      <FloatingButton />
+      {!isEditMode && (
+        <>
+          <FloatingButton
+            position="secondary"
+            icon="back"
+            path="/finished-items"
+          >
+            Zur Liste
+          </FloatingButton>
+          <FloatingButton />
+        </>
+      )}
     </PageTemplate>
   )
 }
