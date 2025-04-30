@@ -85,21 +85,21 @@ const WoolDetail = ({
         </Box>
         <Box className="flex justify-around">
           <CountButton
-            ariaLabel="add"
-            count={count}
-            isDisabled={isAddDisabled}
-            isLoading={isAdding}
-            onClick={onUpdateCount}
-            type="add"
-          />
-
-          <CountButton
             ariaLabel="remove"
             count={count}
             isDisabled={count === 0 || isSubtractDisabled}
             isLoading={isSubtracting}
             onClick={onUpdateCount}
             type="remove"
+          />
+
+          <CountButton
+            ariaLabel="add"
+            count={count}
+            isDisabled={isAddDisabled}
+            isLoading={isAdding}
+            onClick={onUpdateCount}
+            type="add"
           />
         </Box>
       </Box>
