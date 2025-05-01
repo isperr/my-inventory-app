@@ -14,7 +14,15 @@ const CardImage = ({name, src, type = 'image'}: CardImageProps) => {
   const Icon = useMemo(() => (type === 'add' ? AddIcon : ImageIcon), [type])
 
   if (src && name) {
-    return <CardMedia component="img" height="80" image={src} alt={name} />
+    return (
+      <CardMedia
+        className="object-contain"
+        component="img"
+        height="80"
+        image={src}
+        alt={name}
+      />
+    )
   }
 
   return (
