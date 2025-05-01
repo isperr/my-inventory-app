@@ -7,7 +7,7 @@ import EditIcon from '@mui/icons-material/Edit'
 import Button from '../../../atoms/Button'
 import DetailText from '../../../atoms/DetailText'
 
-import {ItemDocumentData} from '../../../modules/types'
+import {categoryNames, ItemDocumentData} from '../../../modules/types'
 
 type NonEditViewProps = ItemDocumentData & {
   enterEditMode: () => void
@@ -46,7 +46,11 @@ const NonEditView = ({
       <Box className="mx-6">
         <DetailText heading="Daten" type="item" />
         <div className="grid grid-cols-10">
-          <DetailText heading="Kategorie:" text={category} type="item" />
+          <DetailText
+            heading="Kategorie:"
+            text={categoryNames[category]}
+            type="item"
+          />
           <DetailText heading="Anzahl:" text={count.toString()} type="item" />
           <DetailText heading="Preis:" text={price.toString()} type="item" />
           <DetailText heading="Details:" text={details || '--'} type="item" />

@@ -18,7 +18,13 @@ export type ResolveStateDataReturnType = (
 ) => WoolDocumentData | null
 
 /* FINISHED-ITEMS DATA */
-export type ItemCategory = 'plushy' | 'regular' | 'keychain'
+export const categoryNames = {
+  plushy: 'Plushy',
+  regular: 'Normal',
+  keychain: 'Schlüsselanhänger'
+}
+export type CategoryNamesType = typeof categoryNames
+export type ItemCategory = keyof CategoryNamesType
 export type BaseItemDocumentData = DocumentData & {
   category: ItemCategory
   id: string

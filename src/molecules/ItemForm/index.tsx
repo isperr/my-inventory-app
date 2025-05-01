@@ -10,7 +10,7 @@ import {
 import Select from '@mui/material/Select'
 
 import CountField from '../../atoms/CountField'
-import {ItemCategory} from '../../modules/types'
+import {categoryNames, ItemCategory} from '../../modules/types'
 import UploadButton from '../../atoms/UploadButton'
 
 type ItemProps = {
@@ -73,9 +73,9 @@ const ItemForm = ({
         name="category"
         required
       >
-        <MenuItem value="plushy">Plushy</MenuItem>
-        <MenuItem value="regular">Normal</MenuItem>
-        <MenuItem value="keychain">Schlüsselanhänger</MenuItem>
+        <MenuItem value="plushy">{categoryNames.plushy}</MenuItem>
+        <MenuItem value="regular">{categoryNames.regular}</MenuItem>
+        <MenuItem value="keychain">{categoryNames.keychain}</MenuItem>
       </Select>
     </FormControl>
 
