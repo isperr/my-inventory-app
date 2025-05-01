@@ -4,7 +4,6 @@ import {Box, Typography} from '@mui/material'
 import {SelectChangeEvent} from '@mui/material/Select'
 import {useNotifications} from '@toolpad/core'
 
-import FloatingButton from '../../atoms/FloatingButton'
 import PageTemplate from '../../templates/Page'
 import {getToastConfig} from '../../utils/toast/get-toast-config'
 import {CollectionType} from '../HomePage/types'
@@ -68,7 +67,7 @@ const AddPage = () => {
   }
 
   return (
-    <PageTemplate className="h-fit gap-4 pb-12">
+    <PageTemplate className="h-fit gap-4 pb-6">
       <Box className="mx-6">
         <Typography className="text-center" variant="h5">
           Wollknäuel zum Wollbestand hinzufügen
@@ -85,11 +84,6 @@ const AddPage = () => {
         isDisabled={isDisabled}
         isbn={isbn}
       />
-
-      <FloatingButton position="secondary" icon="back" path="/scan">
-        Zur Suche
-      </FloatingButton>
-      <FloatingButton />
     </PageTemplate>
   )
 }

@@ -36,6 +36,10 @@ import babySnuggleReducer from '../modules/baby-snuggle-solid/results/slice'
 import babySnuggleHomeReducer from '../modules/baby-snuggle-solid/home/slice'
 import babySnuggleSearchReducer from '../modules/baby-snuggle-solid/search/slice'
 
+// FINISHED-ITEMS
+import finishedItemsReducer from '../modules/finished-items/results/slice'
+import finishedItemsAddReducer from '../modules/finished-items/add/slice'
+
 export const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -66,7 +70,9 @@ export const store = configureStore({
     dolphinBabySearch: dolphinBabySearchReducer,
     babySnuggle: babySnuggleReducer,
     babySnuggleHome: babySnuggleHomeReducer,
-    babySnuggleSearch: babySnuggleSearchReducer
+    babySnuggleSearch: babySnuggleSearchReducer,
+    finishedItems: finishedItemsReducer,
+    finishedItemsAdd: finishedItemsAddReducer
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
@@ -98,7 +104,9 @@ export const store = configureStore({
           'dolphinBabySearch/loadingError',
           'babySnuggleHome/loadingError',
           'babySnuggle/loadingError',
-          'babySnuggleSearch/loadingError'
+          'babySnuggleSearch/loadingError',
+          'finishedItems/loadingError',
+          'finishedItemsAdd/addingError'
         ],
         ignoredActionPaths: ['payload']
       }

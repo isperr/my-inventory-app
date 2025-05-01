@@ -4,9 +4,9 @@ import {Box} from '@mui/material'
 import ImageIcon from '@mui/icons-material/Image'
 
 import ActivateDialog from './components/ActivateDialog'
-import ColorText from './components/ColorText'
 import CountButton from './components/CountButton'
 import {collectionNames, CollectionType} from '../../pages/HomePage/types'
+import DetailText from '../../atoms/DetailText'
 
 export type WoolDetailType = {
   color: number
@@ -66,30 +66,24 @@ const WoolDetail = ({
         </Box>
       )}
       <Box className="mx-6">
-        <ColorText heading={`${collectionNames[collection]} Daten:`} />
-        <div className="grid grid-cols-4 grid-rows-3">
-          <ColorText heading="ISBN:" text={isbn.toString()} />
-          <ColorText heading="Farbe:" text={color.toString()} />
-          <ColorText heading="Name:" text={name} />
+        <DetailText
+          heading={`${collectionNames[collection]} Daten:`}
+          type="wool"
+        />
+        <div className="grid grid-cols-9 grid-rows-3">
+          <DetailText heading="ISBN:" text={isbn.toString()} type="wool" />
+          <DetailText heading="Farbe:" text={color.toString()} type="wool" />
+          <DetailText heading="Name:" text={name} type="wool" />
         </div>
       </Box>
       <Box className="mx-6 flex flex-col gap-8">
         <Box>
-          <ColorText heading="Wollknäuel Bestand:" />
-          <div className="grid grid-cols-4 grid-rows-1">
-            <ColorText heading="Anzahl:" text={count.toString()} />
+          <DetailText heading="Wollknäuel Bestand:" type="wool" />
+          <div className="grid grid-cols-9 grid-rows-1">
+            <DetailText heading="Anzahl:" text={count.toString()} type="wool" />
           </div>
         </Box>
         <Box className="flex justify-around">
-          <CountButton
-            ariaLabel="add"
-            count={count}
-            isDisabled={isAddDisabled}
-            isLoading={isAdding}
-            onClick={onUpdateCount}
-            type="add"
-          />
-
           <CountButton
             ariaLabel="remove"
             count={count}
@@ -97,6 +91,15 @@ const WoolDetail = ({
             isLoading={isSubtracting}
             onClick={onUpdateCount}
             type="remove"
+          />
+
+          <CountButton
+            ariaLabel="add"
+            count={count}
+            isDisabled={isAddDisabled}
+            isLoading={isAdding}
+            onClick={onUpdateCount}
+            type="add"
           />
         </Box>
       </Box>

@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 
 // Define a type for the slice state
-type AdddState = {
+type AddState = {
   color?: number
   isbn?: number
   error: Error | null
@@ -10,7 +10,7 @@ type AdddState = {
 }
 
 // Define the initial state using that type
-const initialState: AdddState = {
+const initialState: AddState = {
   color: undefined,
   isbn: undefined,
   error: null,

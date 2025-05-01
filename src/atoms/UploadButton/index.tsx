@@ -1,13 +1,29 @@
-import {ChangeEvent, useRef, useState} from 'react'
+import {ChangeEvent, useEffect, useRef, useState} from 'react'
 import {twMerge} from 'tailwind-merge'
 import {Box, Button, IconButton} from '@mui/material'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import DeleteIcon from '@mui/icons-material/Delete'
 import ImageIcon from '@mui/icons-material/Image'
 
-const UploadButton = ({isDisabled}: {isDisabled: boolean}) => {
+const UploadButton = ({
+  imgUrl,
+  isDisabled,
+  isRounded = false,
+  setHasFileChange
+}: {
+  imgUrl?: string
+  isDisabled: boolean
+  isRounded?: boolean
+  setHasFileChange?: (hasFileChange: boolean) => void
+}) => {
   const imgRef = useRef<HTMLInputElement | null>(null)
-  const [preview, setPreview] = useState<string | undefined>(undefined)
+  const [preview, setPreview] = useState<string | undefined>(imgUrl)
+
+  useEffect(() => {
+    if (setHasFileChange && preview !== imgUrl) {
+      setHasFileChange(true)
+    }
+  }, [setHasFileChange, preview, imgUrl])
 
   const onChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -32,7 +48,9 @@ const UploadButton = ({isDisabled}: {isDisabled: boolean}) => {
         <Box
           className={twMerge(
             'w-[300px] h-[170px] mx-auto text-[4rem]',
-            'rounded-full bg-[#bdbdbd] flex justify-center items-center text-[#f4f3f2]'
+            'bg-[#bdbdbd] flex justify-center items-center text-[#f4f3f2]',
+            isRounded && 'rounded-full',
+            !isRounded && 'w-full mx-0'
           )}
         >
           <ImageIcon color="inherit" fontSize="inherit" />
@@ -46,7 +64,10 @@ const UploadButton = ({isDisabled}: {isDisabled: boolean}) => {
           role={undefined}
         >
           <img
-            className="h-[170px] w-[300px] m-auto"
+            className={twMerge(
+              'h-[170px] w-[300px] m-auto',
+              !isRounded && 'object-contain w-full'
+            )}
             alt="upload-image"
             src={preview}
           />

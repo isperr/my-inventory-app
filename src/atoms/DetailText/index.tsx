@@ -1,11 +1,14 @@
+import {memo} from 'react'
 import {Typography} from '@mui/material'
+import {twMerge} from 'tailwind-merge'
 
-export type ColorTextProps = {
+export type DetailTextProps = {
   heading?: string
   text?: string
+  type: 'wool' | 'item'
 }
 
-const ColorText = ({heading, text}: ColorTextProps) => {
+const DetailText = ({heading, type, text}: DetailTextProps) => {
   if (!text) {
     return (
       <Typography color="primary" variant="h6">
@@ -24,18 +27,27 @@ const ColorText = ({heading, text}: ColorTextProps) => {
   return (
     <>
       <Typography
-        className="col-span-2"
+        className={twMerge(
+          type === 'wool' && 'col-span-2',
+          type === 'item' && 'col-span-3'
+        )}
         color="primary"
         fontWeight="bold"
         variant="subtitle1"
       >
         {heading}
       </Typography>
-      <Typography className="col-span-6" variant="subtitle1">
+      <Typography
+        className={twMerge(
+          type === 'wool' && 'col-span-7',
+          type === 'item' && 'col-span-7'
+        )}
+        variant="subtitle1"
+      >
         {text}
       </Typography>
     </>
   )
 }
 
-export default ColorText
+export default memo(DetailText)

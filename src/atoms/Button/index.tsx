@@ -6,12 +6,22 @@ export type ButtonProps = {
   autoFocus?: boolean
   children?: ReactNode
   className?: string
+  color?:
+    | 'error'
+    | 'inherit'
+    | 'primary'
+    | 'secondary'
+    | 'success'
+    | 'info'
+    | 'warning'
   fullWidth?: boolean
   isDisabled?: boolean
   isLoading?: boolean
   onClick?: React.MouseEventHandler<HTMLButtonElement>
   size?: 'small' | 'medium' | 'large'
+  startIcon?: ReactNode
   type?: 'submit' | 'button' | 'reset'
+  variant?: 'contained' | 'outlined'
 }
 
 const Button = ({
@@ -19,17 +29,21 @@ const Button = ({
   autoFocus,
   children,
   className,
+  color,
   fullWidth,
   isDisabled,
   isLoading,
   onClick,
   size,
-  type
+  startIcon,
+  type,
+  variant = 'contained'
 }: ButtonProps) => (
   <MuiButton
     aria-label={ariaLabel}
     autoFocus={autoFocus}
     className={className}
+    color={color}
     disabled={isDisabled}
     fullWidth={fullWidth}
     loading={isLoading}
@@ -37,7 +51,8 @@ const Button = ({
     onClick={onClick}
     size={size}
     type={type}
-    variant="contained"
+    variant={variant}
+    startIcon={startIcon}
   >
     {children}
   </MuiButton>
