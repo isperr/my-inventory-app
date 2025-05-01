@@ -14,6 +14,7 @@ import LoginPage from './pages/LoginPage'
 import PageHuskTemplate from './templates/PageHusk'
 import SearchPage from './pages/SearchPage'
 import useFirebaseAuth from './hooks/auth-state/use-firebase-auth'
+import {collectionNames, CollectionType} from './pages/HomePage/types'
 
 const App = () => {
   const {isLoggedIn} = useFirebaseAuth()
