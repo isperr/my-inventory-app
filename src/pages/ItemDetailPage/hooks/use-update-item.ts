@@ -1,5 +1,5 @@
 import {doc, getFirestore, setDoc} from 'firebase/firestore'
-import {useCallback, useEffect} from 'react'
+import {useCallback} from 'react'
 
 import {onCreateImage} from '../../../hooks/finished-items/use-create-image'
 import {onDeleteImage} from '../../../hooks/finished-items/use-delete-image'
@@ -88,6 +88,7 @@ export const useUpdateItem = () => {
           getToastConfig({autoHideDuration: 3000, severity: 'success'})
         )
         leaveEditMode()
+        dispatch(resetUpdate())
       } catch (error) {
         dispatch(updateError(error as Error))
         notifications.show(
@@ -98,15 +99,6 @@ export const useUpdateItem = () => {
     },
     [db]
   )
-
-  useEffect(() => {
-    return () => {
-      // only reset if data was actually updated
-      if (isUpdated) {
-        dispatch(resetUpdate())
-      }
-    }
-  }, [isUpdated])
 
   return {isUpdated, isUpdating, handleUpdateItem}
 }
