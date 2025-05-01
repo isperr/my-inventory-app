@@ -2,7 +2,6 @@ import './App.css'
 import './fire'
 import {Route, Routes} from 'react-router'
 
-import {collectionNames, CollectionType} from './pages/HomePage/types'
 import AddPage from './pages/AddPage'
 import DetailPage from './pages/DetailPage'
 import HomePage from './pages/HomePage'

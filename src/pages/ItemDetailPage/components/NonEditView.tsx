@@ -1,4 +1,4 @@
-import {memo} from 'react'
+import {memo, useMemo} from 'react'
 import {twMerge} from 'tailwind-merge'
 import {Box, Typography} from '@mui/material'
 import ImageIcon from '@mui/icons-material/Image'
@@ -24,6 +24,14 @@ const NonEditView = ({
   details,
   category
 }: NonEditViewProps) => {
+  const formattedPrice = useMemo(() => {
+    const lang = navigator.languages?.[0] ?? 'de-DE'
+
+    return new Intl.NumberFormat(lang, {
+      style: 'currency',
+      currency: 'EUR'
+    }).format(price)
+  }, [price, navigator.languages?.[0]])
   return (
     <>
       <Typography className="px-4 text-center" variant="h4">
@@ -54,7 +62,7 @@ const NonEditView = ({
             type="item"
           />
           <DetailText heading="Anzahl:" text={count.toString()} type="item" />
-          <DetailText heading="Preis:" text={price.toString()} type="item" />
+          <DetailText heading="Preis:" text={formattedPrice} type="item" />
           <DetailText heading="Details:" text={details || '--'} type="item" />
         </div>
       </Box>
