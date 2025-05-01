@@ -6,6 +6,14 @@ export type ButtonProps = {
   autoFocus?: boolean
   children?: ReactNode
   className?: string
+  color?:
+    | 'error'
+    | 'inherit'
+    | 'primary'
+    | 'secondary'
+    | 'success'
+    | 'info'
+    | 'warning'
   fullWidth?: boolean
   isDisabled?: boolean
   isLoading?: boolean
@@ -21,6 +29,7 @@ const Button = ({
   autoFocus,
   children,
   className,
+  color,
   fullWidth,
   isDisabled,
   isLoading,
@@ -34,6 +43,7 @@ const Button = ({
     aria-label={ariaLabel}
     autoFocus={autoFocus}
     className={className}
+    color={color}
     disabled={isDisabled}
     fullWidth={fullWidth}
     loading={isLoading}

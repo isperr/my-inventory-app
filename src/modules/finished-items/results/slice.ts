@@ -4,8 +4,11 @@ import {ItemDocumentData, ItemEntityType} from '../../types'
 
 type FinishedItemResultsState = {
   data: ItemDocumentData[]
+  deleteError: Error | null
   entities: ItemEntityType
   error: Error | null
+  isDeleted: boolean
+  isDeleting: boolean
   isEditMode: boolean
   isLoaded: boolean
   isLoading: boolean
@@ -21,8 +24,11 @@ type FinishedItemResultsState = {
 
 const initialState: FinishedItemResultsState = {
   data: [],
+  deleteError: null,
   entities: {},
   error: null,
+  isDeleted: false,
+  isDeleting: false,
   isEditMode: false,
   isLoaded: false,
   isLoading: false,
@@ -161,23 +167,60 @@ const finishedItemResultsSlice = createSlice({
       state.isUpdated = false
       state.isUpdating = false
       state.updatingError = null
+    },
+    deleteItem: state => {
+      state.isDeleting = true
+      state.isDeleted = false
+    },
+    deletedItem: (state, action: PayloadAction<string>) => {
+      const id = action.payload
+
+      // only remove item from list if it was actually loaded
+      if (state.isLoaded) {
+        state.data = state.data.filter(it => it.id !== id)
+      }
+      // always update data in entities
+      state.entities = Object.keys(state.entities).reduce((acc, key) => {
+        const item = state.entities[key]
+        if (item.id === id) {
+          return acc
+        }
+        return {...acc, [key]: item}
+      }, {})
+
+      state.isDeleting = false
+      state.isDeleted = true
+    },
+    deleteItemError: (state, action: PayloadAction<Error>) => {
+      state.isDeleting = false
+      state.isDeleted = false
+      state.deleteError = action.payload
+    },
+    resetDeleteItem: state => {
+      state.isDeleted = false
+      state.isDeleting = false
+      state.deleteError = null
     }
   }
 })
 
 export const {
+  deletedItem,
+  deleteItem,
+  deleteItemError,
+  insert,
   load,
   loaded,
   loadingError,
-  insert,
+  resetDeleteItem,
   resetUpdate,
   resolve,
   resolved,
   resolvingError,
   toggleEditMode,
   update,
-  updateError,
-  updated
+  updated,
+  updateError
 } = finishedItemResultsSlice.actions
 
 export default finishedItemResultsSlice.reducer

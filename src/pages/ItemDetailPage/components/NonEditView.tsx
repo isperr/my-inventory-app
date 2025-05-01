@@ -8,6 +8,7 @@ import Button from '../../../atoms/Button'
 import DetailText from '../../../atoms/DetailText'
 
 import {categoryNames, ItemDocumentData} from '../../../modules/types'
+import DeleteDialog from './DeleteDialog'
 
 type NonEditViewProps = ItemDocumentData & {
   enterEditMode: () => void
@@ -16,6 +17,7 @@ type NonEditViewProps = ItemDocumentData & {
 const NonEditView = ({
   enterEditMode,
   name,
+  id,
   imgUrl,
   price,
   count,
@@ -60,6 +62,7 @@ const NonEditView = ({
       <Button className="mx-6" onClick={enterEditMode} startIcon={<EditIcon />}>
         Bearbeiten
       </Button>
+      <DeleteDialog hasImage={Boolean(imgUrl)} id={id} name={name} />
     </>
   )
 }

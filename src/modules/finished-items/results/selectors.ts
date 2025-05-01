@@ -19,6 +19,12 @@ export const selectIsUpdated = (state: RootState) =>
   state.finishedItems.isUpdated
 export const selectIsUpdating = (state: RootState) =>
   state.finishedItems.isUpdating
+export const selectDeleteError = (state: RootState) =>
+  state.finishedItems.deleteError
+export const selectIsDeleted = (state: RootState) =>
+  state.finishedItems.isDeleted
+export const selectIsDeleting = (state: RootState) =>
+  state.finishedItems.isDeleting
 
 // resolve selectors
 const selectIsResolved = (state: RootState) => state.finishedItems.isResolved
