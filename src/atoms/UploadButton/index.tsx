@@ -1,4 +1,4 @@
-import {ChangeEvent, useRef, useState} from 'react'
+import {ChangeEvent, useEffect, useRef, useState} from 'react'
 import {twMerge} from 'tailwind-merge'
 import {Box, Button, IconButton} from '@mui/material'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
@@ -6,14 +6,24 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import ImageIcon from '@mui/icons-material/Image'
 
 const UploadButton = ({
+  imgUrl,
   isDisabled,
-  isRounded = false
+  isRounded = false,
+  setHasFileChange
 }: {
+  imgUrl?: string
   isDisabled: boolean
   isRounded?: boolean
+  setHasFileChange?: (hasFileChange: boolean) => void
 }) => {
   const imgRef = useRef<HTMLInputElement | null>(null)
-  const [preview, setPreview] = useState<string | undefined>(undefined)
+  const [preview, setPreview] = useState<string | undefined>(imgUrl)
+
+  useEffect(() => {
+    if (setHasFileChange && preview !== imgUrl) {
+      setHasFileChange(true)
+    }
+  }, [setHasFileChange, preview, imgUrl])
 
   const onChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

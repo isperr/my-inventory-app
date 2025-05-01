@@ -1,29 +1,29 @@
 import {getDownloadURL, getStorage, ref} from 'firebase/storage'
-import {doc, DocumentData, getDoc, getFirestore} from 'firebase/firestore'
+import {doc, getDoc, getFirestore} from 'firebase/firestore'
 
 import {ItemDocumentData} from '../../modules/types'
 
-const handleImageResolving = async (data: DocumentData, id: string) => {
+export const handleImageResolving = async (id: string) => {
   const storage = getStorage()
   const imgRef = ref(storage, `finished-items/${id}.png`)
-  const temp = {...data}
+  let temp: undefined | string = undefined
 
   await getDownloadURL(imgRef)
     .then(url => {
-      temp.imgUrl = url
+      temp = url
     })
     .catch(error => {
       // error.code reference https://firebase.google.com/docs/storage/web/handle-errors
       // to take care of wool-images that does not have an img uploaded
       if (error.code === 'storage/object-not-found') {
-        temp.imgUrl = null
+        temp = undefined
         return
       }
       // error is handled within ItemDetailPage
       throw error
     })
 
-  return temp as ItemDocumentData
+  return temp
 }
 
 export const onResolve = async (id: string) => {
@@ -40,5 +40,7 @@ export const onResolve = async (id: string) => {
     return undefined
   }
 
-  return await handleImageResolving({...data, id}, id)
+  const imgUrl = await handleImageResolving(id)
+
+  return {...data, id, imgUrl} as ItemDocumentData
 }

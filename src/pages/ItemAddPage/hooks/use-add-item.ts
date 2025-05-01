@@ -1,4 +1,8 @@
 import {getFirestore, addDoc, collection} from 'firebase/firestore'
+import {useCallback, useEffect} from 'react'
+
+import {onCreateImage} from '../../../hooks/finished-items/use-create-image'
+import {onResolve} from '../../../hooks/finished-items/use-resolve'
 import {
   add,
   added,
@@ -10,9 +14,6 @@ import {
 import {insert} from '../../../modules/finished-items/results/slice'
 import {ItemCategory, ItemDocumentData} from '../../../modules/types'
 import {useAppDispatch, useAppSelector} from '../../../utils/store-hooks'
-import {useCallback, useEffect} from 'react'
-import {getStorage, ref, uploadBytes} from 'firebase/storage'
-import {onResolve} from '../../../hooks/finished-items/use-resolve'
 
 export type CreateItemType = {
   category: ItemCategory
@@ -55,18 +56,6 @@ export const useAddItem = () => {
     },
     [dispatch]
   )
-
-  const onCreateImage = async ({id, file}: {id: string; file?: File}) => {
-    if (!file) {
-      return
-    }
-    const storage = getStorage()
-    const storageRef = ref(storage, `finished-items/${id}.png`)
-
-    await uploadBytes(storageRef, file).catch(error => {
-      throw error
-    })
-  }
 
   const onCreate = async ({data, file}: CreateProps) => {
     const docRef = await addDoc(collection(db, 'finished-items'), data)

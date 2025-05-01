@@ -11,9 +11,12 @@ type FinishedItemResultsState = {
   isLoading: boolean
   isResolved: Array<string>
   isResolving: Array<string>
+  isUpdating: boolean
+  isUpdated: boolean
   resolvingError: {
     [k: string]: Error | null
   }
+  updatingError: Error | null
 }
 
 const initialState: FinishedItemResultsState = {
@@ -25,7 +28,10 @@ const initialState: FinishedItemResultsState = {
   isLoading: false,
   isResolved: [],
   isResolving: [],
-  resolvingError: {}
+  isUpdated: false,
+  isUpdating: false,
+  resolvingError: {},
+  updatingError: null
 }
 
 const finishedItemResultsSlice = createSlice({
@@ -120,6 +126,41 @@ const finishedItemResultsSlice = createSlice({
     },
     toggleEditMode: (state, action: PayloadAction<boolean>) => {
       state.isEditMode = action.payload
+    },
+    update: state => {
+      state.isUpdating = true
+      state.isUpdated = false
+    },
+    updated: (
+      state,
+      action: PayloadAction<{
+        data: Partial<ItemDocumentData>
+        id: string
+      }>
+    ) => {
+      const {data, id} = action.payload
+
+      const idx = state.data.findIndex(it => it.id === id)
+      // only try to update data if items in list are loaded
+      if (idx !== -1) {
+        state.data[idx] = {...state.data[idx], ...data}
+      }
+
+      // always update data in entities
+      state.entities[id] = {...state.entities[id], ...data}
+
+      state.isUpdating = false
+      state.isUpdated = true
+    },
+    updateError: (state, action: PayloadAction<Error>) => {
+      state.isUpdating = false
+      state.isUpdated = false
+      state.updatingError = action.payload
+    },
+    resetUpdate: state => {
+      state.isUpdated = false
+      state.isUpdating = false
+      state.updatingError = null
     }
   }
 })
@@ -129,10 +170,14 @@ export const {
   loaded,
   loadingError,
   insert,
+  resetUpdate,
   resolve,
   resolved,
   resolvingError,
-  toggleEditMode
+  toggleEditMode,
+  update,
+  updateError,
+  updated
 } = finishedItemResultsSlice.actions
 
 export default finishedItemResultsSlice.reducer

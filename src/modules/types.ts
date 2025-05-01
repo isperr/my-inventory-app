@@ -24,7 +24,7 @@ export type BaseItemDocumentData = DocumentData & {
   id: string
 }
 export type ItemDocumentData = BaseItemDocumentData & {
-  imgUrl?: string | undefined
+  imgUrl?: string
 }
 export type ItemEntityType = {
   [k: string]: ItemDocumentData

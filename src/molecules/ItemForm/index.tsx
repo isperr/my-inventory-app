@@ -7,7 +7,7 @@ import {
   MenuItem,
   TextField
 } from '@mui/material'
-import Select, {SelectChangeEvent} from '@mui/material/Select'
+import Select from '@mui/material/Select'
 
 import CountField from '../../atoms/CountField'
 import {ItemCategory} from '../../modules/types'
@@ -17,17 +17,16 @@ type ItemProps = {
   category?: ItemCategory
   count?: number
   details?: string
+  imgUrl?: string
   name?: string
   price?: number
 }
 
 export type ItemFormProps = ItemProps & {
   children: ReactNode
-  handleCollectionChange?:
-    | ((event: SelectChangeEvent<ItemCategory>, child: ReactNode) => void)
-    | undefined
   handleSubmit?: React.FormEventHandler<HTMLFormElement>
   isDisabled: boolean
+  setHasFileChange?: (hasFileChange: boolean) => void
 }
 
 const ItemForm = ({
@@ -35,10 +34,12 @@ const ItemForm = ({
   children,
   count,
   details,
+  imgUrl,
   name,
   handleSubmit,
   isDisabled,
-  price
+  price,
+  setHasFileChange
 }: ItemFormProps) => (
   <Box
     className="flex flex-col px-6 gap-4 pb-6"
@@ -55,7 +56,11 @@ const ItemForm = ({
       required
     />
 
-    <UploadButton isDisabled={isDisabled} />
+    <UploadButton
+      imgUrl={imgUrl}
+      isDisabled={isDisabled}
+      setHasFileChange={setHasFileChange}
+    />
 
     <FormControl id="category-form" required>
       <InputLabel id="category-label">Kategorie</InputLabel>

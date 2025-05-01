@@ -1,15 +1,16 @@
-import {CircularProgress, Link, Typography} from '@mui/material'
-import {useResolveItem} from '../hooks/use-resolve-item'
-import PageText from '../../../atoms/PageText'
-import NonEditView from './NonEditView'
+import {CircularProgress, Link} from '@mui/material'
+
 import Logo from '../../../atoms/Logo'
+import PageText from '../../../atoms/PageText'
+import {useResolveItem} from '../hooks/use-resolve-item'
+
 import {useToggleEditMode} from '../hooks/use-toggle-edit-mode'
-import ItemForm from '../../../molecules/ItemForm'
-import Button from '../../../atoms/Button'
+import EditView from './EditView'
+import NonEditView from './NonEditView'
 
 const Content = ({id}: {id?: string}) => {
   const {hasResolveError, isResolved, isResolving, item} = useResolveItem(id)
-  const {enterEditMode, leaveEditMode, isEditMode} = useToggleEditMode()
+  const {enterEditMode, isEditMode} = useToggleEditMode()
 
   if (hasResolveError) {
     return (
@@ -47,22 +48,8 @@ const Content = ({id}: {id?: string}) => {
     return <NonEditView enterEditMode={enterEditMode} {...item} />
   }
 
-  if (item && isEditMode) {
-    return (
-      <>
-        <Typography className="px-4 text-center" variant="h4">
-          {item.name} bearbeiten
-        </Typography>
-        <ItemForm isDisabled={false} {...item}>
-          <Button fullWidth onClick={leaveEditMode} variant="outlined">
-            Abbrechen
-          </Button>
-          <Button fullWidth onClick={leaveEditMode}>
-            Speichern
-          </Button>
-        </ItemForm>
-      </>
-    )
+  if (isEditMode) {
+    return <EditView id={id} />
   }
 
   return null
