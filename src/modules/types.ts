@@ -29,7 +29,9 @@ export type BaseItemDocumentData = DocumentData & {
   category: ItemCategory
   id: string
 }
+export type ExtraImageType = {name: string; imgUrl: string}
 export type ItemDocumentData = BaseItemDocumentData & {
+  images: Array<ExtraImageType>
   imgUrl?: string
 }
 export type ItemEntityType = {

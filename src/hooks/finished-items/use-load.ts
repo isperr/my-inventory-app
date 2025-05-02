@@ -6,7 +6,11 @@ import {
   orderBy,
   query
 } from 'firebase/firestore'
-import {BaseItemDocumentData, ItemCategory} from '../../modules/types'
+import {
+  BaseItemDocumentData,
+  ExtraImageType,
+  ItemCategory
+} from '../../modules/types'
 
 const IMG_PREFIXES = ['.png', '.jpg', '.jpeg', '.svg', '.tif', '.tiff', '.webp']
 
@@ -14,12 +18,17 @@ export type ImageRefObj = {
   [key: string]: string
 }
 
+export type ImagesRefObj = {
+  [key: string]: Array<ExtraImageType>
+}
+
 const handleImageLoading = async (data: BaseItemDocumentData[]) => {
   const storage = getStorage()
   const listRef = ref(storage, 'finished-items')
-  const imgObj: ImageRefObj = {}
+  const prevObj: ImageRefObj = {}
+  const imagesObj: ImagesRefObj = {}
 
-  const allowedIds = data.map(it => it.id)
+  const allowedIds = data.map(it => `${it.id}-preview`)
 
   await listAll(listRef)
     .then(async it => {
@@ -32,8 +41,9 @@ const handleImageLoading = async (data: BaseItemDocumentData[]) => {
           )
           .map(
             async pr =>
-              (imgObj[pr.name.replace(new RegExp(IMG_PREFIXES.join('|')), '')] =
-                await getDownloadURL(pr))
+              (prevObj[
+                pr.name.replace(new RegExp(IMG_PREFIXES.join('|')), '')
+              ] = await getDownloadURL(pr))
           )
       )
     })
@@ -42,9 +52,32 @@ const handleImageLoading = async (data: BaseItemDocumentData[]) => {
       throw error
     })
 
+  await Promise.all(
+    data.map(
+      async item =>
+        await listAll(ref(storage, `finished-items/${item.id}`))
+          .then(async it => {
+            await Promise.all(
+              it.items.map(async pr => {
+                const temp = await getDownloadURL(pr)
+                imagesObj[item.id] = [
+                  ...(imagesObj[item.id] ?? []),
+                  {name: pr.name, imgUrl: temp}
+                ]
+              })
+            )
+          })
+          .catch(error => {
+            // error is handled within ItemDetailPage
+            throw error
+          })
+    )
+  )
+
   return await data.map(it => ({
     ...it,
-    imgUrl: imgObj[it.id]
+    images: imagesObj[it.id] ?? [],
+    imgUrl: prevObj[`${it.id}-preview`]
   }))
 }
 

@@ -1,29 +1,52 @@
-import {getDownloadURL, getStorage, ref} from 'firebase/storage'
+import {getDownloadURL, getStorage, listAll, ref} from 'firebase/storage'
 import {doc, getDoc, getFirestore} from 'firebase/firestore'
 
-import {ItemDocumentData} from '../../modules/types'
+import {ExtraImageType, ItemDocumentData} from '../../modules/types'
 
-export const handleImageResolving = async (id: string) => {
+export const handlePreviewImageResolve = async (id: string) => {
   const storage = getStorage()
-  const imgRef = ref(storage, `finished-items/${id}.png`)
-  let temp: undefined | string = undefined
+  const imgRef = ref(storage, `finished-items/${id}-preview.png`)
+  let preview: undefined | string = undefined
 
   await getDownloadURL(imgRef)
     .then(url => {
-      temp = url
+      preview = url
     })
     .catch(error => {
       // error.code reference https://firebase.google.com/docs/storage/web/handle-errors
       // to take care of wool-images that does not have an img uploaded
       if (error.code === 'storage/object-not-found') {
-        temp = undefined
+        preview = undefined
         return
       }
       // error is handled within ItemDetailPage
       throw error
     })
 
-  return temp
+  return preview
+}
+
+export const handleExtraImagesResolve = async (id: string) => {
+  const storage = getStorage()
+  const folderRef = ref(storage, `finished-items/${id}`)
+  const images: Array<ExtraImageType> = []
+
+  await listAll(folderRef)
+    .then(
+      async it =>
+        await Promise.all(
+          it.items.map(async pr => {
+            const imgUrl = await getDownloadURL(pr)
+            images.push({name: pr.name, imgUrl})
+          })
+        )
+    )
+    .catch(error => {
+      // error is handled within ItemDetailPage
+      throw error
+    })
+
+  return images
 }
 
 export const onResolve = async (id: string) => {
@@ -40,7 +63,8 @@ export const onResolve = async (id: string) => {
     return undefined
   }
 
-  const imgUrl = await handleImageResolving(id)
+  const preview = await handlePreviewImageResolve(id)
+  const images = await handleExtraImagesResolve(id)
 
-  return {...data, id, imgUrl} as ItemDocumentData
+  return {...data, id, imgUrl: preview, images} as ItemDocumentData
 }
