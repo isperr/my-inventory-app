@@ -19,7 +19,7 @@ export type ResolveStateDataReturnType = (
 
 /* FINISHED-ITEMS DATA */
 export const categoryNames = {
-  plushy: 'Plushy',
+  plushy: 'Plüschies',
   regular: 'Normal',
   keychain: 'Schlüsselanhänger'
 }

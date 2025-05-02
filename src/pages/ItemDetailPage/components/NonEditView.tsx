@@ -45,7 +45,6 @@ const NonEditView = ({
       </Box>
     )}
     <Box className="mx-6">
-      <DetailText heading="Daten" type="item" />
       <div className="grid grid-cols-10">
         <DetailText
           heading="Kategorie:"
