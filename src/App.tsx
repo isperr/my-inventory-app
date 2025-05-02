@@ -1,6 +1,8 @@
+import {Route, Routes} from 'react-router'
+
 import './App.css'
 import './fire'
-import {Route, Routes} from 'react-router'
+import 'react-photo-view/dist/react-photo-view.css'
 
 import AddPage from './pages/AddPage'
 import DetailPage from './pages/DetailPage'
