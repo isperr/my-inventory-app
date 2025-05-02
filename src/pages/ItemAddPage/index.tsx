@@ -1,17 +1,21 @@
+import {useState} from 'react'
+import {useNavigate} from 'react-router'
 import {Typography} from '@mui/material'
+import {useNotifications} from '@toolpad/core'
 
+import Button from '../../atoms/Button'
+import {ItemCategory} from '../../modules/types'
 import ItemForm from '../../molecules/ItemForm'
 import PageTemplate from '../../templates/Page'
-import {useNotifications} from '@toolpad/core'
 import {getToastConfig} from '../../utils/toast/get-toast-config'
-import {useNavigate} from 'react-router'
-import {ItemCategory} from '../../modules/types'
-import Button from '../../atoms/Button'
+
+import {MultiImageType} from '../ItemDetailPage/components/MultiImageUpload'
 import {useAddItem} from './hooks/use-add-item'
 
 const ItemAddPage = () => {
   const notifications = useNotifications()
   const navigate = useNavigate()
+  const [images, setImages] = useState<Array<MultiImageType>>([])
 
   const {handleAddItem, isAdded, isAdding, isDisabled} = useAddItem()
 
@@ -23,8 +27,9 @@ const ItemAddPage = () => {
       category: {value: string}
       count: {value: string}
       details: {value: string}
-      image: {files: FileList}
+      images: {files: FileList}
       name: {value: string}
+      preview: {files: FileList}
       price: {value: string}
     }
 
@@ -37,7 +42,8 @@ const ItemAddPage = () => {
           name: formElements.name.value,
           price: Number(formElements.price.value.replace(',', '.'))
         },
-        file: formElements.image.files[0]
+        files: Array.from(formElements.images.files),
+        preview: formElements.preview.files[0]
       })
 
       notifications.show(
@@ -63,7 +69,12 @@ const ItemAddPage = () => {
         Neues Werk hinzufügen
       </Typography>
 
-      <ItemForm handleSubmit={handleSubmit} isDisabled={isDisabled}>
+      <ItemForm
+        handleSubmit={handleSubmit}
+        images={images}
+        isDisabled={isDisabled}
+        setImages={setImages}
+      >
         <Button
           fullWidth
           isDisabled={isAdded || isAdding}

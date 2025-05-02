@@ -10,8 +10,11 @@ import {
 import Select from '@mui/material/Select'
 
 import CountField from '../../atoms/CountField'
-import {categoryNames, ItemCategory} from '../../modules/types'
 import UploadButton from '../../atoms/UploadButton'
+import {categoryNames, ItemCategory} from '../../modules/types'
+import MultiImageUpload, {
+  MultiImageType
+} from '../../pages/ItemDetailPage/components/MultiImageUpload'
 
 type ItemProps = {
   category?: ItemCategory
@@ -25,8 +28,10 @@ type ItemProps = {
 export type ItemFormProps = ItemProps & {
   children: ReactNode
   handleSubmit?: React.FormEventHandler<HTMLFormElement>
+  images: Array<MultiImageType>
   isDisabled: boolean
   setHasFileChange?: (hasFileChange: boolean) => void
+  setImages: (images: Array<MultiImageType>) => void
 }
 
 const ItemForm = ({
@@ -34,12 +39,14 @@ const ItemForm = ({
   children,
   count,
   details,
+  images,
   imgUrl,
   name,
   handleSubmit,
   isDisabled,
   price,
-  setHasFileChange
+  setHasFileChange,
+  setImages
 }: ItemFormProps) => (
   <Box
     className="flex flex-col px-6 gap-4 pb-6"
@@ -105,6 +112,12 @@ const ItemForm = ({
       minRows={4}
       multiline
       variant="outlined"
+    />
+
+    <MultiImageUpload
+      images={images}
+      isDisabled={isDisabled}
+      setImages={setImages}
     />
 
     <div className="flex gap-2">{children}</div>

@@ -1,3 +1,5 @@
+import {useEffect, useRef} from 'react'
+import {useNavigate} from 'react-router'
 import {
   Box,
   Card,
@@ -8,18 +10,22 @@ import {
   Typography
 } from '@mui/material'
 
-import PageTemplate from '../../templates/Page'
 import FloatingButton from '../../atoms/FloatingButton'
-import {useLoadData} from './hooks/use-load-data'
-import {useEffect, useRef} from 'react'
-import {useNavigate} from 'react-router'
+import PageText from '../../atoms/PageText'
+import PageTemplate from '../../templates/Page'
+
 import CardImage from './components/CardImage'
 import CardItem from './components/CardItem'
-import PageText from '../../atoms/PageText'
+import {useLoadData} from './hooks/use-load-data'
+import FilterDialog from './components/FilterDialog'
+import {useAppSelector} from '../../utils/store-hooks'
+import {selectCatgegoryFilter} from '../../modules/finished-items/results/selectors'
 
 const ItemListPage = () => {
   const effectRan = useRef<boolean>(false)
   const navigate = useNavigate()
+
+  const categoryFilter = useAppSelector(selectCatgegoryFilter)
 
   const navigateToAddPage = () => {
     navigate('/finished-items/add')
@@ -42,6 +48,7 @@ const ItemListPage = () => {
       <Typography className="col-span-3 text-center" variant="h4">
         Fertige Werke
       </Typography>
+      <FilterDialog />
       {hasError && (
         <PageText className="col-span-3 mx-0">
           Versuche die Seite neu zu Laden oder navigiere{' '}
@@ -73,14 +80,16 @@ const ItemListPage = () => {
             </CardActionArea>
           </Card>
 
-          {data.map(it => (
-            <CardItem
-              key={it.name + '-item'}
-              id={it.id}
-              imgUrl={it.imgUrl}
-              name={it.name}
-            />
-          ))}
+          {data
+            .filter(it => categoryFilter.includes(it.category))
+            .map(it => (
+              <CardItem
+                key={it.name + '-item'}
+                id={it.id}
+                imgUrl={it.imgUrl}
+                name={it.name}
+              />
+            ))}
         </>
       )}
       <FloatingButton />

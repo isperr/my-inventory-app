@@ -1,19 +1,33 @@
+import {isEqual} from 'lodash'
+import {memo, useEffect, useRef, useState} from 'react'
 import {Typography} from '@mui/material'
 
 import Button from '../../../atoms/Button'
 import ItemForm from '../../../molecules/ItemForm'
+import {ItemCategory, ItemDocumentData} from '../../../modules/types'
 
 import {useToggleEditMode} from '../hooks/use-toggle-edit-mode'
 import {useResolveItem} from '../hooks/use-resolve-item'
-import {memo, useState} from 'react'
 import {useUpdateItem} from '../hooks/use-update-item'
-import {ItemCategory, ItemDocumentData} from '../../../modules/types'
+import {MultiImageType} from './MultiImageUpload'
 
 const EditView = ({id}: {id?: string}) => {
   const {item} = useResolveItem(id)
   const {leaveEditMode} = useToggleEditMode()
   const {isUpdated, isUpdating, handleUpdateItem} = useUpdateItem()
   const [hasFileChange, setHasFileChange] = useState<boolean>(false)
+
+  const effectRan = useRef<boolean>(false)
+  const [images, setImages] = useState<Array<MultiImageType>>([])
+
+  useEffect(() => {
+    if (item && !effectRan.current && images.length !== item.images.length) {
+      setImages(
+        item.images.map(({imgUrl, name}) => ({file: undefined, imgUrl, name}))
+      )
+      effectRan.current = true
+    }
+  }, [item, effectRan])
 
   const handleSubmit = async (event: React.SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -26,9 +40,9 @@ const EditView = ({id}: {id?: string}) => {
       category: {value: string}
       count: {value: string}
       details: {value: string}
-      image: {files: FileList}
       name: {value: string}
       price: {value: string}
+      preview: {files: FileList}
     }
 
     const data: Partial<ItemDocumentData> = {
@@ -47,19 +61,30 @@ const EditView = ({id}: {id?: string}) => {
     }, {})
 
     const hasFieldsChange = Boolean(Object.keys(updatedDataOnly).length)
+    const prevImages: Array<MultiImageType> = item.images.map(
+      ({imgUrl, name}) => ({
+        imgUrl,
+        file: undefined,
+        name
+      })
+    )
+    const hasImagesChange = !isEqual(prevImages, images)
     // in case all fields stayed the same
-    if (!hasFieldsChange && !hasFileChange) {
+    if (!hasFieldsChange && !hasFileChange && !hasImagesChange) {
       leaveEditMode()
       return
     }
 
     await handleUpdateItem({
       data: updatedDataOnly,
-      file: formElements.image.files[0],
       hasFieldsChange,
       hasFileChange,
+      hasImagesChange,
       id,
-      imgUrl: item.imgUrl
+      images,
+      imgUrl: item.imgUrl,
+      preview: formElements.preview.files[0],
+      prevImages: item.images
     })
   }
 
@@ -77,11 +102,18 @@ const EditView = ({id}: {id?: string}) => {
         isDisabled={isUpdated || isUpdating}
         setHasFileChange={setHasFileChange}
         {...item}
+        images={images}
+        setImages={setImages}
       >
-        <Button fullWidth onClick={leaveEditMode} variant="outlined">
+        <Button
+          fullWidth
+          isDisabled={isUpdating}
+          onClick={leaveEditMode}
+          variant="outlined"
+        >
           Abbrechen
         </Button>
-        <Button fullWidth type="submit">
+        <Button fullWidth isLoading={isUpdating} type="submit">
           Speichern
         </Button>
       </ItemForm>

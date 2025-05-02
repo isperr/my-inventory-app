@@ -25,7 +25,8 @@ export type CreateItemType = {
 
 export type CreateProps = {
   data: CreateItemType
-  file?: File
+  files: Array<File>
+  preview?: File
 }
 
 export const useAddItem = () => {
@@ -57,16 +58,21 @@ export const useAddItem = () => {
     [dispatch]
   )
 
-  const onCreate = async ({data, file}: CreateProps) => {
+  const onCreate = async ({data, files, preview}: CreateProps) => {
     const docRef = await addDoc(collection(db, 'finished-items'), data)
     const id = docRef.id
-    await onCreateImage({id, file})
+    await Promise.all([
+      await onCreateImage({file: preview, name: `${id}-preview.png`}),
+      ...files.map(
+        async file => await onCreateImage({file, name: `${id}/${file.name}`})
+      )
+    ])
     return await onResolve(id)
   }
 
-  const handleAddItem = async ({data, file}: CreateProps) => {
+  const handleAddItem = async ({data, files, preview}: CreateProps) => {
     onStartAdd()
-    const result = await onCreate({data, file})
+    const result = await onCreate({data, files, preview})
       .then(async docData => {
         // this should not be happening in reality, but just to be save...
         if (!docData) {

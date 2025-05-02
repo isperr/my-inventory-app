@@ -100,7 +100,7 @@ const UploadButton = ({
         {preview && 'Neues '}Bild hochladen
         <input
           ref={imgRef}
-          id="image"
+          id="preview"
           accept="image/*"
           type="file"
           onChange={onChange}

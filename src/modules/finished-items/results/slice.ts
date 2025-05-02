@@ -1,8 +1,9 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 
-import {ItemDocumentData, ItemEntityType} from '../../types'
+import {ItemCategory, ItemDocumentData, ItemEntityType} from '../../types'
 
 type FinishedItemResultsState = {
+  categoryFilter: Array<ItemCategory>
   data: ItemDocumentData[]
   deleteError: Error | null
   entities: ItemEntityType
@@ -23,6 +24,7 @@ type FinishedItemResultsState = {
 }
 
 const initialState: FinishedItemResultsState = {
+  categoryFilter: ['keychain', 'plushy', 'regular'],
   data: [],
   deleteError: null,
   entities: {},
@@ -200,6 +202,9 @@ const finishedItemResultsSlice = createSlice({
       state.isDeleted = false
       state.isDeleting = false
       state.deleteError = null
+    },
+    setCategoryFilter: (state, action: PayloadAction<Array<ItemCategory>>) => {
+      state.categoryFilter = action.payload
     }
   }
 })
@@ -217,6 +222,7 @@ export const {
   resolve,
   resolved,
   resolvingError,
+  setCategoryFilter,
   toggleEditMode,
   update,
   updated,
