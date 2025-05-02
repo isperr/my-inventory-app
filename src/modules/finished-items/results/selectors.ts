@@ -25,6 +25,8 @@ export const selectIsDeleted = (state: RootState) =>
   state.finishedItems.isDeleted
 export const selectIsDeleting = (state: RootState) =>
   state.finishedItems.isDeleting
+export const selectCatgegoryFilter = (state: RootState) =>
+  state.finishedItems.categoryFilter
 
 // resolve selectors
 const selectIsResolved = (state: RootState) => state.finishedItems.isResolved
