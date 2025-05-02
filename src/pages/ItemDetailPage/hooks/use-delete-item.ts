@@ -29,19 +29,28 @@ export const useDeleteItem = () => {
   const handleDeleteItem = useCallback(
     async ({
       closeDialog,
-      hasImage,
-      id
+      hasPreview,
+      id,
+      imageNames
     }: {
       closeDialog: () => void
-      hasImage: boolean
+      hasPreview: boolean
       id: string
+      imageNames: Array<string>
     }) => {
       try {
         dispatch(deleteItem())
 
         await deleteDoc(doc(db, 'finished-items', id))
-        if (hasImage) {
-          await onDeleteImage({id})
+        if (hasPreview) {
+          await onDeleteImage({name: `${id}-preview.png`})
+        }
+        if (imageNames.length) {
+          await Promise.all(
+            imageNames.map(
+              async name => await onDeleteImage({name: `${id}/${name}`})
+            )
+          )
         }
 
         navigate('/finished-items/')

@@ -10,14 +10,16 @@ import DeleteIcon from '@mui/icons-material/Delete'
 
 import Button from '../../../atoms/Button'
 import {useDeleteItem} from '../hooks/use-delete-item'
+import {ExtraImageType} from '../../../modules/types'
 
 export type DeleteDialogProps = {
-  hasImage: boolean
+  hasPreview: boolean
   id: string
+  images: Array<ExtraImageType>
   name: string
 }
 
-const DeleteDialog = ({hasImage, id, name}: DeleteDialogProps) => {
+const DeleteDialog = ({hasPreview, id, images, name}: DeleteDialogProps) => {
   const {handleDeleteItem, isDeleting} = useDeleteItem()
 
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false)
@@ -31,7 +33,12 @@ const DeleteDialog = ({hasImage, id, name}: DeleteDialogProps) => {
   }
 
   const handleConfirm = useCallback(() => {
-    handleDeleteItem({closeDialog, hasImage, id})
+    handleDeleteItem({
+      closeDialog,
+      imageNames: images.map(({name}) => name),
+      hasPreview,
+      id
+    })
   }, [handleDeleteItem])
 
   return (
