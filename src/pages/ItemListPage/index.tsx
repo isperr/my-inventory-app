@@ -46,7 +46,7 @@ const ItemListPage = () => {
   }, [isLoaded])
 
   return (
-    <PageTemplate className="h-fit grid grid-cols-3 gap-4 w-full px-4">
+    <PageTemplate className="h-fit grid grid-cols-3 gap-4 w-full px-4 pb-4">
       <Typography className="col-span-3 text-center" variant="h4">
         Fertige Werke
       </Typography>
