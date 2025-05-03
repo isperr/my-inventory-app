@@ -12,16 +12,18 @@ import {
 
 import FloatingButton from '../../atoms/FloatingButton'
 import PageText from '../../atoms/PageText'
+import {useScrollToTop} from '../../hooks/use-scroll-to-top'
+import {selectCatgegoryFilter} from '../../modules/finished-items/results/selectors'
 import PageTemplate from '../../templates/Page'
+import {useAppSelector} from '../../utils/store-hooks'
 
 import CardImage from './components/CardImage'
 import CardItem from './components/CardItem'
-import {useLoadData} from './hooks/use-load-data'
 import FilterDialog from './components/FilterDialog'
-import {useAppSelector} from '../../utils/store-hooks'
-import {selectCatgegoryFilter} from '../../modules/finished-items/results/selectors'
+import {useLoadData} from './hooks/use-load-data'
 
 const ItemListPage = () => {
+  useScrollToTop()
   const effectRan = useRef<boolean>(false)
   const navigate = useNavigate()
 

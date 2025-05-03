@@ -4,6 +4,7 @@ import {Typography} from '@mui/material'
 import {useNotifications} from '@toolpad/core'
 
 import Button from '../../atoms/Button'
+import {useScrollToTop} from '../../hooks/use-scroll-to-top'
 import {ItemCategory} from '../../modules/types'
 import ItemForm from '../../molecules/ItemForm'
 import PageTemplate from '../../templates/Page'
@@ -13,6 +14,7 @@ import {MultiImageType} from '../ItemDetailPage/components/MultiImageUpload'
 import {useAddItem} from './hooks/use-add-item'
 
 const ItemAddPage = () => {
+  useScrollToTop()
   const notifications = useNotifications()
   const navigate = useNavigate()
   const [images, setImages] = useState<Array<MultiImageType>>([])
