@@ -6,6 +6,7 @@ import RemoveIcon from '@mui/icons-material/Remove'
 import {Box, IconButton} from '@mui/material'
 
 import {ThemePaletteModeContext} from '../../context'
+import {isNull} from 'lodash'
 
 const CountField = ({
   defaultValue,
@@ -69,11 +70,11 @@ const CountField = ({
           className={twMerge(
             'absolute text-base px-1 py-0.5',
             'top-3 h-fit w-fit transition-all',
-            (isFocused || value) && '-translate-y-6 scale-[0.75]',
+            (isFocused || !isNull(value)) && '-translate-y-6 scale-[0.75]',
             extraText && 'left-[66px]',
-            (isFocused || value) && extraText && '-translate-x-5',
+            (isFocused || !isNull(value)) && extraText && '-translate-x-5',
             !extraText && 'left-[70px]',
-            (isFocused || value) && !extraText && '-translate-x-2.5',
+            (isFocused || !isNull(value)) && !extraText && '-translate-x-2.5',
             themePaletteModeContext.themePaletteMode === 'light' && 'bg-white',
             themePaletteModeContext.themePaletteMode === 'dark' &&
               'bg-[#303031]',
