@@ -1,10 +1,12 @@
 import {useEffect} from 'react'
 
-export const useScrollToTop = () => {
+export const useScrollToTop = (preventScroll?: boolean) => {
   useEffect(() => {
-    const body = document.querySelector('body')
-    body?.scrollIntoView({
-      behavior: 'smooth'
-    })
-  }, [])
+    if (!preventScroll) {
+      const body = document.querySelector('body')
+      body?.scrollIntoView({
+        behavior: 'smooth'
+      })
+    }
+  }, [preventScroll])
 }

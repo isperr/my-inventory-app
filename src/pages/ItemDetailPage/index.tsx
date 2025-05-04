@@ -10,13 +10,13 @@ import {useToggleEditMode} from './hooks/use-toggle-edit-mode'
 import Content from './components/Content'
 
 const ItemDetailPage = () => {
-  useScrollToTop()
+  const {isEditMode} = useToggleEditMode()
+  useScrollToTop(isEditMode)
   const effectRan = useRef<boolean>(false)
   const params = useParams()
   const id = params?.item
 
   const {isResolved, handleResolveData} = useResolveItem(id)
-  const {isEditMode} = useToggleEditMode()
 
   useEffect(() => {
     if (!effectRan.current && !isResolved) {
