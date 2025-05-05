@@ -11,8 +11,7 @@ import {useAppDispatch} from '../../utils/store-hooks'
 
 import SearchInputs from './components/SearchInputs'
 import SearchPreview from './components/SearchPreview'
-import {useCumulativeState} from './hooks/use-cumulative-state'
-import {useSearchData} from './hooks/use-search-data'
+import {useCumulativeSearch} from './hooks/use-cumulative-search'
 
 const SearchPage = () => {
   const navigate = useNavigate()
@@ -21,44 +20,20 @@ const SearchPage = () => {
   const [tempIsbn, setTempIsbn] = useState<number | undefined>(undefined)
   const [tempColor, setTempColor] = useState<number | undefined>(undefined)
 
-  const {onLoadData: onLoadCataniaData, onReset: onResetCatania} =
-    useSearchData('catania')
-  const {onLoadData: onLoadCataniaColorData, onReset: onResetCataniaColor} =
-    useSearchData('catania-color')
-  const {onLoadData: onLoadCottonQuickData, onReset: onResetCottonQuick} =
-    useSearchData('cotton-quick')
   const {
-    onLoadData: onLoadCottonQuickPrintData,
-    onReset: onResetCottonQuickPrint
-  } = useSearchData('cotton-quick-print')
-  const {onLoadData: onLoadFunnyUniData, onReset: onResetFunnyUni} =
-    useSearchData('funny-uni')
-  const {onLoadData: onLoadSamtData, onReset: onResetSamt} =
-    useSearchData('samt')
-  const {onLoadData: onLoadSamtBabyData, onReset: onResetSamtBaby} =
-    useSearchData('samt-baby')
-  const {onLoadData: onLoadDolphinBabyData, onReset: onResetDolphinBaby} =
-    useSearchData('dolphin-baby')
-  const {onLoadData: onLoadBabySnuggleData, onReset: onResetBabySnuggle} =
-    useSearchData('baby-snuggle-solid')
-
-  const {hasNoData, isInAllCollections, isLoaded, isLoading} =
-    useCumulativeState()
+    hasNoData,
+    isInAllCollections,
+    isLoaded,
+    isLoading,
+    handleSearchAll,
+    resetSearchStates
+  } = useCumulativeSearch()
 
   useEffect(() => {
     return () => {
       if (isLoaded) {
         dispatch(reset())
-        // reset all search-states
-        onResetCatania()
-        onResetCataniaColor()
-        onResetCottonQuick()
-        onResetCottonQuickPrint()
-        onResetFunnyUni()
-        onResetSamt()
-        onResetSamtBaby()
-        onResetDolphinBaby()
-        onResetBabySnuggle()
+        resetSearchStates()
       }
     }
   }, [isLoaded])
@@ -87,19 +62,7 @@ const SearchPage = () => {
       ? Number(formElements.color.value)
       : Number(formElements.isbn.value)
 
-    const data = {isColorSearch, num}
-
-    await Promise.all([
-      onLoadCataniaData(data),
-      onLoadCataniaColorData(data),
-      onLoadCottonQuickData(data),
-      onLoadCottonQuickPrintData(data),
-      onLoadFunnyUniData(data),
-      onLoadSamtData(data),
-      onLoadSamtBabyData(data),
-      onLoadDolphinBabyData(data),
-      onLoadBabySnuggleData(data)
-    ])
+    await handleSearchAll({isColorSearch, num})
     // set isbn or color here instead of in the useSearchData hook so it dispatches only once
     dispatch(setIsbnOrColor({data: num, isColorSearch}))
   }
@@ -131,6 +94,8 @@ const SearchPage = () => {
           <SearchPreview collection="cotton-quick-print" />
           <SearchPreview collection="cotton-quick" />
           <SearchPreview collection="funny-uni" />
+          <SearchPreview collection="king-cotton" />
+          <SearchPreview collection="lisa-premium-uni" />
           <SearchPreview collection="samt" />
           <SearchPreview collection="samt-baby" />
           <SearchPreview collection="dolphin-baby" />

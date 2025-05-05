@@ -48,6 +48,26 @@ import {
   selectIsLoaded as selectIsLoadedFunnyUni,
   selectIsLoading as selectIsLoadingFunnyUni
 } from '../../../modules/funny-uni/home/slice'
+// king-cotton
+import {
+  load as loadKingCotton,
+  loaded as loadedKingCotton,
+  loadingError as loadingKingCottonError,
+  selectData as selectDataKingCotton,
+  selectError as selectErrorKingCotton,
+  selectIsLoaded as selectIsLoadedKingCotton,
+  selectIsLoading as selectIsLoadingKingCotton
+} from '../../../modules/king-cotton/home/slice'
+// lisa-premium-uni
+import {
+  load as loadLisaPremiumUni,
+  loaded as loadedLisaPremiumUni,
+  loadingError as loadingLisaPremiumUniError,
+  selectData as selectDataLisaPremiumUni,
+  selectError as selectErrorLisaPremiumUni,
+  selectIsLoaded as selectIsLoadedLisaPremiumUni,
+  selectIsLoading as selectIsLoadingLisaPremiumUni
+} from '../../../modules/lisa-premium-uni/home/slice'
 // samt
 import {
   load as loadSamt,
@@ -93,6 +113,18 @@ import {CollectionType} from '../../HomePage/types'
 
 export const getActions = (collection: CollectionType) => {
   switch (collection) {
+    case 'king-cotton':
+      return {
+        load: loadKingCotton,
+        loaded: loadedKingCotton,
+        loadingError: loadingKingCottonError
+      }
+    case 'lisa-premium-uni':
+      return {
+        load: loadLisaPremiumUni,
+        loaded: loadedLisaPremiumUni,
+        loadingError: loadingLisaPremiumUniError
+      }
     case 'baby-snuggle-solid':
       return {
         load: loadBabySnuggle,
@@ -142,6 +174,7 @@ export const getActions = (collection: CollectionType) => {
         loadingError: loadingColorError
       }
     default:
+    case 'catania':
       return {
         load: loadReg,
         loaded: loadedReg,
@@ -152,6 +185,20 @@ export const getActions = (collection: CollectionType) => {
 
 export const getSelectors = (collection: CollectionType) => {
   switch (collection) {
+    case 'king-cotton':
+      return {
+        selectData: selectDataKingCotton,
+        selectError: selectErrorKingCotton,
+        selectIsLoaded: selectIsLoadedKingCotton,
+        selectIsLoading: selectIsLoadingKingCotton
+      }
+    case 'lisa-premium-uni':
+      return {
+        selectData: selectDataLisaPremiumUni,
+        selectError: selectErrorLisaPremiumUni,
+        selectIsLoaded: selectIsLoadedLisaPremiumUni,
+        selectIsLoading: selectIsLoadingLisaPremiumUni
+      }
     case 'baby-snuggle-solid':
       return {
         selectData: selectDataBabySnuggle,
@@ -209,6 +256,7 @@ export const getSelectors = (collection: CollectionType) => {
         selectIsLoading: selectIsLoadingColor
       }
     default:
+    case 'catania':
       return {
         selectData: selectDataReg,
         selectError: selectErrorReg,

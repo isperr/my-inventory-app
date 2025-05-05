@@ -8,6 +8,8 @@ export type HomeState = Pick<
   | 'cottonQuickHome'
   | 'cottonQuickPrintHome'
   | 'funnyUniHome'
+  | 'kingCottonHome'
+  | 'lisaPremiumUniHome'
   | 'samtHome'
   | 'samtBabyHome'
   | 'dolphinBabyHome'

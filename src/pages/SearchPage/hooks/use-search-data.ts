@@ -29,8 +29,7 @@ export const useSearchData = (collection: CollectionType) => {
   const dispatch = useAppDispatch()
 
   const {load, loaded, loadingError, resolved, reset} = getActions(collection)
-  const {data, hasError, hasNoData, isLoaded, isLoading} =
-    useSearchDataState(collection)
+  const state = useSearchDataState(collection)
 
   const onLoadData = useCallback(
     async ({isColorSearch, num}: {isColorSearch: boolean; num: number}) => {
@@ -59,11 +58,7 @@ export const useSearchData = (collection: CollectionType) => {
   }, [])
 
   return {
-    data,
-    hasError,
-    hasNoData,
-    isLoaded,
-    isLoading,
+    ...state,
     onLoadData,
     onReset
   }

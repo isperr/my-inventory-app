@@ -68,6 +68,34 @@ import {
   selectIsLoaded as selectIsLoadedFunnyUni,
   selectIsLoading as selectIsLoadingFunnyUni
 } from '../../../modules/funny-uni/results/selectors'
+// king-cotton
+import {
+  load as loadKingCotton,
+  loaded as loadedKingCotton,
+  loadingError as loadingKingCottonError,
+  setIsActivated as setIsActivatedKingCotton
+} from '../../../modules/king-cotton/results/slice'
+import {
+  selectData as selectDataKingCotton,
+  selectError as selectErrorKingCotton,
+  selectIsActivated as selectIsActivatedKingCotton,
+  selectIsLoaded as selectIsLoadedKingCotton,
+  selectIsLoading as selectIsLoadingKingCotton
+} from '../../../modules/king-cotton/results/selectors'
+// lisa-premium-uni
+import {
+  load as loadLisaPremiumUni,
+  loaded as loadedLisaPremiumUni,
+  loadingError as loadingLisaPremiumUniError,
+  setIsActivated as setIsActivatedLisaPremiumUni
+} from '../../../modules/lisa-premium-uni/results/slice'
+import {
+  selectData as selectDataLisaPremiumUni,
+  selectError as selectErrorLisaPremiumUni,
+  selectIsActivated as selectIsActivatedLisaPremiumUni,
+  selectIsLoaded as selectIsLoadedLisaPremiumUni,
+  selectIsLoading as selectIsLoadingLisaPremiumUni
+} from '../../../modules/lisa-premium-uni/results/selectors'
 // samt
 import {
   load as loadSamt,
@@ -129,6 +157,20 @@ import {CollectionType} from '../../HomePage/types'
 
 export const getActions = (collection: CollectionType) => {
   switch (collection) {
+    case 'king-cotton':
+      return {
+        load: loadKingCotton,
+        loaded: loadedKingCotton,
+        loadingError: loadingKingCottonError,
+        setIsActivated: setIsActivatedKingCotton
+      }
+    case 'lisa-premium-uni':
+      return {
+        load: loadLisaPremiumUni,
+        loaded: loadedLisaPremiumUni,
+        loadingError: loadingLisaPremiumUniError,
+        setIsActivated: setIsActivatedLisaPremiumUni
+      }
     case 'baby-snuggle-solid':
       return {
         load: loadBabySnuggle,
@@ -198,6 +240,22 @@ export const getActions = (collection: CollectionType) => {
 
 export const getSelectors = (collection: CollectionType) => {
   switch (collection) {
+    case 'king-cotton':
+      return {
+        selectData: selectDataKingCotton,
+        selectError: selectErrorKingCotton,
+        selectIsActivated: selectIsActivatedKingCotton,
+        selectIsLoaded: selectIsLoadedKingCotton,
+        selectIsLoading: selectIsLoadingKingCotton
+      }
+    case 'lisa-premium-uni':
+      return {
+        selectData: selectDataLisaPremiumUni,
+        selectError: selectErrorLisaPremiumUni,
+        selectIsActivated: selectIsActivatedLisaPremiumUni,
+        selectIsLoaded: selectIsLoadedLisaPremiumUni,
+        selectIsLoading: selectIsLoadingLisaPremiumUni
+      }
     case 'baby-snuggle-solid':
       return {
         selectData: selectDataBabySnuggle,

@@ -19,6 +19,12 @@ import cottonQuickPrintReducer from '../modules/cotton-quick-print/results/slice
 import funnyUniReducer from '../modules/funny-uni/results/slice'
 import funnyUniHomeReducer from '../modules/funny-uni/home/slice'
 import funnyUniSearchReducer from '../modules/funny-uni/search/slice'
+import kingCottonReducer from '../modules/king-cotton/results/slice'
+import kingCottonHomeReducer from '../modules/king-cotton/home/slice'
+import kingCottonSearchReducer from '../modules/king-cotton/search/slice'
+import lisaPremiumUniReducer from '../modules/lisa-premium-uni/results/slice'
+import lisaPremiumUniHomeReducer from '../modules/lisa-premium-uni/home/slice'
+import lisaPremiumUniSearchReducer from '../modules/lisa-premium-uni/search/slice'
 // MYBOSHI
 import samtReducer from '../modules/samt/results/slice'
 import samtHomeReducer from '../modules/samt/home/slice'
@@ -59,6 +65,12 @@ export const store = configureStore({
     funnyUni: funnyUniReducer,
     funnyUniHome: funnyUniHomeReducer,
     funnyUniSearch: funnyUniSearchReducer,
+    kingCotton: kingCottonReducer,
+    kingCottonHome: kingCottonHomeReducer,
+    kingCottonSearch: kingCottonSearchReducer,
+    lisaPremiumUni: lisaPremiumUniReducer,
+    lisaPremiumUniHome: lisaPremiumUniHomeReducer,
+    lisaPremiumUniSearch: lisaPremiumUniSearchReducer,
     samt: samtReducer,
     samtHome: samtHomeReducer,
     samtSearch: samtSearchReducer,
@@ -93,6 +105,12 @@ export const store = configureStore({
           'funnyUniHome/loadingError',
           'funnyUni/loadingError',
           'funnyUniSearch/loadingError',
+          'kingCottonUniHome/loadingError',
+          'kingCottonUni/loadingError',
+          'kingCottonUniSearch/loadingError',
+          'lisaPremiumUniHome/loadingError',
+          'lisaPremiumUni/loadingError',
+          'lisaPremiumUniSearch/loadingError',
           'samtHome/loadingError',
           'samt/loadingError',
           'samtSearch/loadingError',
