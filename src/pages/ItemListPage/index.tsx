@@ -87,6 +87,7 @@ const ItemListPage = () => {
             .map(it => (
               <CardItem
                 key={it.name + '-item'}
+                hasItems={Boolean(it.count)}
                 id={it.id}
                 imgUrl={it.imgUrl}
                 name={it.name}
