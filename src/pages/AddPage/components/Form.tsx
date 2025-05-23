@@ -71,6 +71,8 @@ const Form = ({
           <MenuItem value="cotton-quick">Cotton Quick</MenuItem>
           <MenuItem value="cotton-quick-print">Cotton Quick Print</MenuItem>
           <MenuItem value="funny-uni">Funny uni</MenuItem>
+          <MenuItem value="king-cotton">King Cotton</MenuItem>
+          <MenuItem value="lisa-premium-uni">Lisa Premium uni</MenuItem>
 
           <ListSubheader>
             my<b>boshi</b>

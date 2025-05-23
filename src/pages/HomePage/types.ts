@@ -4,6 +4,8 @@ export const collectionNames = {
   'cotton-quick': 'Gründl Cotton Quick',
   'cotton-quick-print': 'Gründl Cotton Quick Print',
   'funny-uni': 'Gründl Funny uni',
+  'king-cotton': 'Gründl King Cotton',
+  'lisa-premium-uni': 'Gründl Lisa Premium uni',
   samt: 'myboshi SAMT',
   'samt-baby': 'Ayos Tex Samt Baby',
   'dolphin-baby': 'Himalaya Dolphin Baby',

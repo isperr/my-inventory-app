@@ -32,11 +32,9 @@ This app allows an insight into Guzzi's all of current wool collections.
   - `utils/get-slice.ts` - add collection
 - `SearchPage`
   - `utils/get-slice.ts` - add collection
-  - `hooks/use-cumulative-state.ts` - expand to include collection
+  - `hooks/use-cumulative-search.ts` - expand to include collection
   - `index.tsx`
-    - expand to include collection (onLoadData)
     - add `<SearchPreview collection="COLLECTION_NAME" />`
-- `App.tsx` add missing routes
 
 ```
 <Route path="COLLECTION_NAME" element={<CollectionPage />}>

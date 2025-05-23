@@ -15,6 +15,12 @@ import {insert as cottonQuickPrintListInsert} from '../../../modules/cotton-quic
 // funny-uni
 import {insert as funnyUniInsert} from '../../../modules/funny-uni/home/slice'
 import {insert as funnyUniListInsert} from '../../../modules/funny-uni/results/slice'
+// king-cotton
+import {insert as kingCottonInsert} from '../../../modules/king-cotton/home/slice'
+import {insert as kingCottonListInsert} from '../../../modules/king-cotton/results/slice'
+// lisa-premium-uni
+import {insert as lisaPremiumUniInsert} from '../../../modules/lisa-premium-uni/home/slice'
+import {insert as lisaPremiumUniListInsert} from '../../../modules/lisa-premium-uni/results/slice'
 // MYBOSHI ----------------------------------------------------------------
 // samt
 import {insert as samtInsert} from '../../../modules/samt/home/slice'
@@ -36,6 +42,16 @@ import {CollectionType} from '../../HomePage/types'
 
 export const getAddInserts = (collection: CollectionType) => {
   switch (collection) {
+    case 'king-cotton':
+      return {
+        homeInsert: kingCottonInsert,
+        listInsert: kingCottonListInsert
+      }
+    case 'lisa-premium-uni':
+      return {
+        homeInsert: lisaPremiumUniInsert,
+        listInsert: lisaPremiumUniListInsert
+      }
     case 'baby-snuggle-solid':
       return {
         homeInsert: babySnuggleHomeInsert,

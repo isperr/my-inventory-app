@@ -10,6 +10,8 @@ export type ResultsState = Pick<
   | 'cottonQuick'
   | 'cottonQuickPrint'
   | 'funnyUni'
+  | 'kingCotton'
+  | 'lisaPremiumUni'
   | 'samt'
   | 'samtBaby'
   | 'dolphinBaby'

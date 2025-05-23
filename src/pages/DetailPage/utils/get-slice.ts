@@ -78,6 +78,38 @@ import {
   selectResolveData as selectResolveDataFunnyUni,
   selectIsUpdatingType as selectIsUpdatingTypeFunnyUni
 } from '../../../modules/funny-uni/results/selectors'
+// king-cotton
+import {
+  resolve as resolveKingCotton,
+  resolved as resolvedKingCotton,
+  resolvingError as resolvingKingCottonError,
+  update as updateKingCotton,
+  updated as updatedKingCotton,
+  updateError as updateKingCottonError
+} from '../../../modules/king-cotton/results/slice'
+import {
+  selectHasResolveError as selectHasResolveErrorKingCotton,
+  selectIsIdResolved as selectIsIdResolvedKingCotton,
+  selectIsIdResolving as selectIsIdResolvingKingCotton,
+  selectResolveData as selectResolveDataKingCotton,
+  selectIsUpdatingType as selectIsUpdatingTypeKingCotton
+} from '../../../modules/king-cotton/results/selectors'
+// lisa-premium-uni
+import {
+  resolve as resolveLisaPremiumUni,
+  resolved as resolvedLisaPremiumUni,
+  resolvingError as resolvingLisaPremiumUniError,
+  update as updateLisaPremiumUni,
+  updated as updatedLisaPremiumUni,
+  updateError as updateLisaPremiumUniError
+} from '../../../modules/lisa-premium-uni/results/slice'
+import {
+  selectHasResolveError as selectHasResolveErrorLisaPremiumUni,
+  selectIsIdResolved as selectIsIdResolvedLisaPremiumUni,
+  selectIsIdResolving as selectIsIdResolvingLisaPremiumUni,
+  selectResolveData as selectResolveDataLisaPremiumUni,
+  selectIsUpdatingType as selectIsUpdatingTypeLisaPremiumUni
+} from '../../../modules/lisa-premium-uni/results/selectors'
 // samt
 import {
   resolve as resolveSamt,
@@ -147,6 +179,18 @@ import {CollectionType} from '../../HomePage/types'
 
 export const getResolveActions = (collection: CollectionType) => {
   switch (collection) {
+    case 'king-cotton':
+      return {
+        resolve: resolveKingCotton,
+        resolved: resolvedKingCotton,
+        resolvingError: resolvingKingCottonError
+      }
+    case 'lisa-premium-uni':
+      return {
+        resolve: resolveLisaPremiumUni,
+        resolved: resolvedLisaPremiumUni,
+        resolvingError: resolvingLisaPremiumUniError
+      }
     case 'baby-snuggle-solid':
       return {
         resolve: resolveBabySnuggle,
@@ -206,6 +250,20 @@ export const getResolveActions = (collection: CollectionType) => {
 
 export const getResolveSelectors = (collection: CollectionType) => {
   switch (collection) {
+    case 'king-cotton':
+      return {
+        selectHasResolveError: selectHasResolveErrorKingCotton,
+        selectIsIdResolved: selectIsIdResolvedKingCotton,
+        selectIsIdResolving: selectIsIdResolvingKingCotton,
+        selectResolveData: selectResolveDataKingCotton
+      }
+    case 'lisa-premium-uni':
+      return {
+        selectHasResolveError: selectHasResolveErrorLisaPremiumUni,
+        selectIsIdResolved: selectIsIdResolvedLisaPremiumUni,
+        selectIsIdResolving: selectIsIdResolvingLisaPremiumUni,
+        selectResolveData: selectResolveDataLisaPremiumUni
+      }
     case 'baby-snuggle-solid':
       return {
         selectHasResolveError: selectHasResolveErrorBabySnuggle,
@@ -263,6 +321,7 @@ export const getResolveSelectors = (collection: CollectionType) => {
         selectResolveData: selectResolveDataColor
       }
     default:
+    case 'catania':
       return {
         selectHasResolveError: selectHasResolveErrorReg,
         selectIsIdResolved: selectIsIdResolvedReg,
@@ -274,6 +333,18 @@ export const getResolveSelectors = (collection: CollectionType) => {
 
 export const getUpdateActions = (collection: CollectionType) => {
   switch (collection) {
+    case 'king-cotton':
+      return {
+        update: updateKingCotton,
+        updated: updatedKingCotton,
+        updateError: updateKingCottonError
+      }
+    case 'lisa-premium-uni':
+      return {
+        update: updateLisaPremiumUni,
+        updated: updatedLisaPremiumUni,
+        updateError: updateLisaPremiumUniError
+      }
     case 'baby-snuggle-solid':
       return {
         update: updateBabySnuggle,
@@ -323,6 +394,7 @@ export const getUpdateActions = (collection: CollectionType) => {
         updateError: updateColorError
       }
     default:
+    case 'catania':
       return {
         update: updateReg,
         updated: updatedReg,
@@ -333,6 +405,14 @@ export const getUpdateActions = (collection: CollectionType) => {
 
 export const getUpdateSelectors = (collection: CollectionType) => {
   switch (collection) {
+    case 'king-cotton':
+      return {
+        selectIsUpdatingType: selectIsUpdatingTypeKingCotton
+      }
+    case 'lisa-premium-uni':
+      return {
+        selectIsUpdatingType: selectIsUpdatingTypeLisaPremiumUni
+      }
     case 'baby-snuggle-solid':
       return {
         selectIsUpdatingType: selectIsUpdatingTypeBabySnuggle
@@ -366,6 +446,7 @@ export const getUpdateSelectors = (collection: CollectionType) => {
         selectIsUpdatingType: selectIsUpdatingTypeColor
       }
     default:
+    case 'catania':
       return {
         selectIsUpdatingType: selectIsUpdatingTypeReg
       }

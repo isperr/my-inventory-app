@@ -12,6 +12,8 @@ export const useInsert = () => {
   const cottonQuick = getAddInserts('cotton-quick')
   const cottonQuickPrint = getAddInserts('cotton-quick-print')
   const funnyUni = getAddInserts('funny-uni')
+  const kingCotton = getAddInserts('king-cotton')
+  const lisaPremiumUni = getAddInserts('lisa-premium-uni')
   const samt = getAddInserts('samt')
   const samtBaby = getAddInserts('samt-baby')
   const dolphinBaby = getAddInserts('dolphin-baby')
@@ -39,6 +41,14 @@ export const useInsert = () => {
         case 'funny-uni':
           dispatch(funnyUni.homeInsert(data))
           dispatch(funnyUni.listInsert(data))
+          break
+        case 'king-cotton':
+          dispatch(kingCotton.homeInsert(data))
+          dispatch(kingCotton.listInsert(data))
+          break
+        case 'lisa-premium-uni':
+          dispatch(lisaPremiumUni.homeInsert(data))
+          dispatch(lisaPremiumUni.listInsert(data))
           break
         case 'samt':
           dispatch(samt.homeInsert(data))

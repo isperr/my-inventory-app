@@ -8,6 +8,8 @@ export type SearchState = Pick<
   | 'cottonQuickSearch'
   | 'cottonQuickPrintSearch'
   | 'funnyUniSearch'
+  | 'kingCottonSearch'
+  | 'lisaPremiumUniSearch'
   | 'samtSearch'
   | 'samtBabySearch'
   | 'dolphinBabySearch'

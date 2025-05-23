@@ -24,6 +24,7 @@ export const useLoadPreviewData = (collection: CollectionType) => {
       const data = await onLoadPreviewData(collection)
       dispatch(loaded(data))
     } catch (error) {
+      console.log(error)
       dispatch(loadingError(error as Error))
     }
   }, [dispatch])
