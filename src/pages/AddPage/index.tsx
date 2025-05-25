@@ -32,7 +32,7 @@ const AddPage = () => {
       collection: {value: string}
       color: {value: string}
       count: {value: string}
-      image: {files: FileList}
+      preview: {files: FileList}
       isbn: {value: string}
       name: {value: string}
     }
@@ -48,7 +48,7 @@ const AddPage = () => {
           isActivated: true,
           name: formElements.name.value
         },
-        file: formElements.image.files[0]
+        file: formElements.preview.files[0]
       })
       notifications.show(
         'Das Wollknäuel wurde erfolgreich hinzugefügt. Du wirst gleich zur Detail-Seite weitergeleitet.',
