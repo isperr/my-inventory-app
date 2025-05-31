@@ -8,6 +8,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import {useNavigate} from 'react-router'
+import {twMerge} from 'tailwind-merge'
 
 export type WoolListItemType = {
   color: number
@@ -36,7 +37,7 @@ const WoolListItem = ({
 
   return (
     <ListItem
-      className="p-0"
+      className={twMerge('p-0', count === 0 && 'bg-primary-light')}
       secondaryAction={
         <IconButton
           color="primary"
@@ -44,7 +45,10 @@ const WoolListItem = ({
           aria-label="more"
           onClick={navigateToWool}
         >
-          <ArrowCircleRightIcon fontSize="large" />
+          <ArrowCircleRightIcon
+            className={twMerge(count === 0 && 'text-primary-dark')}
+            fontSize="large"
+          />
         </IconButton>
       }
     >
@@ -59,6 +63,7 @@ const WoolListItem = ({
           </Avatar>
         </ListItemAvatar>
         <ListItemText
+          color="primary"
           primary={`${color} (${name})`}
           secondary={`Anzahl: ${count}`}
         />

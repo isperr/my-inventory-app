@@ -133,7 +133,8 @@ const CountField = ({
             'p-[16.5px_14px] outline-[1px] w-screen text-[16px] leading-[21px]',
             'font-[Roboto] bg-transparent',
             isFocused && 'border-[#8E75E0] outline-[#8E75E0]',
-            themePaletteModeContext.themePaletteMode === 'dark' && 'text-white',
+            themePaletteModeContext.themePaletteMode === 'dark' &&
+              'text-text-dark-primary',
             !isFocused &&
               themePaletteModeContext.themePaletteMode === 'light' &&
               'hover:border-[#333]',
