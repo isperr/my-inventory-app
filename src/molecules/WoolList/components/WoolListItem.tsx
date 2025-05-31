@@ -26,6 +26,7 @@ const WoolListItem = ({
   color,
   count,
   imgUrl,
+  isActivated,
   name,
   parentLink
 }: WoolListItemProps) => {
@@ -37,7 +38,10 @@ const WoolListItem = ({
 
   return (
     <ListItem
-      className={twMerge('p-0', count === 0 && 'bg-primary-light')}
+      className={twMerge(
+        'p-0',
+        isActivated && count === 0 && 'bg-primary-light'
+      )}
       secondaryAction={
         <IconButton
           color="primary"
@@ -46,7 +50,9 @@ const WoolListItem = ({
           onClick={navigateToWool}
         >
           <ArrowCircleRightIcon
-            className={twMerge(count === 0 && 'text-primary-dark')}
+            className={twMerge(
+              isActivated && count === 0 && 'text-primary-dark'
+            )}
             fontSize="large"
           />
         </IconButton>
