@@ -53,6 +53,7 @@ const HomePage = () => {
       <PreviewList collection="lisa-premium-uni" />
       <PreviewList collection="samt" />
       <PreviewList collection="samt-baby" />
+      <PreviewList collection="fluffy" />
       <PreviewList collection="dolphin-baby" />
       <PreviewList collection="baby-snuggle-solid" />
 

@@ -81,6 +81,7 @@ const Form = ({
 
           <ListSubheader>Ayos Tex</ListSubheader>
           <MenuItem value="samt-baby">Samt Baby</MenuItem>
+          <MenuItem value="fluffy">Fluffy</MenuItem>
 
           <ListSubheader>Himalaya</ListSubheader>
           <MenuItem value="dolphin-baby">Dolphin Baby</MenuItem>

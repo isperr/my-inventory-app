@@ -14,6 +14,7 @@ export type ResultsState = Pick<
   | 'lisaPremiumUni'
   | 'samt'
   | 'samtBaby'
+  | 'fluffy'
   | 'dolphinBaby'
   | 'babySnuggle'
 >

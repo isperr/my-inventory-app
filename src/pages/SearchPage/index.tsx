@@ -98,6 +98,7 @@ const SearchPage = () => {
           <SearchPreview collection="lisa-premium-uni" />
           <SearchPreview collection="samt" />
           <SearchPreview collection="samt-baby" />
+          <SearchPreview collection="fluffy" />
           <SearchPreview collection="dolphin-baby" />
           <SearchPreview collection="baby-snuggle-solid" />
         </Box>

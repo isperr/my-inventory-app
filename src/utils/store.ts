@@ -33,6 +33,9 @@ import samtSearchReducer from '../modules/samt/search/slice'
 import samtBabyReducer from '../modules/samt-baby/results/slice'
 import samtBabyHomeReducer from '../modules/samt-baby/home/slice'
 import samtBabySearchReducer from '../modules/samt-baby/search/slice'
+import fluffyReducer from '../modules/fluffy/results/slice'
+import fluffyHomeReducer from '../modules/fluffy/home/slice'
+import fluffySearchReducer from '../modules/fluffy/search/slice'
 // HIMALAYA
 import dolphinBabyReducer from '../modules/dolphin-baby/results/slice'
 import dolphinBabyHomeReducer from '../modules/dolphin-baby/home/slice'
@@ -77,6 +80,9 @@ export const store = configureStore({
     samtBaby: samtBabyReducer,
     samtBabyHome: samtBabyHomeReducer,
     samtBabySearch: samtBabySearchReducer,
+    fluffy: fluffyReducer,
+    fluffyHome: fluffyHomeReducer,
+    fluffySearch: fluffySearchReducer,
     dolphinBaby: dolphinBabyReducer,
     dolphinBabyHome: dolphinBabyHomeReducer,
     dolphinBabySearch: dolphinBabySearchReducer,
@@ -117,6 +123,9 @@ export const store = configureStore({
           'samtBabyHome/loadingError',
           'samtBaby/loadingError',
           'samtBabySearch/loadingError',
+          'fluffyHome/loadingError',
+          'fluffy/loadingError',
+          'fluffySearch/loadingError',
           'dolphinBabyHome/loadingError',
           'dolphinBaby/loadingError',
           'dolphinBabySearch/loadingError',

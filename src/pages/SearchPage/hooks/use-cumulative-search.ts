@@ -77,6 +77,14 @@ export const useCumulativeSearch = () => {
     onReset: onResetSamtBaby
   } = useSearchData('samt-baby')
   const {
+    data: dataFluffy,
+    hasNoData: hasNoFluffyData,
+    isLoaded: isFluffyLoaded,
+    isLoading: isFluffyLoading,
+    onLoadData: onLoadFluffyData,
+    onReset: onResetFluffy
+  } = useSearchData('fluffy')
+  const {
     data: dataDolphinBaby,
     hasNoData: hasNoDolphinBabyData,
     isLoaded: isDolphinBabyLoaded,
@@ -104,6 +112,7 @@ export const useCumulativeSearch = () => {
       hasNoLisaPremiumUniData &&
       hasNoSamtData &&
       hasNoSamtBabyData &&
+      hasNoFluffyData &&
       hasNoDolphinBabyData &&
       hasNoBabySnuggleData,
     isLoaded:
@@ -116,6 +125,7 @@ export const useCumulativeSearch = () => {
       isLisaPremiumUniLoaded &&
       isSamtLoaded &&
       isSamtBabyLoaded &&
+      isFluffyLoaded &&
       isDolphinBabyLoaded &&
       isBabySnuggleLoaded,
     isLoading:
@@ -128,6 +138,7 @@ export const useCumulativeSearch = () => {
       isLisaPremiumUniLoading ||
       isSamtLoading ||
       isSamtBabyLoading ||
+      isFluffyLoading ||
       isDolphinBabyLoading ||
       isBabySnuggleLoading,
     isInAllCollections:
@@ -140,6 +151,7 @@ export const useCumulativeSearch = () => {
         dataLisaPremiumUni.length +
         dataSamt.length +
         dataSamtBaby.length +
+        dataFluffy.length +
         dataDolphinBaby.length +
         dataBabySnuggle.length ===
       COLLECTION_COUNT
@@ -156,6 +168,7 @@ export const useCumulativeSearch = () => {
     onResetLisaPremiumUni()
     onResetSamt()
     onResetSamtBaby()
+    onResetFluffy()
     onResetDolphinBaby()
     onResetBabySnuggle()
   }
@@ -174,6 +187,7 @@ export const useCumulativeSearch = () => {
       onLoadLisaPremiumUniData(data),
       onLoadSamtData(data),
       onLoadSamtBabyData(data),
+      onLoadFluffyData(data),
       onLoadDolphinBabyData(data),
       onLoadBabySnuggleData(data)
     ])

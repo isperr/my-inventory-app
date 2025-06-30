@@ -12,6 +12,7 @@ export type SearchState = Pick<
   | 'lisaPremiumUniSearch'
   | 'samtSearch'
   | 'samtBabySearch'
+  | 'fluffySearch'
   | 'dolphinBabySearch'
   | 'babySnuggleSearch'
 >
