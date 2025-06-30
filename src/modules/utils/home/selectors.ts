@@ -12,6 +12,7 @@ export type HomeState = Pick<
   | 'lisaPremiumUniHome'
   | 'samtHome'
   | 'samtBabyHome'
+  | 'fluffyHome'
   | 'dolphinBabyHome'
   | 'babySnuggleHome'
 >

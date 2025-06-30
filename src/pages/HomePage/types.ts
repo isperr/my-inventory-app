@@ -8,6 +8,7 @@ export const collectionNames = {
   'lisa-premium-uni': 'Gründl Lisa Premium uni',
   samt: 'myboshi SAMT',
   'samt-baby': 'Ayos Tex Samt Baby',
+  fluffy: 'Ayos Tex Fluffy',
   'dolphin-baby': 'Himalaya Dolphin Baby',
   'baby-snuggle-solid': 'Hobbii Baby Snuggle Solid'
 }

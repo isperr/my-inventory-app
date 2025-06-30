@@ -16,6 +16,7 @@ export const useInsert = () => {
   const lisaPremiumUni = getAddInserts('lisa-premium-uni')
   const samt = getAddInserts('samt')
   const samtBaby = getAddInserts('samt-baby')
+  const fluffy = getAddInserts('fluffy')
   const dolphinBaby = getAddInserts('dolphin-baby')
   const babySnuggle = getAddInserts('baby-snuggle-solid')
 
@@ -57,6 +58,10 @@ export const useInsert = () => {
         case 'samt-baby':
           dispatch(samtBaby.homeInsert(data))
           dispatch(samtBaby.listInsert(data))
+          break
+        case 'fluffy':
+          dispatch(fluffy.homeInsert(data))
+          dispatch(fluffy.listInsert(data))
           break
         case 'dolphin-baby':
           dispatch(dolphinBaby.homeInsert(data))

@@ -142,6 +142,22 @@ import {
   selectResolveData as selectResolveDataSamtBaby,
   selectIsUpdatingType as selectIsUpdatingTypeSamtBaby
 } from '../../../modules/samt-baby/results/selectors'
+// fluffy
+import {
+  resolve as resolveFluffy,
+  resolved as resolvedFluffy,
+  resolvingError as resolvingFluffyError,
+  update as updateFluffy,
+  updated as updatedFluffy,
+  updateError as updateFluffyError
+} from '../../../modules/fluffy/results/slice'
+import {
+  selectHasResolveError as selectHasResolveErrorFluffy,
+  selectIsIdResolved as selectIsIdResolvedFluffy,
+  selectIsIdResolving as selectIsIdResolvingFluffy,
+  selectResolveData as selectResolveDataFluffy,
+  selectIsUpdatingType as selectIsUpdatingTypeFluffy
+} from '../../../modules/fluffy/results/selectors'
 // dolphin-baby
 import {
   resolve as resolveDolphinBaby,
@@ -214,6 +230,12 @@ export const getResolveActions = (collection: CollectionType) => {
         resolve: resolveSamtBaby,
         resolved: resolvedSamtBaby,
         resolvingError: resolvingSamtBabyError
+      }
+    case 'fluffy':
+      return {
+        resolve: resolveFluffy,
+        resolved: resolvedFluffy,
+        resolvingError: resolvingFluffyError
       }
     case 'funny-uni':
       return {
@@ -292,6 +314,13 @@ export const getResolveSelectors = (collection: CollectionType) => {
         selectIsIdResolving: selectIsIdResolvingSamtBaby,
         selectResolveData: selectResolveDataSamtBaby
       }
+    case 'fluffy':
+      return {
+        selectHasResolveError: selectHasResolveErrorFluffy,
+        selectIsIdResolved: selectIsIdResolvedFluffy,
+        selectIsIdResolving: selectIsIdResolvingFluffy,
+        selectResolveData: selectResolveDataFluffy
+      }
     case 'funny-uni':
       return {
         selectHasResolveError: selectHasResolveErrorFunnyUni,
@@ -369,6 +398,12 @@ export const getUpdateActions = (collection: CollectionType) => {
         updated: updatedSamtBaby,
         updateError: updateSamtBabyError
       }
+    case 'fluffy':
+      return {
+        update: updateFluffy,
+        updated: updatedFluffy,
+        updateError: updateFluffyError
+      }
     case 'funny-uni':
       return {
         update: updateFunnyUni,
@@ -428,6 +463,10 @@ export const getUpdateSelectors = (collection: CollectionType) => {
     case 'samt-baby':
       return {
         selectIsUpdatingType: selectIsUpdatingTypeSamtBaby
+      }
+    case 'fluffy':
+      return {
+        selectIsUpdatingType: selectIsUpdatingTypeFluffy
       }
     case 'funny-uni':
       return {

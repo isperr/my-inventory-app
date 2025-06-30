@@ -29,6 +29,9 @@ import {insert as samtListInsert} from '../../../modules/samt/results/slice'
 // samt-baby
 import {insert as samtBabyInsert} from '../../../modules/samt-baby/home/slice'
 import {insert as samtBabyListInsert} from '../../../modules/samt-baby/results/slice'
+// fluffy
+import {insert as fluffyInsert} from '../../../modules/fluffy/home/slice'
+import {insert as fluffyListInsert} from '../../../modules/fluffy/results/slice'
 // HIMALAYA ----------------------------------------------------------------
 // dolphin-baby
 import {insert as dolphinBabyInsert} from '../../../modules/dolphin-baby/home/slice'
@@ -71,6 +74,11 @@ export const getAddInserts = (collection: CollectionType) => {
       return {
         homeInsert: samtBabyInsert,
         listInsert: samtBabyListInsert
+      }
+    case 'fluffy':
+      return {
+        homeInsert: fluffyInsert,
+        listInsert: fluffyListInsert
       }
     case 'funny-uni':
       return {

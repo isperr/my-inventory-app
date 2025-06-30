@@ -88,6 +88,16 @@ import {
   selectIsLoaded as selectIsLoadedSamtBaby,
   selectIsLoading as selectIsLoadingSamtBaby
 } from '../../../modules/samt-baby/home/slice'
+// fluffy
+import {
+  load as loadFluffy,
+  loaded as loadedFluffy,
+  loadingError as loadingFluffyError,
+  selectData as selectDataFluffy,
+  selectError as selectErrorFluffy,
+  selectIsLoaded as selectIsLoadedFluffy,
+  selectIsLoading as selectIsLoadingFluffy
+} from '../../../modules/fluffy/home/slice'
 // dolphin-baby
 import {
   load as loadDolphinBaby,
@@ -148,6 +158,12 @@ export const getActions = (collection: CollectionType) => {
         load: loadSamtBaby,
         loaded: loadedSamtBaby,
         loadingError: loadingSamtBabyError
+      }
+    case 'fluffy':
+      return {
+        load: loadFluffy,
+        loaded: loadedFluffy,
+        loadingError: loadingFluffyError
       }
     case 'funny-uni':
       return {
@@ -226,6 +242,13 @@ export const getSelectors = (collection: CollectionType) => {
         selectError: selectErrorSamtBaby,
         selectIsLoaded: selectIsLoadedSamtBaby,
         selectIsLoading: selectIsLoadingSamtBaby
+      }
+    case 'fluffy':
+      return {
+        selectData: selectDataFluffy,
+        selectError: selectErrorFluffy,
+        selectIsLoaded: selectIsLoadedFluffy,
+        selectIsLoading: selectIsLoadingFluffy
       }
     case 'funny-uni':
       return {
