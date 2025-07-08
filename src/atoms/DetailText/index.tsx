@@ -40,7 +40,8 @@ const DetailText = ({heading, type, text}: DetailTextProps) => {
       <Typography
         className={twMerge(
           type === 'wool' && 'col-span-7',
-          type === 'item' && 'col-span-7'
+          type === 'item' && 'col-span-7',
+          'whitespace-pre-wrap'
         )}
         variant="subtitle1"
       >
