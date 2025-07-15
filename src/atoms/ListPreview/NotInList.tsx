@@ -6,20 +6,27 @@ export type NotInListProps = {
   amount: 'some' | 'none'
   color?: number
   isbn?: number
+  isColorSearch: boolean
   onClick?: React.MouseEventHandler<HTMLButtonElement>
 }
 
-const NotInList = ({amount, color, isbn, onClick}: NotInListProps) => (
+const NotInList = ({
+  amount,
+  color,
+  isbn,
+  isColorSearch,
+  onClick
+}: NotInListProps) => (
   <Box className="mx-6 flex flex-col gap-4">
     {amount === 'none' && (
       <Typography className="font-normal" variant="h6">
         Das Wollknäuel{' '}
-        {isbn && (
+        {isbn && !isColorSearch && (
           <>
             mit der <b>ISBN-Nummer {isbn}</b>{' '}
           </>
         )}
-        {color && (
+        {color && isColorSearch && (
           <>
             mit der <b>Farben-Nummer {color}</b>{' '}
           </>

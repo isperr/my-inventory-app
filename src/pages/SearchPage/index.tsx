@@ -110,6 +110,7 @@ const SearchPage = () => {
           amount="none"
           color={tempColor}
           isbn={tempIsbn}
+          isColorSearch={isColorSearch}
           onClick={handleAddClick}
         />
       )}
@@ -118,6 +119,7 @@ const SearchPage = () => {
           amount="some"
           color={tempColor}
           isbn={tempIsbn}
+          isColorSearch={isColorSearch}
           onClick={handleAddClick}
         />
       )}
